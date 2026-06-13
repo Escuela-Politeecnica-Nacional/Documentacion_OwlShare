@@ -791,8 +791,10 @@ La estructura del documento garantiza que:
   * **Éxito:** comprende el servicio y cómo crear cuenta o ingresar.
   * **Fallo:** no accede a funciones privadas (comportamiento esperado).
 
-### Casos de Uso
+### Diagrama de casos de Uso
+
 ### Diagrama de clases
+
 ### Diagrama de robustez
 
 #### 1. Inventario de diagramas de robustez
