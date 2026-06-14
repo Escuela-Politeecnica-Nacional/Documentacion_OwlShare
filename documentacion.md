@@ -413,15 +413,15 @@ La estructura del documento garantiza que:
   2. Se encuentra en la pantalla de inicio de sesión.
 * **Flujo principal:**
   1. El usuario ingresa su correo electrónico y contraseña.
-  2. El usuario confirma que desea entrar al sistema.
-  3. El sistema comprueba que los datos obligatorios estén completos.
-  4. El sistema valida que el correo y la contraseña correspondan a una cuenta existente.
-  5. El sistema identifica el rol del usuario.
-  6. "El sistema abre una sesión de trabajo y muestra el panel principal acorde a su rol (administración, tutoría o estudiante)."
+  2. El usuario ingresa el rol con el que desea iniciar sesión (Estudiante o Tutor).
+  3. El usuario confirma que desea entrar al sistema.
+  4. El sistema valida que el correo y la contraseña correspondan a una cuenta existente.  
+  5. "El sistema abre una sesión de trabajo y muestra el panel principal acorde a su rol (administración, tutoría o estudiante)."
+
 * **Flujos alternativos y excepciones:**
-  * **3a. Datos incompletos:** el sistema indica que debe ingresar correo y contraseña; el caso vuelve al paso 1.
-  * **4a. Credenciales incorrectas:** el sistema muestra un mensaje genérico de error (credenciales incorrectas); el caso vuelve al paso 1.
-  * **4b. Rol no reconocido para ingreso:** el sistema no muestra un panel específico y devuelve al usuario a la página pública.
+  * **4a. Datos incompletos:** el sistema indica que debe ingresar correo y contraseña; el caso vuelve al paso 1.
+  * **4b. Credenciales incorrectas:** el sistema muestra un mensaje genérico de error (credenciales incorrectas); el caso vuelve al paso 1.
+  * **4c. Rol no reconocido para ingreso:** el sistema muestra un mensaje genérico de error (rol no reconocido); el caso vuelve al paso 2.
 * **Postcondiciones:**
   * **Éxito:** el usuario queda dentro del sistema y puede usar las funciones de su rol.
   * **Fallo:** permanece fuera del sistema como visitante.
@@ -431,201 +431,164 @@ La estructura del documento garantiza que:
 * **Precondiciones:** El usuario tiene una sesión abierta en la plataforma.
 * **Flujo principal:**
   1. El usuario elige cerrar sesión desde el menú o enlace correspondiente.
-  2. El sistema finaliza su sesión de trabajo.
-  3. El sistema lo lleva de nuevo a la pantalla de inicio de sesión.
+  2. El sistema finaliza su sesión de trabajo y procede a redirigirlo a la pantalla de inicio de sesión. 
 * **Flujos alternativos y excepciones:**
   * **2a. No había sesión activa:** el sistema igualmente muestra la pantalla de inicio de sesión.
 * **Postcondiciones:**
   * **Éxito:** el usuario ya no puede acceder a zonas privadas sin volver a autenticarse.
   * **Fallo:** no aplica en condiciones normales.
 
-### CU-03: Intentar usar una función sin permiso
-* **Actor principal:** Visitante o usuario con un rol que no corresponde a la función.
-* **Precondiciones:** "El usuario intenta entrar a una sección reservada (por ejemplo, subir materiales, gestionar usuarios o buscar tutores)."
-* **Flujo principal:**
-  1. El usuario solicita acceder a la función.
-  2. El sistema verifica si está autenticado y si su rol está autorizado.
-  3. El sistema no permite continuar y lo envía a iniciar sesión.
-* **Flujos alternativos y excepciones:**
-  * **2a. Estudiante intenta función de tutor o administrador:** acceso denegado; debe autenticarse con el rol adecuado o abandonar la acción.
-* **Postcondiciones:**
-  * **Éxito (desde seguridad del negocio):** la función queda protegida.
-  * **Fallo:** el usuario no obtiene la información o acción que buscaba.
-
-### CU-04: Registrarse como estudiante
+### CU-03: Registrarse en el sistema como estudiante/tutor
 * **Actor principal:** Persona interesada en usar la plataforma como estudiante.
-* **Precondiciones:** Accede al formulario de registro público y elige el rol Estudiante.
+* **Precondiciones:**
+1. Se encuentra en el sitio web de la plataforma como usuario anónimo.
+2. Accede al formulario de registro público y elige el rol Estudiante.
 * **Flujo principal:**
-  1. "El usuario completa sus datos personales, correo, contraseña, carrera y semestre académico."
-  2. El usuario envía el formulario de registro.
-  3. El sistema valida la información obligatoria.
-  4. El sistema comprueba que el correo no esté ya registrado.
-  5. El sistema crea la cuenta de estudiante en estado activo.
+  1. "El usuario completa sus datos personales (nombres, apellidos), correo, contraseña, carrera y semestre académico."
+  2. El usuario selecciona el rol deseado.
+  3. El usuario envía el formulario de registro.
+  4. El sistema valida la información obligatoria y verifica que los datos ingresados no existan en el sistema.
+  5. El sistema crea la cuenta de usuario en estado activo.
   6. El sistema confirma el registro e invita a iniciar sesión.
+  
 * **Flujos alternativos y excepciones:**
+  * **1a. Formato de correo inválido:** mensaje indicando que el correo no tiene un formato válido.
+  * **2a. Selección de rol 'Estudiante':** El usuario elige el rol Estudiante.
+  * **2b. Selección de rol 'Tutor':** El usuario elige el rol Tutor. Debe cumplir con los requisitos de **2b.1**.
+    * **2b.1. Requisitos para ser tutor:** El sistema valida que el semestre sea mayor a 1. Si no cumple, muestra mensaje de restricción académica. 
+    * **2b.2. Materias seleccionadas:** Las materias seleccionadas deben estar entre el rango de semestres ya cursados y mayor a primer semestre. Si no cumple, muestra mensaje de restricción académica. 
   * **3a. Información incompleta:** mensaje indicando que debe completar los campos obligatorios.
+  * **3b. Información incompleta teniendo el rol de tutor:** El usuario elige el rol Tutor pero materias a dictar; el sistema solicita completar esos datos.
   * **4a. Correo duplicado:** mensaje de que el correo ya está registrado.
-  * **5a. Datos académicos inválidos:** mensaje de error en carrera, semestre o rol.
+
 * **Postcondiciones:**
   * **Éxito:** nueva cuenta de estudiante lista para ingresar.
+  * **Éxito con rol tutor:** Para tener la cuenta activa, un Administrador del sistema debe aprobar el perfil de tutor. Mientras tanto, el tutor queda en estado "Pendiente de Verificación" y no puede ofrecer tutorías ni subir materiales.
   * **Fallo:** no se crea la cuenta.
 
-### CU-05: Registrarse como tutor
-* **Actor principal:** Estudiante de semestres superiores que desea ofrecer tutoría.
-* **Precondiciones:** "Elige el rol Tutor y puede indicar carrera, semestre y materias que domina."
-* **Flujo principal:**
-  1. "El usuario completa sus datos, correo, contraseña, carrera y semestre actual."
-  2. El usuario selecciona las materias que puede enseñar (solo de semestres ya cursados).
-  3. El usuario envía el registro.
-  4. El sistema valida que no sea de primer semestre y que las materias sean coherentes con su carrera y nivel.
-  5. El sistema crea la cuenta de tutor y la deja disponible para búsqueda (estado activo).
-* **Flujos alternativos y excepciones:**
-  * **4a. Primer semestre:** el sistema rechaza el registro como tutor e informa la restricción académica.
-  * **4b. Sin carrera o semestre:** solicita completar esos datos.
-  * **4c. Sin materias o materias no válidas:** indica que debe elegir al menos una materia permitida.
-  * **4d. Correo ya registrado u otros errores:** mismos criterios que en registro de estudiante.
-* **Postcondiciones:**
-  * **Éxito:** cuenta de tutor creada; puede iniciar sesión y publicar contenidos.
-  * **Fallo:** no se crea la cuenta.
-* **Nota:** "El documento exige aprobación administrativa previa del tutor; en la operación actual el tutor queda activo al registrarse, sin paso de aprobación explícito."
-
-### CU-06: Crear cuenta de administrador
+### CU-04: Crear cuenta de usuario (por administrador)
 * **Actor principal:** Administrador del sistema.
-* **Precondiciones:** El administrador ya inició sesión y accede a la opción de crear otro administrador.
+* **Precondiciones:** El administrador ya inició sesión y accede a la opción de crear un usuario.
 * **Flujo principal:**
-  1. "El administrador ingresa nombre, apellido y correo del nuevo administrador."
-  2. El administrador confirma la creación.
+  1. El administrador ingresa nombres, apellidos y correo del nuevo usuario,
+  2. El administrador selecciona el rol del nuevo usuario y confirma la creación.
   3. El sistema valida los datos obligatorios y la unicidad del correo.
   4. El sistema genera credenciales temporales.
   5. El sistema muestra al administrador las credenciales para entregar al nuevo usuario.
 * **Flujos alternativos y excepciones:**
-  * **3a. Datos incompletos:** solicita nombre y correo.
-  * **3b. Correo en uso:** indica que ya existe una cuenta con ese correo.
+  * **3a. Datos incompletos:** solicita nombres completos y correo.
+  * **3b. Correo del usuario con rol seleccionado como Estudiante/Tutor:** el sistema verifica que el correo esté disponible. Si no lo está, muestra mensaje de correo duplicado. Si el correo está disponible, muestra mensaje de que solo se pueden crear administradores desde esta opción.
 * **Postcondiciones:**
-  * **Éxito:** nuevo administrador puede ingresar con las credenciales temporales.
+  * **Éxito:** nuevo usuario puede ingresar con las credenciales temporales.
   * **Fallo:** no se crea la cuenta.
 
-### CU-07: Crear cuenta de estudiante (por administrador)
-* **Actor principal:** Administrador del sistema.
-* **Precondiciones:** Sesión de administrador activa.
-* **Flujo principal:**
-  1. El administrador abre la opción de alta de estudiante.
-  2. "Ingresa nombre, apellido y correo del estudiante."
-  3. Confirma la creación.
-  4. El sistema valida nombre y formato de correo.
-  5. El sistema verifica que el correo no esté en uso.
-  6. El sistema crea la cuenta en estado por verificar y asigna una contraseña temporal.
-  7. El sistema informa las credenciales temporales al administrador.
-* **Flujos alternativos y excepciones:**
-  * **4a. Nombre o correo inválidos:** mensajes de validación en pantalla.
-  * **5a. Correo duplicado:** no permite crear la cuenta.
-* **Postcondiciones:**
-  * **Éxito:** estudiante registrado; el administrador puede comunicar las credenciales.
-  * **Fallo:** sin alta de estudiante.
 
-### CU-08: Consultar listado de usuarios del sistema
+### CU-05: Consultar listado de usuarios del sistema
 * **Actor principal:** Administrador.
 * **Precondiciones:** Acceso al módulo de gestión de usuarios.
 * **Flujo principal:**
   1. El administrador solicita ver todos los usuarios.
   2. "El sistema muestra correo, rol, nombre y apellido de cada cuenta."
 * **Flujos alternativos y excepciones:**
-  * **2a. Perfil incompleto en algún usuario:** el listado puede mostrar datos parciales.
+
 * **Postcondiciones:**
   * **Éxito:** visión global de cuentas registradas.
   * **Fallo:** no obtiene el listado.
-* **Nota:** El SRS pide filtrar o buscar por correo; esa búsqueda no está disponible de forma operativa hoy.
 
-### CU-09: Consultar detalle de un usuario
+
+### CU-06: Consultar detalle de un usuario
 * **Actor principal:** Administrador.
 * **Precondiciones:** Existe el usuario seleccionado en el listado.
 * **Flujo principal:**
   1. El administrador elige un usuario del listado.
-  2. El sistema muestra la ficha con datos de acceso y perfil asociado.
+  2. El sistema muestra la ficha con datos (correo, rol, nombre, apellido) y perfil asociado.
 * **Flujos alternativos y excepciones:**
   * **2a. Usuario inexistente o identificador inválido:** regresa al listado sin mostrar detalle.
 * **Postcondiciones:**
   * **Éxito:** información disponible para revisión o edición.
   * **Fallo:** no se muestra la ficha.
 
-### CU-10: Actualizar datos de un usuario
+### CU-07: Actualizar datos de un usuario
 * **Actor principal:** Administrador.
 * **Precondiciones:** Ficha de usuario abierta.
 * **Flujo principal:**
-  1. "El administrador modifica nombre, apellido, correo y, si aplica, contraseña."
-  2. Confirma los cambios.
-  3. El sistema valida obligatorios y unicidad del correo.
-  4. El sistema guarda los cambios en la cuenta y en el perfil vinculado.
+  1. El administrador modifica nombre, apellido, correo y, si aplica, contraseña. Confirma los cambios.
+  2. El sistema valida obligatorios y unicidad del correo.
+  3. El sistema guarda los cambios en la cuenta y en el perfil vinculado.
+  4. El sistema navega de regreso a la ficha del usuario mostrando los datos actualizados.
 * **Flujos alternativos y excepciones:**
-  * **3a. Nombre o correo vacíos:** solicita completar.
-  * **3b. Correo ya usado por otra cuenta:** rechaza la actualización.
+  * **2a. Nombre o correo vacíos:** solicita completar.
+  * **2b. Correo ya usado por otra cuenta:** rechaza la actualización.
 * **Postcondiciones:**
   * **Éxito:** datos updated.
   * **Fallo:** permanecen los datos anteriores.
 
-### CU-11: Consultar listado de estudiantes
+### CU-08: Consultar listado de estudiantes
 * **Actor principal:** Administrador.
+* **Precondiciones:**
+  1. El usuario ingresado tiene el rol como adminsitrador.
+  2. El usuario accede al módulo de gestión de estudiantes.
 * **Flujo principal:**
   1. El administrador accede al listado de estudiantes.
-  2. "El sistema muestra identificador, nombre, correo y datos académicos disponibles."
+  2. El sistema muestra identificador, nombre, correo y datos académicos disponibles (semestre en curso y carrera).
 * **Postcondiciones:**
   * **Éxito:** panorama de la población estudiantil registrada.
   * **Fallo:** sin acceso al listado.
 
-### CU-12: Consultar detalle de un estudiante
+### CU-09: Consultar detalle de un estudiante
 * **Actor principal:** Administrador.
+* **Precondiciones:**
+  1. El administrador tiene acceso al listado de estudiantes.
+  2. El estudiante seleccionado existe en el sistema.
 * **Flujo principal:**
   1. El administrador selecciona un estudiante.
-  2. "El sistema presenta su información académica, de contacto y estado de la cuenta."
+  2. "El sistema presenta su información académica (semestre en curso y carrera), de contacto y estado de la cuenta."
 * **Flujos alternativos y excepciones:**
   * **2a. Estudiante no encontrado:** vuelve al listado.
 * **Postcondiciones:**
   * **Éxito:** ficha completa para gestión.
   * **Fallo:** sin ficha.
 
-### CU-13: Actualizar datos de un estudiante
+### CU-10: Actualizar datos de un estudiante
 * **Actor principal:** Administrador.
+* **Precondiciones:**
+  1. El usuario regisrtrado tiene el rol de administrador.
+  2. El usuario accedió al módulo de gestión de estudiantes.
+  3. El usuario ingresó a la ficha de estudiante a actualizar.
 * **Flujo principal:**
-  1. "El administrador edita nombres, apellidos, correo y opcionalmente la contraseña."
-  2. Confirma los cambios.
-  3. El sistema valida correo y nombre.
-  4. El sistema actualiza la cuenta y el perfil estudiantil.
+  1. El administrador edita nombres, apellidos, correo y opcionalmente la contraseña. Y confirma los cambios.
+  2. El sistema valida correo y nombre. Y el sistema actualiza la cuenta y el perfil estudiantil.
 * **Flujos alternativos y excepciones:**
-  * **3a. Datos inválidos o correo duplicado:** mensaje de error; no guarda.
+  * **2a. Datos inválidos o correo duplicado:** mensaje de error; no guarda.
 * **Postcondiciones:**
-  * **Éxito:** perfil estudiantil actualizado.
+  * **Éxito:** Perfil estudiantil actualizado.
   * **Fallo:** sin cambios.
 
-### CU-14: Consultar mi perfil (estudiante)
-* **Actor principal:** Estudiante autenticado.
+### CU-11: Consultar mi perfil 
+* **Actor principal:** Usuario autenticado.
+* **Precondiciones:**
+  1. El usuario ha iniciado sesión correctamente.
+  2. El usuario accede a la sección "Mi perfil".
 * **Flujo principal:**
-  1. "El estudiante abre la sección "Mi perfil"."
-  2. El sistema muestra su nombre y correo registrados.
+  1. "El usuario abre la sección "Mi perfil"."
+  2. El sistema muestra su nombre, correo registrado y su rol.
 * **Flujos alternativos y excepciones:**
   * **1a. No ha iniciado sesión:** debe autenticarse primero.
 * **Postcondiciones:**
-  * **Éxito:** el estudiante conoce su información registrada.
+  * **Éxito:** el usuario conoce su información registrada.
   * **Fallo:** no accede al perfil.
-* **Nota:** "El SRS permite que el estudiante actualice carrera y semestre; hoy la pantalla es solo de consulta, sin edición propia."
 
-### CU-15: Consultar mi perfil (administrador)
-* **Actor principal:** Administrador autenticado.
-* **Flujo principal:**
-  1. El administrador accede a su perfil.
-  2. El sistema muestra sus datos personales registrados.
-* **Postcondiciones:**
-  * **Éxito:** datos visibles.
-  * **Fallo:** debe iniciar sesión.
-
-### CU-16: Gestionar mi perfil profesional (tutor)
+### CU-12: Actualizar mi perfil profesional (tutor)
 * **Actor principal:** Tutor autenticado.
+* **Precondiciones:**
+  1. El tutor ha iniciado sesión correctamente.
+  2. El tutor accede a la sección "Mi perfil".
 * **Flujo principal:**
-  1. "El tutor abre "Mi perfil"."
-  2. "El sistema muestra carrera, semestre, materias que enseña y descripción profesional."
-  3. **Actualizar semestre:** el sistema ajusta las materias a las permitidas para su nuevo nivel.
-  4. **Actualizar materias y carrera:** solo puede mantener materias de semestres ya cursados.
-  5. **Actualizar descripción profesional:** texto visible para estudiantes que lo busquen.
-  6. **Actualizar nombre mostrado:** refleja cómo aparece en la plataforma.
+  1. El sistema muestra carrera, semestre, materias que enseña y descripción profesional.
+  2. **Actualizar semestre:** el sistema ajusta las materias a las permitidas para su nuevo nivel.
+  3. **Actualizar materias y carrera:** solo puede mantener materias de semestres ya cursados.
+  4. **Actualizar descripción profesional:** texto visible para estudiantes que lo busquen.
+  5. **Actualizar nombre mostrado:** refleja cómo aparece en la plataforma.
 * **Flujos alternativos y excepciones:**
   * **Cuenta sin perfil académico vinculado:** el sistema indica que debe contactar al administrador.
   * **Materias o semestre no válidos:** mensaje de error y no guarda cambios.
@@ -633,101 +596,103 @@ La estructura del documento garantiza que:
   * **Éxito:** perfil de tutor actualizado y coherente con las reglas académicas.
   * **Fallo:** perfil sin cambios.
 
-### CU-17: Actualizar mis datos y contraseña (administrador)
-* **Actor principal:** Administrador autenticado.
+### CU-13: Actualizar mi contraseña
+* **Actor principal:** Usuario autenticado.
+* **Precondiciones:**
+  1. El usuario ha iniciado sesión correctamente.
+  2. El usuario accede a la sección "Mi perfil".
 * **Flujo principal:**
-  * **Datos personales** — Modifica nombres y apellidos. El sistema valida campos obligatorios y confirma el guardado.
   * **Contraseña** — Ingresa contraseña actual, nueva y confirmación. El sistema verifica coincidencias y longitud mínima. El sistema aplica la nueva contraseña.
 * **Flujos alternativos y excepciones:**
   * Contraseña actual incorrecta, confirmación distinta o contraseña corta: mensajes claros; no cambia la clave.
 * **Postcondiciones:**
-  * **Éxito:** datos o contraseña actualizados.
-  * **Fallo:** permanece la configuración anterior.
+  * **Éxito:** contraseña actualizados.
+  * **Fallo:** permanece la contraseña anterior.
 
-### CU-18: Publicar material educativo
-* **Actor principal:** Tutor.
-* **Precondiciones:** Sesión de tutor activa. Dispone del archivo a compartir (tarea, guía, examen de práctica, etc.).
+### CU-14: Publicar material educativo
+* **Actor principal:** Usuario autenticado con el rol de tutor.
+* **Precondiciones:** 
+  1. Sesión de tutor activa. 
+  2. El usuario tiene un perfil académico aprobado y activo.
+  3. El usuario accede a la sección de publicación de materiales.
 * **Flujo principal:**
-  1. "El tutor completa título, descripción, materia, precio (si aplica) y adjunta el archivo."
-  2. El tutor envía el material para revisión.
-  3. "El sistema valida datos obligatorios, tipo y tamaño del archivo, y que la materia corresponda a su perfil académico."
-  4. El sistema registra el material en estado pendiente de aprobación.
-  5. El sistema confirma que el envío fue recibido.
+  1. El tutor completa título, descripción, materia, precio (si aplica) y adjunta el archivo, y envía el material para revisión.
+  2. El sistema valida datos obligatorios, tipo y tamaño del archivo, y que la materia corresponda a su perfil académico.
+  3. El sistema registra el material en estado pendiente de aprobación.
+  4. El sistema confirma que el envío fue recibido.
 * **Flujos alternativos y excepciones:**
-  * **3a. Título vacío, archivo no permitido o materia inválida:** mensaje de error; el tutor corrige y reintenta.
-  * **3b. Archivo demasiado grande:** no se acepta el envío (límite de 25 MB según reglas del negocio).
+  * **2a. Título vacío, archivo no permitido o materia inválida:** mensaje de error; el tutor corrige y reintenta.
+  * **2b. Archivo demasiado grande:** no se acepta el envío (límite de 25 MB según reglas del negocio).
 * **Postcondiciones:**
   * **Éxito:** material en cola de revisión administrativa.
   * **Fallo:** material no publicado.
 
-### CU-19: Consultar mis materiales publicados
-* **Actor principal:** Tutor.
+### CU-15: Consultar mis materiales publicados
+* **Actor principal:** Usuario autenticado con el rol de tutor.
+* **Precondiciones:**
+  1. Sesión de tutor activa.
+  2. El usuario tiene un perfil académico aprobado y activo.
+  3. El usuario accede a la sección de sus materiales publicados.
 * **Flujo principal:**
   1. El tutor abre la sección de sus materiales.
-  2. "El sistema lista cada recurso con título, fecha de envío y estado (pendiente, aprobado o rechazado)."
-  3. "Si fue rechazado, el sistema muestra el motivo cuando existe."
+  2. El sistema lista cada recurso con título, fecha de envío, fecha de aprobación o rechazo y estado (pendiente, aprobado o rechazado).
+  3. Si fue rechazado, el sistema muestra el motivo cuando existe.
 * **Postcondiciones:**
   * **Éxito:** el tutor conoce el estado de su oferta académica.
   * **Fallo:** no accede al listado.
 
-### CU-20: Consultar detalle de un material propio
-* **Actor principal:** Tutor.
+### CU-16: Consultar detalle de un material propio
+* **Actor principal:** Usuario autenticado con el rol de tutor.
+* **Precondiciones:**
+  1. Sesión de tutor activa.
+  2. El usuario tiene un perfil académico aprobado y activo.
+  3. El usuario accede a la sección de sus materiales publicados.
 * **Flujo principal:**
   1. El tutor selecciona un material de su listado.
-  2. "El sistema muestra descripción, materia, precio, estado, fecha y motivo de rechazo si aplica."
+  2. "El sistema muestra descripción, materia, precio, estado, fecha, el documento y motivo de rechazo si aplica."
 * **Postcondiciones:**
   * **Éxito:** información completa para seguimiento o corrección.
   * **Fallo:** no se muestra el detalle.
 
-### CU-21: Supervisar materiales enviados por tutores
+### CU-17: Supervisar materiales enviados por tutores
 * **Actor principal:** Administrador.
+* **Precondiciones:**
+  1. El usuario tiene el rol de administrador.
+  2. El usuario accede al módulo de gestión de materiales.
 * **Flujo principal:**
   1. El administrador accede al módulo de materiales.
-  2. "El sistema muestra todos los recursos enviados, ordenados por fecha más reciente, con su estado."
+  2. El sistema muestra todos los recursos enviados, ordenados por fecha más reciente, con su estado. La visualización en el sistema es mediante paginación.
 * **Postcondiciones:**
   * **Éxito:** visión para moderación de contenidos.
   * **Fallo:** sin acceso al módulo.
-* **Nota:** El SRS contempla filtrar por estado; hoy se muestra el conjunto completo sin filtro dedicado.
 
-### CU-22: Revisar un material antes de decidir
+
+### CU-18: Revisar un material antes de decidir
 * **Actor principal:** Administrador.
+* **Precondiciones:**
+  1. El usuario tiene el rol de administrador.
+  2. El usuario accede al módulo de gestión de materiales.
 * **Flujo principal:**
   1. El administrador abre el detalle de un material pendiente o ya resuelto.
-  2. "El sistema presenta metadatos, precio, materia, estado y motivo de rechazo previo si existe."
+  2. El sistema presenta metadatos, precio, materia, estado, el documento y motivo de rechazo previo si existe.
   3. El administrador evalúa la calidad y pertinencia del contenido.
+  4. El administrador decide aprobar o rechazar el material.
 * **Flujos alternativos y excepciones:**
   * **Material inexistente:** regresa al listado con aviso.
+  * **4.a. Decisión de aprobación:** el administrador elige aprobar; el sistema cambia el estado a aprobado y notifica al tutor que su material fue aprobado.
+  * **4.b. Decisión de rechazo:** el administrador elige rechazar; el sistema solicita un motivo de rechazo, cambia el estado a rechazado y notifica al tutor que su material fue rechazado con el motivo registrado.
 * **Postcondiciones:**
   * **Éxito:** el administrador está en condiciones de aprobar o rechazar.
   * **Fallo:** no puede revisar ese ítem.
-* **Nota:** La descarga para revisión desde la pantalla no está operativa como flujo completo para el usuario.
 
-### CU-23: Aprobar un material educativo
-* **Actor principal:** Administrador.
-* **Precondiciones:** Material en revisión.
-* **Flujo principal:**
-  1. El administrador confirma la aprobación.
-  2. El sistema cambia el estado a aprobado.
-  3. El sistema confirma que el material ya puede estar disponible según las reglas de la plataforma.
-* **Flujos alternativos y excepciones:**
-  * **Material no encontrado o acción inválida:** no cambia el estado; informa el error.
-* **Postcondiciones:**
-  * **Éxito:** material apto para consumo según política de la plataforma.
-  * **Fallo:** sigue pendiente o rechazado.
 
-### CU-24: Rechazar un material educativo
-* **Actor principal:** Administrador.
-* **Flujo principal:**
-  1. El administrador indica el rechazo y registra el motivo.
-  2. El sistema marca el material como rechazado y guarda el motivo.
-  3. El sistema confirma la acción.
-* **Postcondiciones:**
-  * **Éxito:** el tutor puede ver el rechazo y el motivo en sus materiales.
-  * **Fallo:** el material mantiene su estado anterior.
 
-### CU-25: Buscar tutor por materia
+### CU-19: Buscar tutor por materia
 * **Actor principal:** Estudiante.
-* **Precondiciones:** Sesión de estudiante. Conviene tener carrera registrada en su perfil.
+* **Precondiciones:** 
+  1. El estudiante ha iniciado sesión correctamente.
+  2. El estudiante ya posee la información de su carrera y semestre en su perfil, o el sistema le solicita actualizarla para poder buscar tutores.
+  3. El estudiante accede a la sección de búsqueda de tutores por materia. 
 * **Flujo principal:**
   1. El estudiante elige una materia de su plan de estudios.
   2. El sistema busca tutores que declaren dominar esa materia y no estén inactivos.
@@ -741,20 +706,28 @@ La estructura del documento garantiza que:
   * **Éxito:** opciones de apoyo tutorial identificadas.
   * **Fallo:** no obtiene tutores para esa materia.
 
-### CU-26: Consultar perfil de un tutor
+### CU-20: Consultar perfil de un tutor
 * **Actor principal:** Estudiante.
+* **Precondiciones:**
+  1. El estudiante ha iniciado sesión correctamente.
+  2. El estudiante accede a la sección de búsqueda de tutores por materia.
+  3. El estudiante selecciona un tutor del listado de resultados.
 * **Flujo principal:**
   1. Desde los resultados de búsqueda, el estudiante abre el perfil de un tutor.
-  2. "El sistema muestra nombre, descripción profesional, carrera, semestre y materias que imparte."
-  3. El estudiante evalúa si contactar o contratar apoyo (fuera del alcance de pagos del SRS).
+  2. El sistema muestra nombre, descripción profesional, carrera, semestre y materias que imparte.
+  3. El estudiante evalúa si registra una solicitud de tutoría.
+  4. El sistema muestra un mensaje de confirmación al registrar la solicitud.
 * **Flujos alternativos y excepciones:**
-  * **Tutor no encontrado:** regresa a la búsqueda.
+  * **4a. Registrar solicitud de tutoría:** el estudiante confirma que desea solicitar tutoría con ese tutor; el sistema muestra que el tutor no posee citas disponibles.
 * **Postcondiciones:**
   * **Éxito:** el estudiante dispone de información para decidir con quién trabajar.
   * **Fallo:** no visualiza el perfil.
 
-### CU-27: Usar el panel de administración
+### CU-21: Ver el panel de administración
 * **Actor principal:** Administrador.
+* **Precondiciones:**
+  1. El usuario ha iniciado sesión correctamente con rol de administrador.
+  2. El usuario accede a la sección de administración.
 * **Flujo principal:**
   1. Tras iniciar sesión, el administrador llega a su panel principal.
   2. "El sistema ofrece accesos rápidos a usuarios, materiales y creación de administradores."
@@ -762,31 +735,37 @@ La estructura del documento garantiza que:
   * **Éxito:** punto de partida para tareas de gestión.
   * **Fallo:** redirección a inicio de sesión.
 
-### CU-28: Usar el panel del tutor
+### CU-22: Usar el panel del tutor
 * **Actor principal:** Tutor.
+* **Precondiciones:**
+  1. El usuario ha iniciado sesión correctamente con rol de tutor.
 * **Flujo principal:**
-  1. Tras iniciar sesión, el tutor ve su panel.
-  2. "El sistema destaca acciones para subir material, revisar sus envíos y gestionar su perfil."
+  1. Tras iniciar sesión, el tutor solicita ver el panel.
+  2. El sistema destaca acciones para subir material, revisar sus envíos y gestionar su perfil.
 * **Postcondiciones:**
   * **Éxito:** orientación clara de las tareas del tutor.
   * **Fallo:** debe autenticarse.
 
-### CU-29: Usar el panel del estudiante
+### CU-23: Visualizar el panel del estudiante
 * **Actor principal:** Estudiante.
+* **Precondiciones:**
+  1. El usuario ha iniciado sesión correctamente con rol de estudiante.
 * **Flujo principal:**
-  1. Tras iniciar sesión, el estudiante ve su panel.
+  1. El estudiante solicita ver su panel.
   2. El sistema prioriza la búsqueda de tutores y el acceso a su perfil.
 * **Postcondiciones:**
   * **Éxito:** el estudiante sabe cómo iniciar su búsqueda de apoyo.
   * **Fallo:** debe autenticarse.
 * **Nota:** El SRS incluye navegar un catálogo de materiales aprobados; esa experiencia no está disponible para el estudiante en la operación actual.
 
-### CU-30: Explorar la plataforma como visitante
+### CU-24: Explorar la plataforma como visitante
 * **Actor principal:** Usuario anónimo.
 * **Flujo principal:**
   1. El visitante entra a la página pública de la plataforma.
-  2. Conoce la propuesta de valor (conexión académica entre estudiantes y tutores).
-  3. Puede ir a registrarse o a iniciar sesión.
+  2. El sistema muestra información general sobre el servicio, sus beneficios y cómo funciona.
+  3. El sistema ofrece enlaces para registrarse o iniciar sesión.
+* **Flujos alternativos y excepciones:**
+  * **2a. Acceso a funciones privadas:** el visitante intenta acceder a funciones que requieren autenticación; el sistema redirige a inicio de sesión con opción de registrarse sea el caso.
 * **Postcondiciones:**
   * **Éxito:** comprende el servicio y cómo crear cuenta o ingresar.
   * **Fallo:** no accede a funciones privadas (comportamiento esperado).
@@ -837,7 +816,7 @@ Se elaboraron diagramas de robustez, uno por cada caso de uso. A continuación, 
 * CU-14: Consultar mi perfil (estudiante)
 * CU-25: Buscar tutor por materia
 * CU-26: Consultar perfil de un tutor
-* CU-29: Usar el panel del estudiante
+* CU-29: Visualizar el panel del estudiante
 
 #### Diagrama de secuencias
 * Iniciar Sesión
