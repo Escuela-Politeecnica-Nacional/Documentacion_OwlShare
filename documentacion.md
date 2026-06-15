@@ -404,16 +404,14 @@ La estructura del documento garantiza que:
   1. Tiene una cuenta activa en la plataforma.
   2. Se encuentra en la pantalla de inicio de sesión.
 * **Flujo principal:**
-  1. El usuario ingresa su correo electrónico y contraseña.
-  2. El usuario ingresa el rol con el que desea iniciar sesión (Estudiante, Tutor o Administrador).
-  3. El usuario confirma que desea entrar al sistema.
-  4. El sistema valida que el correo y la contraseña correspondan a una cuenta existente.  
-  5. El sistema abre una sesión de trabajo y muestra el panel principal acorde a su rol (Estudiante, Tutor o Administrador).
+  1. El usuario ingresa su correo electrónico, contraseña y el rol con el que desea iniciar sesión (Estudiante, Tutor o Administrador). Y el usuario confirma que desea entrar al sistema.
+  2. El sistema valida que el correo y la contraseña correspondan a una cuenta existente.  
+  3. El sistema abre una sesión de trabajo y muestra el panel principal acorde a su rol (Estudiante, Tutor o Administrador).
 
 * **Flujos alternativos y excepciones:**
-  * **4a. Datos incompletos:** el sistema indica que debe ingresar correo y contraseña; el caso vuelve al paso 1.
-  * **4b. Credenciales incorrectas:** el sistema muestra un mensaje genérico de error (credenciales incorrectas); el caso vuelve al paso 1.
-  * **4c. Rol no reconocido para ingreso:** el sistema muestra un mensaje genérico de error (rol no reconocido); el caso vuelve al paso 2.
+  * **2a. Datos incompletos:** el sistema indica que debe ingresar correo y contraseña; el caso vuelve al paso 1.
+  * **2b. Credenciales incorrectas:** el sistema muestra un mensaje genérico de error (credenciales incorrectas); el caso vuelve al paso 1.
+  * **2c. Rol no reconocido para ingreso:** el sistema muestra un mensaje genérico de error (rol no reconocido); el caso vuelve al paso 2.
 * **Postcondiciones:**
   * **Éxito:** el usuario queda dentro del sistema y puede usar las funciones de su rol.
   * **Fallo:** permanece fuera del sistema como visitante.
