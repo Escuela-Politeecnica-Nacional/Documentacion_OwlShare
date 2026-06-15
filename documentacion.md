@@ -396,14 +396,6 @@ La estructura del documento garantiza que:
 | Transacción ACID | "Operación de BD que cumple Atomicidad, Consistencia, Aislamiento, Durabilidad" |
 | Whitelist | Lista explícita de valores permitidos |
 
-## APROBACIONES
-
-| Rol | Nombre | Firma | Fecha |
-| --- | --- | --- | --- |
-| Ingeniero de Requisitos | | | |
-| Arquitecto de Software | | | |
-| Stakeholder Principal | | | |
-
 ## CASOS DE USO
 
 ### CU-01: Iniciar sesión
@@ -771,6 +763,294 @@ La estructura del documento garantiza que:
   * **Fallo:** no accede a funciones privadas (comportamiento esperado).
 
 ### Diagrama de casos de Uso
+
+Los siguientes diagramas modelan los casos de uso **CU-01** a **CU-24** definidos en este documento. Se utilizan los cuatro actores del sistema (sección 2.2) y la notación UML de casos de uso en PlantUML.
+
+#### Diagrama general del sistema
+
+Vista de contexto que relaciona todos los actores con los casos de uso del sistema OwlShare.
+
+```plantuml
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Usuario Anónimo" as Visitante
+actor Administrador as Admin
+actor Tutor
+actor Estudiante as Est
+
+rectangle "Sistema OwlShare" {
+  usecase "CU-01\nIniciar sesión" as CU01
+  usecase "CU-02\nCerrar sesión" as CU02
+  usecase "CU-03\nRegistrarse" as CU03
+  usecase "CU-04\nCrear cuenta (admin)" as CU04
+  usecase "CU-05\nListar usuarios" as CU05
+  usecase "CU-06\nDetalle de usuario" as CU06
+  usecase "CU-07\nActualizar usuario" as CU07
+  usecase "CU-08\nListar estudiantes" as CU08
+  usecase "CU-09\nDetalle de estudiante" as CU09
+  usecase "CU-10\nActualizar estudiante" as CU10
+  usecase "CU-11\nConsultar mi perfil" as CU11
+  usecase "CU-12\nActualizar perfil tutor" as CU12
+  usecase "CU-13\nActualizar contraseña" as CU13
+  usecase "CU-14\nPublicar material" as CU14
+  usecase "CU-15\nMis materiales" as CU15
+  usecase "CU-16\nDetalle material propio" as CU16
+  usecase "CU-17\nSupervisar materiales" as CU17
+  usecase "CU-18\nRevisar material" as CU18
+  usecase "CU-19\nBuscar tutor" as CU19
+  usecase "CU-20\nPerfil de tutor" as CU20
+  usecase "CU-21\nPanel administración" as CU21
+  usecase "CU-22\nPanel tutor" as CU22
+  usecase "CU-23\nPanel estudiante" as CU23
+  usecase "CU-24\nExplorar plataforma" as CU24
+}
+
+Visitante --> CU03
+Visitante --> CU24
+
+Admin --> CU01
+Admin --> CU02
+Admin --> CU04
+Admin --> CU05
+Admin --> CU06
+Admin --> CU07
+Admin --> CU08
+Admin --> CU09
+Admin --> CU10
+Admin --> CU11
+Admin --> CU13
+Admin --> CU17
+Admin --> CU18
+Admin --> CU21
+
+Tutor --> CU01
+Tutor --> CU02
+Tutor --> CU03
+Tutor --> CU11
+Tutor --> CU12
+Tutor --> CU13
+Tutor --> CU14
+Tutor --> CU15
+Tutor --> CU16
+Tutor --> CU22
+
+Est --> CU01
+Est --> CU02
+Est --> CU03
+Est --> CU11
+Est --> CU13
+Est --> CU19
+Est --> CU20
+Est --> CU23
+
+CU06 ..> CU05 : <<include>>
+CU09 ..> CU08 : <<include>>
+CU16 ..> CU15 : <<include>>
+CU20 ..> CU19 : <<include>>
+CU03 ..> CU24 : <<extend>>
+@enduml
+```
+
+#### CU-01 y CU-02 — Autenticación y cierre de sesión
+
+Casos de uso compartidos por **Administrador**, **Tutor** y **Estudiante** (RF-001, RF-002, RF-003).
+
+```plantuml
+@startuml
+left to right direction
+
+actor "Usuario registrado" as Usuario
+
+rectangle "Autenticación" {
+  usecase "CU-01\nIniciar sesión" as CU01
+  usecase "CU-02\nCerrar sesión" as CU02
+}
+
+Usuario --> CU01
+Usuario --> CU02
+@enduml
+```
+
+#### CU-03 y CU-24 — Acceso público y registro
+
+Flujo del **Usuario Anónimo** para conocer la plataforma y crear una cuenta como estudiante o tutor (RF-004, RF-005).
+
+```plantuml
+@startuml
+left to right direction
+
+actor "Usuario Anónimo" as Visitante
+
+rectangle "Acceso público" {
+  usecase "CU-24\nExplorar plataforma" as CU24
+  usecase "CU-03\nRegistrarse" as CU03
+  usecase "Registro como\nEstudiante" as RegEst
+  usecase "Registro como\nTutor" as RegTut
+}
+
+Visitante --> CU24
+Visitante --> CU03
+CU03 ..> CU24 : <<extend>>
+CU03 ..> RegEst : <<extend>>
+CU03 ..> RegTut : <<extend>>
+@enduml
+```
+
+#### CU-04 a CU-10 y CU-21 — Gestión administrativa de usuarios
+
+Casos de uso del **Administrador** para crear cuentas, consultar y actualizar usuarios y estudiantes (RF-006, RF-020, RF-021, RF-017).
+
+```plantuml
+@startuml
+left to right direction
+
+actor Administrador as Admin
+
+rectangle "Gestión de usuarios" {
+  usecase "CU-21\nPanel administración" as CU21
+  usecase "CU-04\nCrear cuenta" as CU04
+  usecase "CU-05\nListar usuarios" as CU05
+  usecase "CU-06\nDetalle de usuario" as CU06
+  usecase "CU-07\nActualizar usuario" as CU07
+  usecase "CU-08\nListar estudiantes" as CU08
+  usecase "CU-09\nDetalle de estudiante" as CU09
+  usecase "CU-10\nActualizar estudiante" as CU10
+}
+
+Admin --> CU21
+Admin --> CU04
+Admin --> CU05
+Admin --> CU08
+CU06 ..> CU05 : <<include>>
+CU07 ..> CU06 : <<include>>
+CU09 ..> CU08 : <<include>>
+CU10 ..> CU09 : <<include>>
+@enduml
+```
+
+#### CU-11, CU-12 y CU-13 — Gestión de perfil propio
+
+Casos de uso de perfil y credenciales para usuarios autenticados (RF-007, RF-008).
+
+```plantuml
+@startuml
+left to right direction
+
+actor Administrador as Admin
+actor Tutor
+actor Estudiante as Est
+
+rectangle "Mi perfil" {
+  usecase "CU-11\nConsultar mi perfil" as CU11
+  usecase "CU-12\nActualizar perfil tutor" as CU12
+  usecase "CU-13\nActualizar contraseña" as CU13
+}
+
+Admin --> CU11
+Admin --> CU13
+Tutor --> CU11
+Tutor --> CU12
+Tutor --> CU13
+Est --> CU11
+Est --> CU13
+@enduml
+```
+
+#### CU-14 a CU-18 — Marketplace de materiales educativos
+
+Flujo de publicación por **Tutor** y moderación por **Administrador** (RF-009 a RF-012).
+
+```plantuml
+@startuml
+left to right direction
+
+actor Tutor
+actor Administrador as Admin
+
+rectangle "Materiales educativos" {
+  usecase "CU-14\nPublicar material" as CU14
+  usecase "CU-15\nMis materiales" as CU15
+  usecase "CU-16\nDetalle material propio" as CU16
+  usecase "CU-17\nSupervisar materiales" as CU17
+  usecase "CU-18\nRevisar material" as CU18
+  usecase "Aprobar material" as Aprobar
+  usecase "Rechazar material" as Rechazar
+}
+
+Tutor --> CU14
+Tutor --> CU15
+Tutor --> CU16
+Admin --> CU17
+Admin --> CU18
+CU16 ..> CU15 : <<include>>
+CU18 ..> CU17 : <<include>>
+CU18 ..> Aprobar : <<extend>>
+CU18 ..> Rechazar : <<extend>>
+@enduml
+```
+
+#### CU-19 y CU-20 — Búsqueda y conexión con tutores
+
+Casos de uso del **Estudiante** para encontrar apoyo académico (RF-014, RF-015).
+
+```plantuml
+@startuml
+left to right direction
+
+actor Estudiante as Est
+
+rectangle "Búsqueda de tutores" {
+  usecase "CU-19\nBuscar tutor por materia" as CU19
+  usecase "CU-20\nConsultar perfil de tutor" as CU20
+  usecase "Solicitar tutoría" as Solicitud
+}
+
+Est --> CU19
+Est --> CU20
+CU20 ..> CU19 : <<include>>
+Solicitud ..> CU20 : <<extend>>
+@enduml
+```
+
+#### CU-22 y CU-23 — Paneles por rol
+
+Puntos de entrada a las funciones principales de **Tutor** y **Estudiante** (RF-018, RF-019).
+
+```plantuml
+@startuml
+left to right direction
+
+actor Tutor
+actor Estudiante as Est
+
+rectangle "Paneles de control" {
+  usecase "CU-22\nPanel del tutor" as CU22
+  usecase "CU-23\nPanel del estudiante" as CU23
+  usecase "CU-14\nPublicar material" as CU14
+  usecase "CU-15\nMis materiales" as CU15
+  usecase "CU-19\nBuscar tutor" as CU19
+  usecase "CU-11\nConsultar mi perfil" as CU11
+}
+
+Tutor --> CU22
+Est --> CU23
+CU22 ..> CU14 : <<include>>
+CU22 ..> CU15 : <<include>>
+CU23 ..> CU19 : <<include>>
+CU23 ..> CU11 : <<include>>
+@enduml
+```
+
+#### Matriz actor – caso de uso
+
+| Actor | Casos de uso |
+| --- | --- |
+| Usuario Anónimo | CU-03, CU-24 |
+| Administrador | CU-01, CU-02, CU-04, CU-05, CU-06, CU-07, CU-08, CU-09, CU-10, CU-11, CU-13, CU-17, CU-18, CU-21 |
+| Tutor | CU-01, CU-02, CU-03, CU-11, CU-12, CU-13, CU-14, CU-15, CU-16, CU-22 |
+| Estudiante | CU-01, CU-02, CU-03, CU-11, CU-13, CU-19, CU-20, CU-23 |
 
 ### Diagrama de clases
 

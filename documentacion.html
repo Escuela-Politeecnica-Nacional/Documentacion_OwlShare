@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>documentacion</title>
+  <style id="theme-css">
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { background-color: #ffffff; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+                   'Helvetica Neue', Arial, sans-serif;
+      font-size: 16px;
+      max-width: 960px; /* matches GitHub / VS Code markdown preview width */
+      margin: 0 auto;
+      padding: 1em 1.5rem 4rem;
+      line-height: 1.7;
+      word-wrap: break-word;
+      color: #24292e;
+      background-color: #ffffff;
+    }
+    h1 { font-size: 2em; border-bottom: 2px solid #e1e4e8; padding-bottom: 0.3em; }
+    h2 { font-size: 1.5em; border-bottom: 1px solid #e1e4e8; padding-bottom: 0.2em; }
+    h3 { font-size: 1.25em; }
+    h1, h2, h3, h4, h5, h6 { margin-top: 1.5em; margin-bottom: 0.5em; scroll-margin-top: 1.5em; }
+    p { margin: 0.8em 0; }
+    a { color: #0366d6; }
+    a:visited { color: #6f42c1; }
+    code {
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 0.875em;
+      color: #24292e;
+      background: #f6f8fa;
+      padding: 0.2em 0.4em;
+      border-radius: 3px;
+    }
+    pre {
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      padding: 1em 1.2em;
+      overflow-x: auto;
+    }
+    pre code { background: none; padding: 0; font-size: 0.875em; }
+    table { border-collapse: collapse; display: block; width: 100%; overflow: auto; margin: 1em 0; word-break: keep-all; }
+    th, td { border: 1px solid #dfe2e5; padding: 0.5em 1em; text-align: left; }
+    th { background: #f6f8fa; font-weight: 600; }
+    tr:nth-child(even) { background: #fafbfc; }
+    blockquote {
+      border-left: 4px solid #dfe2e5;
+      margin: 0;
+      padding: 0.5em 1em;
+      color: #6a737d;
+      background-color: #f6f8fa;
+    }
+    blockquote > :first-child { margin-top: 0; }
+    blockquote > :last-child { margin-bottom: 0; }
+    hr { border: none; border-top: 2px solid #e1e4e8; margin: 2em 0; }
+    img { max-width: 100%; height: auto; }
+    .plantuml-diagram { margin: 1.5em 0; text-align: left; width: fit-content; }
+    .plantuml-diagram svg { height: auto; }
+    .mermaid-diagram { margin: 1.5em 0; text-align: left; width: fit-content; }
+    .mermaid-diagram pre.mermaid { visibility: hidden; overflow: visible; border: none; padding: 0; }
+    .mermaid-diagram svg { visibility: visible; height: auto; }
+    .mermaid-error { visibility: visible; color: #d32f2f; border-left: 3px solid #d32f2f; padding: 0.5em; white-space: pre-wrap; font-size: 0.85em; }
+    .d2-diagram { margin: 1.5em 0; text-align: left; }
+    .d2-diagram svg { height: auto; }
+    .d2-error { color: #d32f2f; border-left: 3px solid #d32f2f; padding: 0.5em; white-space: pre-wrap; font-size: 0.85em; }
+    .katex { color: inherit; }
+    .katex-display { margin: 1em 0; overflow-x: auto; overflow-y: hidden; }
+    body.preview { margin: 0; max-width: none; padding: 1em 26px; }
+    .hljs { background: #f6f8fa; color: #24292e; }
+    .hljs-comment, .hljs-prolog, .hljs-doctype, .hljs-cdata { color: #6a737d; font-style: italic; }
+    .hljs-keyword, .hljs-selector-tag { color: #d73a49; }
+    .hljs-string, .hljs-doctag { color: #032f62; }
+    .hljs-number, .hljs-literal { color: #005cc5; }
+    .hljs-attr, .hljs-attribute { color: #005cc5; }
+    .hljs-name, .hljs-tag, .hljs-selector-id, .hljs-selector-class { color: #22863a; }
+    .hljs-title, .hljs-section, .hljs-function { color: #6f42c1; font-weight: bold; }
+    .hljs-built_in, .hljs-type { color: #e36209; }
+    .hljs-symbol, .hljs-bullet, .hljs-link { color: #0366d6; }
+    .hljs-meta { color: #e36209; }
+    .hljs-addition { background: #e6ffed; color: #22863a; }
+    .hljs-deletion { background: #ffeef0; color: #b31d28; }
+    .hljs-strong { font-weight: bold; }
+    .hljs-emphasis { font-style: italic; }
+    #toc-sidebar { background-color: #ffffff; color: #24292e; }
+    #toc-sidebar::before { background-color: #e1e4e8; }
+    #toc-sidebar .toc-toggle { color: #24292e; }
+    #toc-sidebar a { color: #0366d6; }
+    #toc-sidebar a:hover { background: #f6f8fa; }
+    #toc-sidebar a.active { color: #0366d6; border-left-color: #0366d6; }
+    #nav-toolbar button { color: #24292e; }
+    #nav-toolbar button:hover, #nav-toolbar button.active { background: #f6f8fa; }
+  </style>
+  <style id="katex-css">@font-face{font-display:block;font-family:KaTeX_AMS;font-style:normal;font-weight:400;src:url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_AMS-Regular.woff2) format("woff2"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_AMS-Regular.woff) format("woff"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_AMS-Regular.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Caligraphic;font-style:normal;font-weight:700;src:url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Caligraphic-Bold.woff2) format("woff2"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Caligraphic-Bold.woff) format("woff"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Caligraphic-Bold.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Caligraphic;font-style:normal;font-weight:400;src:url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Caligraphic-Regular.woff2) format("woff2"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Caligraphic-Regular.woff) format("woff"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Caligraphic-Regular.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Fraktur;font-style:normal;font-weight:700;src:url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Fraktur-Bold.woff2) format("woff2"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Fraktur-Bold.woff) format("woff"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Fraktur-Bold.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Fraktur;font-style:normal;font-weight:400;src:url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Fraktur-Regular.woff2) format("woff2"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Fraktur-Regular.woff) format("woff"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Fraktur-Regular.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Main;font-style:normal;font-weight:700;src:url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Main-Bold.woff2) format("woff2"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Main-Bold.woff) format("woff"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Main-Bold.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Main;font-style:italic;font-weight:700;src:url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Main-BoldItalic.woff2) format("woff2"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Main-BoldItalic.woff) format("woff"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Main-BoldItalic.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Main;font-style:italic;font-weight:400;src:url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Main-Italic.woff2) format("woff2"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Main-Italic.woff) format("woff"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Main-Italic.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Main;font-style:normal;font-weight:400;src:url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Main-Regular.woff2) format("woff2"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Main-Regular.woff) format("woff"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Main-Regular.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Math;font-style:italic;font-weight:700;src:url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Math-BoldItalic.woff2) format("woff2"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Math-BoldItalic.woff) format("woff"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Math-BoldItalic.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Math;font-style:italic;font-weight:400;src:url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Math-Italic.woff2) format("woff2"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Math-Italic.woff) format("woff"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Math-Italic.ttf) format("truetype")}@font-face{font-display:block;font-family:"KaTeX_SansSerif";font-style:normal;font-weight:700;src:url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_SansSerif-Bold.woff2) format("woff2"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_SansSerif-Bold.woff) format("woff"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_SansSerif-Bold.ttf) format("truetype")}@font-face{font-display:block;font-family:"KaTeX_SansSerif";font-style:italic;font-weight:400;src:url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_SansSerif-Italic.woff2) format("woff2"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_SansSerif-Italic.woff) format("woff"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_SansSerif-Italic.ttf) format("truetype")}@font-face{font-display:block;font-family:"KaTeX_SansSerif";font-style:normal;font-weight:400;src:url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_SansSerif-Regular.woff2) format("woff2"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_SansSerif-Regular.woff) format("woff"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_SansSerif-Regular.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Script;font-style:normal;font-weight:400;src:url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Script-Regular.woff2) format("woff2"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Script-Regular.woff) format("woff"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Script-Regular.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Size1;font-style:normal;font-weight:400;src:url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Size1-Regular.woff2) format("woff2"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Size1-Regular.woff) format("woff"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Size1-Regular.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Size2;font-style:normal;font-weight:400;src:url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Size2-Regular.woff2) format("woff2"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Size2-Regular.woff) format("woff"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Size2-Regular.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Size3;font-style:normal;font-weight:400;src:url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Size3-Regular.woff2) format("woff2"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Size3-Regular.woff) format("woff"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Size3-Regular.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Size4;font-style:normal;font-weight:400;src:url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Size4-Regular.woff2) format("woff2"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Size4-Regular.woff) format("woff"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Size4-Regular.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Typewriter;font-style:normal;font-weight:400;src:url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Typewriter-Regular.woff2) format("woff2"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Typewriter-Regular.woff) format("woff"),url(https://cdn.jsdelivr.net/npm/katex@0.16.35/dist/fonts/KaTeX_Typewriter-Regular.ttf) format("truetype")}.katex{font:normal 1.21em KaTeX_Main,Times New Roman,serif;line-height:1.2;text-indent:0;text-rendering:auto}.katex *{-ms-high-contrast-adjust:none!important;border-color:currentColor}.katex .katex-version:after{content:"0.16.35"}.katex .katex-mathml{clip:rect(1px,1px,1px,1px);border:0;height:1px;overflow:hidden;padding:0;position:absolute;width:1px}.katex .katex-html>.newline{display:block}.katex .base{position:relative;white-space:nowrap;width:-webkit-min-content;width:-moz-min-content;width:min-content}.katex .base,.katex .strut{display:inline-block}.katex .textbf{font-weight:700}.katex .textit{font-style:italic}.katex .textrm{font-family:KaTeX_Main}.katex .textsf{font-family:KaTeX_SansSerif}.katex .texttt{font-family:KaTeX_Typewriter}.katex .mathnormal{font-family:KaTeX_Math;font-style:italic}.katex .mathit{font-family:KaTeX_Main;font-style:italic}.katex .mathrm{font-style:normal}.katex .mathbf{font-family:KaTeX_Main;font-weight:700}.katex .boldsymbol{font-family:KaTeX_Math;font-style:italic;font-weight:700}.katex .amsrm,.katex .mathbb,.katex .textbb{font-family:KaTeX_AMS}.katex .mathcal{font-family:KaTeX_Caligraphic}.katex .mathfrak,.katex .textfrak{font-family:KaTeX_Fraktur}.katex .mathboldfrak,.katex .textboldfrak{font-family:KaTeX_Fraktur;font-weight:700}.katex .mathtt{font-family:KaTeX_Typewriter}.katex .mathscr,.katex .textscr{font-family:KaTeX_Script}.katex .mathsf,.katex .textsf{font-family:KaTeX_SansSerif}.katex .mathboldsf,.katex .textboldsf{font-family:KaTeX_SansSerif;font-weight:700}.katex .mathitsf,.katex .mathsfit,.katex .textitsf{font-family:KaTeX_SansSerif;font-style:italic}.katex .mainrm{font-family:KaTeX_Main;font-style:normal}.katex .vlist-t{border-collapse:collapse;display:inline-table;table-layout:fixed}.katex .vlist-r{display:table-row}.katex .vlist{display:table-cell;position:relative;vertical-align:bottom}.katex .vlist>span{display:block;height:0;position:relative}.katex .vlist>span>span{display:inline-block}.katex .vlist>span>.pstrut{overflow:hidden;width:0}.katex .vlist-t2{margin-right:-2px}.katex .vlist-s{display:table-cell;font-size:1px;min-width:2px;vertical-align:bottom;width:2px}.katex .vbox{align-items:baseline;display:inline-flex;flex-direction:column}.katex .hbox{width:100%}.katex .hbox,.katex .thinbox{display:inline-flex;flex-direction:row}.katex .thinbox{max-width:0;width:0}.katex .msupsub{text-align:left}.katex .mfrac>span>span{text-align:center}.katex .mfrac .frac-line{border-bottom-style:solid;display:inline-block;width:100%}.katex .hdashline,.katex .hline,.katex .mfrac .frac-line,.katex .overline .overline-line,.katex .rule,.katex .underline .underline-line{min-height:1px}.katex .mspace{display:inline-block}.katex .clap,.katex .llap,.katex .rlap{position:relative;width:0}.katex .clap>.inner,.katex .llap>.inner,.katex .rlap>.inner{position:absolute}.katex .clap>.fix,.katex .llap>.fix,.katex .rlap>.fix{display:inline-block}.katex .llap>.inner{right:0}.katex .clap>.inner,.katex .rlap>.inner{left:0}.katex .clap>.inner>span{margin-left:-50%;margin-right:50%}.katex .rule{border:0 solid;display:inline-block;position:relative}.katex .hline,.katex .overline .overline-line,.katex .underline .underline-line{border-bottom-style:solid;display:inline-block;width:100%}.katex .hdashline{border-bottom-style:dashed;display:inline-block;width:100%}.katex .sqrt>.root{margin-left:.2777777778em;margin-right:-.5555555556em}.katex .fontsize-ensurer.reset-size1.size1,.katex .sizing.reset-size1.size1{font-size:1em}.katex .fontsize-ensurer.reset-size1.size2,.katex .sizing.reset-size1.size2{font-size:1.2em}.katex .fontsize-ensurer.reset-size1.size3,.katex .sizing.reset-size1.size3{font-size:1.4em}.katex .fontsize-ensurer.reset-size1.size4,.katex .sizing.reset-size1.size4{font-size:1.6em}.katex .fontsize-ensurer.reset-size1.size5,.katex .sizing.reset-size1.size5{font-size:1.8em}.katex .fontsize-ensurer.reset-size1.size6,.katex .sizing.reset-size1.size6{font-size:2em}.katex .fontsize-ensurer.reset-size1.size7,.katex .sizing.reset-size1.size7{font-size:2.4em}.katex .fontsize-ensurer.reset-size1.size8,.katex .sizing.reset-size1.size8{font-size:2.88em}.katex .fontsize-ensurer.reset-size1.size9,.katex .sizing.reset-size1.size9{font-size:3.456em}.katex .fontsize-ensurer.reset-size1.size10,.katex .sizing.reset-size1.size10{font-size:4.148em}.katex .fontsize-ensurer.reset-size1.size11,.katex .sizing.reset-size1.size11{font-size:4.976em}.katex .fontsize-ensurer.reset-size2.size1,.katex .sizing.reset-size2.size1{font-size:.8333333333em}.katex .fontsize-ensurer.reset-size2.size2,.katex .sizing.reset-size2.size2{font-size:1em}.katex .fontsize-ensurer.reset-size2.size3,.katex .sizing.reset-size2.size3{font-size:1.1666666667em}.katex .fontsize-ensurer.reset-size2.size4,.katex .sizing.reset-size2.size4{font-size:1.3333333333em}.katex .fontsize-ensurer.reset-size2.size5,.katex .sizing.reset-size2.size5{font-size:1.5em}.katex .fontsize-ensurer.reset-size2.size6,.katex .sizing.reset-size2.size6{font-size:1.6666666667em}.katex .fontsize-ensurer.reset-size2.size7,.katex .sizing.reset-size2.size7{font-size:2em}.katex .fontsize-ensurer.reset-size2.size8,.katex .sizing.reset-size2.size8{font-size:2.4em}.katex .fontsize-ensurer.reset-size2.size9,.katex .sizing.reset-size2.size9{font-size:2.88em}.katex .fontsize-ensurer.reset-size2.size10,.katex .sizing.reset-size2.size10{font-size:3.4566666667em}.katex .fontsize-ensurer.reset-size2.size11,.katex .sizing.reset-size2.size11{font-size:4.1466666667em}.katex .fontsize-ensurer.reset-size3.size1,.katex .sizing.reset-size3.size1{font-size:.7142857143em}.katex .fontsize-ensurer.reset-size3.size2,.katex .sizing.reset-size3.size2{font-size:.8571428571em}.katex .fontsize-ensurer.reset-size3.size3,.katex .sizing.reset-size3.size3{font-size:1em}.katex .fontsize-ensurer.reset-size3.size4,.katex .sizing.reset-size3.size4{font-size:1.1428571429em}.katex .fontsize-ensurer.reset-size3.size5,.katex .sizing.reset-size3.size5{font-size:1.2857142857em}.katex .fontsize-ensurer.reset-size3.size6,.katex .sizing.reset-size3.size6{font-size:1.4285714286em}.katex .fontsize-ensurer.reset-size3.size7,.katex .sizing.reset-size3.size7{font-size:1.7142857143em}.katex .fontsize-ensurer.reset-size3.size8,.katex .sizing.reset-size3.size8{font-size:2.0571428571em}.katex .fontsize-ensurer.reset-size3.size9,.katex .sizing.reset-size3.size9{font-size:2.4685714286em}.katex .fontsize-ensurer.reset-size3.size10,.katex .sizing.reset-size3.size10{font-size:2.9628571429em}.katex .fontsize-ensurer.reset-size3.size11,.katex .sizing.reset-size3.size11{font-size:3.5542857143em}.katex .fontsize-ensurer.reset-size4.size1,.katex .sizing.reset-size4.size1{font-size:.625em}.katex .fontsize-ensurer.reset-size4.size2,.katex .sizing.reset-size4.size2{font-size:.75em}.katex .fontsize-ensurer.reset-size4.size3,.katex .sizing.reset-size4.size3{font-size:.875em}.katex .fontsize-ensurer.reset-size4.size4,.katex .sizing.reset-size4.size4{font-size:1em}.katex .fontsize-ensurer.reset-size4.size5,.katex .sizing.reset-size4.size5{font-size:1.125em}.katex .fontsize-ensurer.reset-size4.size6,.katex .sizing.reset-size4.size6{font-size:1.25em}.katex .fontsize-ensurer.reset-size4.size7,.katex .sizing.reset-size4.size7{font-size:1.5em}.katex .fontsize-ensurer.reset-size4.size8,.katex .sizing.reset-size4.size8{font-size:1.8em}.katex .fontsize-ensurer.reset-size4.size9,.katex .sizing.reset-size4.size9{font-size:2.16em}.katex .fontsize-ensurer.reset-size4.size10,.katex .sizing.reset-size4.size10{font-size:2.5925em}.katex .fontsize-ensurer.reset-size4.size11,.katex .sizing.reset-size4.size11{font-size:3.11em}.katex .fontsize-ensurer.reset-size5.size1,.katex .sizing.reset-size5.size1{font-size:.5555555556em}.katex .fontsize-ensurer.reset-size5.size2,.katex .sizing.reset-size5.size2{font-size:.6666666667em}.katex .fontsize-ensurer.reset-size5.size3,.katex .sizing.reset-size5.size3{font-size:.7777777778em}.katex .fontsize-ensurer.reset-size5.size4,.katex .sizing.reset-size5.size4{font-size:.8888888889em}.katex .fontsize-ensurer.reset-size5.size5,.katex .sizing.reset-size5.size5{font-size:1em}.katex .fontsize-ensurer.reset-size5.size6,.katex .sizing.reset-size5.size6{font-size:1.1111111111em}.katex .fontsize-ensurer.reset-size5.size7,.katex .sizing.reset-size5.size7{font-size:1.3333333333em}.katex .fontsize-ensurer.reset-size5.size8,.katex .sizing.reset-size5.size8{font-size:1.6em}.katex .fontsize-ensurer.reset-size5.size9,.katex .sizing.reset-size5.size9{font-size:1.92em}.katex .fontsize-ensurer.reset-size5.size10,.katex .sizing.reset-size5.size10{font-size:2.3044444444em}.katex .fontsize-ensurer.reset-size5.size11,.katex .sizing.reset-size5.size11{font-size:2.7644444444em}.katex .fontsize-ensurer.reset-size6.size1,.katex .sizing.reset-size6.size1{font-size:.5em}.katex .fontsize-ensurer.reset-size6.size2,.katex .sizing.reset-size6.size2{font-size:.6em}.katex .fontsize-ensurer.reset-size6.size3,.katex .sizing.reset-size6.size3{font-size:.7em}.katex .fontsize-ensurer.reset-size6.size4,.katex .sizing.reset-size6.size4{font-size:.8em}.katex .fontsize-ensurer.reset-size6.size5,.katex .sizing.reset-size6.size5{font-size:.9em}.katex .fontsize-ensurer.reset-size6.size6,.katex .sizing.reset-size6.size6{font-size:1em}.katex .fontsize-ensurer.reset-size6.size7,.katex .sizing.reset-size6.size7{font-size:1.2em}.katex .fontsize-ensurer.reset-size6.size8,.katex .sizing.reset-size6.size8{font-size:1.44em}.katex .fontsize-ensurer.reset-size6.size9,.katex .sizing.reset-size6.size9{font-size:1.728em}.katex .fontsize-ensurer.reset-size6.size10,.katex .sizing.reset-size6.size10{font-size:2.074em}.katex .fontsize-ensurer.reset-size6.size11,.katex .sizing.reset-size6.size11{font-size:2.488em}.katex .fontsize-ensurer.reset-size7.size1,.katex .sizing.reset-size7.size1{font-size:.4166666667em}.katex .fontsize-ensurer.reset-size7.size2,.katex .sizing.reset-size7.size2{font-size:.5em}.katex .fontsize-ensurer.reset-size7.size3,.katex .sizing.reset-size7.size3{font-size:.5833333333em}.katex .fontsize-ensurer.reset-size7.size4,.katex .sizing.reset-size7.size4{font-size:.6666666667em}.katex .fontsize-ensurer.reset-size7.size5,.katex .sizing.reset-size7.size5{font-size:.75em}.katex .fontsize-ensurer.reset-size7.size6,.katex .sizing.reset-size7.size6{font-size:.8333333333em}.katex .fontsize-ensurer.reset-size7.size7,.katex .sizing.reset-size7.size7{font-size:1em}.katex .fontsize-ensurer.reset-size7.size8,.katex .sizing.reset-size7.size8{font-size:1.2em}.katex .fontsize-ensurer.reset-size7.size9,.katex .sizing.reset-size7.size9{font-size:1.44em}.katex .fontsize-ensurer.reset-size7.size10,.katex .sizing.reset-size7.size10{font-size:1.7283333333em}.katex .fontsize-ensurer.reset-size7.size11,.katex .sizing.reset-size7.size11{font-size:2.0733333333em}.katex .fontsize-ensurer.reset-size8.size1,.katex .sizing.reset-size8.size1{font-size:.3472222222em}.katex .fontsize-ensurer.reset-size8.size2,.katex .sizing.reset-size8.size2{font-size:.4166666667em}.katex .fontsize-ensurer.reset-size8.size3,.katex .sizing.reset-size8.size3{font-size:.4861111111em}.katex .fontsize-ensurer.reset-size8.size4,.katex .sizing.reset-size8.size4{font-size:.5555555556em}.katex .fontsize-ensurer.reset-size8.size5,.katex .sizing.reset-size8.size5{font-size:.625em}.katex .fontsize-ensurer.reset-size8.size6,.katex .sizing.reset-size8.size6{font-size:.6944444444em}.katex .fontsize-ensurer.reset-size8.size7,.katex .sizing.reset-size8.size7{font-size:.8333333333em}.katex .fontsize-ensurer.reset-size8.size8,.katex .sizing.reset-size8.size8{font-size:1em}.katex .fontsize-ensurer.reset-size8.size9,.katex .sizing.reset-size8.size9{font-size:1.2em}.katex .fontsize-ensurer.reset-size8.size10,.katex .sizing.reset-size8.size10{font-size:1.4402777778em}.katex .fontsize-ensurer.reset-size8.size11,.katex .sizing.reset-size8.size11{font-size:1.7277777778em}.katex .fontsize-ensurer.reset-size9.size1,.katex .sizing.reset-size9.size1{font-size:.2893518519em}.katex .fontsize-ensurer.reset-size9.size2,.katex .sizing.reset-size9.size2{font-size:.3472222222em}.katex .fontsize-ensurer.reset-size9.size3,.katex .sizing.reset-size9.size3{font-size:.4050925926em}.katex .fontsize-ensurer.reset-size9.size4,.katex .sizing.reset-size9.size4{font-size:.462962963em}.katex .fontsize-ensurer.reset-size9.size5,.katex .sizing.reset-size9.size5{font-size:.5208333333em}.katex .fontsize-ensurer.reset-size9.size6,.katex .sizing.reset-size9.size6{font-size:.5787037037em}.katex .fontsize-ensurer.reset-size9.size7,.katex .sizing.reset-size9.size7{font-size:.6944444444em}.katex .fontsize-ensurer.reset-size9.size8,.katex .sizing.reset-size9.size8{font-size:.8333333333em}.katex .fontsize-ensurer.reset-size9.size9,.katex .sizing.reset-size9.size9{font-size:1em}.katex .fontsize-ensurer.reset-size9.size10,.katex .sizing.reset-size9.size10{font-size:1.2002314815em}.katex .fontsize-ensurer.reset-size9.size11,.katex .sizing.reset-size9.size11{font-size:1.4398148148em}.katex .fontsize-ensurer.reset-size10.size1,.katex .sizing.reset-size10.size1{font-size:.2410800386em}.katex .fontsize-ensurer.reset-size10.size2,.katex .sizing.reset-size10.size2{font-size:.2892960463em}.katex .fontsize-ensurer.reset-size10.size3,.katex .sizing.reset-size10.size3{font-size:.337512054em}.katex .fontsize-ensurer.reset-size10.size4,.katex .sizing.reset-size10.size4{font-size:.3857280617em}.katex .fontsize-ensurer.reset-size10.size5,.katex .sizing.reset-size10.size5{font-size:.4339440694em}.katex .fontsize-ensurer.reset-size10.size6,.katex .sizing.reset-size10.size6{font-size:.4821600771em}.katex .fontsize-ensurer.reset-size10.size7,.katex .sizing.reset-size10.size7{font-size:.5785920926em}.katex .fontsize-ensurer.reset-size10.size8,.katex .sizing.reset-size10.size8{font-size:.6943105111em}.katex .fontsize-ensurer.reset-size10.size9,.katex .sizing.reset-size10.size9{font-size:.8331726133em}.katex .fontsize-ensurer.reset-size10.size10,.katex .sizing.reset-size10.size10{font-size:1em}.katex .fontsize-ensurer.reset-size10.size11,.katex .sizing.reset-size10.size11{font-size:1.1996142719em}.katex .fontsize-ensurer.reset-size11.size1,.katex .sizing.reset-size11.size1{font-size:.2009646302em}.katex .fontsize-ensurer.reset-size11.size2,.katex .sizing.reset-size11.size2{font-size:.2411575563em}.katex .fontsize-ensurer.reset-size11.size3,.katex .sizing.reset-size11.size3{font-size:.2813504823em}.katex .fontsize-ensurer.reset-size11.size4,.katex .sizing.reset-size11.size4{font-size:.3215434084em}.katex .fontsize-ensurer.reset-size11.size5,.katex .sizing.reset-size11.size5{font-size:.3617363344em}.katex .fontsize-ensurer.reset-size11.size6,.katex .sizing.reset-size11.size6{font-size:.4019292605em}.katex .fontsize-ensurer.reset-size11.size7,.katex .sizing.reset-size11.size7{font-size:.4823151125em}.katex .fontsize-ensurer.reset-size11.size8,.katex .sizing.reset-size11.size8{font-size:.578778135em}.katex .fontsize-ensurer.reset-size11.size9,.katex .sizing.reset-size11.size9{font-size:.6945337621em}.katex .fontsize-ensurer.reset-size11.size10,.katex .sizing.reset-size11.size10{font-size:.8336012862em}.katex .fontsize-ensurer.reset-size11.size11,.katex .sizing.reset-size11.size11{font-size:1em}.katex .delimsizing.size1{font-family:KaTeX_Size1}.katex .delimsizing.size2{font-family:KaTeX_Size2}.katex .delimsizing.size3{font-family:KaTeX_Size3}.katex .delimsizing.size4{font-family:KaTeX_Size4}.katex .delimsizing.mult .delim-size1>span{font-family:KaTeX_Size1}.katex .delimsizing.mult .delim-size4>span{font-family:KaTeX_Size4}.katex .nulldelimiter{display:inline-block;width:.12em}.katex .delimcenter,.katex .op-symbol{position:relative}.katex .op-symbol.small-op{font-family:KaTeX_Size1}.katex .op-symbol.large-op{font-family:KaTeX_Size2}.katex .accent>.vlist-t,.katex .op-limits>.vlist-t{text-align:center}.katex .accent .accent-body{position:relative}.katex .accent .accent-body:not(.accent-full){width:0}.katex .overlay{display:block}.katex .mtable .vertical-separator{display:inline-block;min-width:1px}.katex .mtable .arraycolsep{display:inline-block}.katex .mtable .col-align-c>.vlist-t{text-align:center}.katex .mtable .col-align-l>.vlist-t{text-align:left}.katex .mtable .col-align-r>.vlist-t{text-align:right}.katex .svg-align{text-align:left}.katex svg{fill:currentColor;stroke:currentColor;display:block;height:inherit;position:absolute;width:100%}.katex svg path{stroke:none}.katex svg{fill-rule:nonzero;fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1}.katex img{border-style:none;max-height:none;max-width:none;min-height:0;min-width:0}.katex .stretchy{display:block;overflow:hidden;position:relative;width:100%}.katex .stretchy:after,.katex .stretchy:before{content:""}.katex .hide-tail{overflow:hidden;position:relative;width:100%}.katex .halfarrow-left{left:0;overflow:hidden;position:absolute;width:50.2%}.katex .halfarrow-right{overflow:hidden;position:absolute;right:0;width:50.2%}.katex .brace-left{left:0;overflow:hidden;position:absolute;width:25.1%}.katex .brace-center{left:25%;overflow:hidden;position:absolute;width:50%}.katex .brace-right{overflow:hidden;position:absolute;right:0;width:25.1%}.katex .x-arrow-pad{padding:0 .5em}.katex .cd-arrow-pad{padding:0 .55556em 0 .27778em}.katex .mover,.katex .munder,.katex .x-arrow{text-align:center}.katex .boxpad{padding:0 .3em}.katex .fbox,.katex .fcolorbox{border:.04em solid;box-sizing:border-box}.katex .cancel-pad{padding:0 .2em}.katex .cancel-lap{margin-left:-.2em;margin-right:-.2em}.katex .sout{border-bottom-style:solid;border-bottom-width:.08em}.katex .angl{border-right:.049em solid;border-top:.049em solid;box-sizing:border-box;margin-right:.03889em}.katex .anglpad{padding:0 .03889em}.katex .eqn-num:before{content:"(" counter(katexEqnNo) ")";counter-increment:katexEqnNo}.katex .mml-eqn-num:before{content:"(" counter(mmlEqnNo) ")";counter-increment:mmlEqnNo}.katex .mtr-glue{width:50%}.katex .cd-vert-arrow{display:inline-block;position:relative}.katex .cd-label-left{display:inline-block;position:absolute;right:calc(50% + .3em);text-align:left}.katex .cd-label-right{display:inline-block;left:calc(50% + .3em);position:absolute;text-align:right}.katex-display{display:block;margin:1em 0;text-align:center}.katex-display>.katex{display:block;text-align:center;white-space:nowrap}.katex-display>.katex>.katex-html{display:block;position:relative}.katex-display>.katex>.katex-html>.tag{position:absolute;right:0}.katex-display.leqno>.katex>.katex-html>.tag{left:0;right:auto}.katex-display.fleqn>.katex{padding-left:2em;text-align:left}body{counter-reset:katexEqnNo mmlEqnNo}
+</style>
+  <style>body{max-width:1024px;margin:0 auto}table{max-width:1024px;table-layout:fixed}table td,table th{word-break:break-word;overflow-wrap:break-word}</style>
+</head>
+<body>
+<!-- NOTE: This ID is also referenced in src/webview/scroll-sync-webview.ts (applyPendingBodyUpdate). -->
+<div id="preview-content">
+<h1 id="especificacin-de-requisitos-de-software">ESPECIFICACIÓN DE REQUISITOS DE SOFTWARE</h1>
+<h2 id="owlshare">OwlShare</h2>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Título del Proyecto</td>
+<td>OwlShare</td>
+</tr>
+<tr>
+<td>Tipo de Documento</td>
+<td>Especificación de Requisitos de Software (SRS)</td>
+</tr>
+<tr>
+<td>Versión</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Fecha de Emisión</td>
+<td>&quot;Junio 2, 2026&quot;</td>
+</tr>
+<tr>
+<td>Estatus</td>
+<td>Aprobada para Revisión Académica</td>
+</tr>
+<tr>
+<td>Normativa</td>
+<td>&quot;IEEE 29148:2018, IEEE 830:1998, ISO/IEC 25010:2023&quot;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1-introduccin">1. INTRODUCCIÓN</h2>
+<h3 id="11-propsito">1.1 Propósito</h3>
+<p>Este documento especifica los requisitos funcionales y no funcionales del sistema.
+El propósito es documentar las capacidades que el sistema deberá proporcionar, las características de calidad que deberá cumplir y los criterios de aceptación para el desarrollo e implementación del producto.</p>
+<h3 id="12-descripcin-general-del-producto">1.2 Descripción General del Producto</h3>
+<p>OwlShare es una plataforma académica web que facilita la conexión entre estudiantes de pregrado y tutores académicos (estudiantes de semestres superiores).
+El sistema proporciona funcionalidades para la búsqueda de tutores especializados, la comercialización de materiales educativos (tareas, guías, exámenes de práctica) y la gestión integral de usuarios con diferentes roles administrativos.
+El producto está dirigido a comunidades académicas universitarias que requieren facilitar el apoyo tutorial entre pares y monetizar contenidos educativos.</p>
+<h3 id="13-audiencia-del-documento">1.3 Audiencia del Documento</h3>
+<p>Este documento va dirigido a:</p>
+<ul>
+<li>Arquitectos de software y líderes técnicos</li>
+<li>Desarrolladores de software</li>
+<li>Ingenieros de aseguramiento de calidad</li>
+<li>Gestores de proyectos</li>
+<li>Stakeholders del proyecto académico</li>
+</ul>
+<h3 id="14-referencias-normativas">1.4 Referencias Normativas</h3>
+<ul>
+<li>IEEE 29148:2018 - Processes for Engineering a System with Related Documentation</li>
+<li>IEEE 830:1998 - Recommended Practice for Software Requirements Specifications</li>
+<li>ISO/IEC 25010:2023 - System and Software Quality Models</li>
+<li>ISO/IEC 27001:2022 - Information Security Management System Requirements</li>
+<li>Jakarta Servlet 6.0 Specification</li>
+<li>Hibernate ORM 6.6 Documentation</li>
+</ul>
+<h2 id="2-alcance">2. ALCANCE</h2>
+<h3 id="21-lmites-del-sistema">2.1 Límites del Sistema</h3>
+<p>El sistema OwlShare incluye las siguientes funcionalidades:</p>
+<p><strong>Dentro del Alcance:</strong></p>
+<ul>
+<li>Gestión de cuentas de usuario con roles diferenciados (Administrador, Tutor, Estudiante)</li>
+<li>Registro y validación de perfiles académicos</li>
+<li>Búsqueda y visualización de tutores especializados por materia</li>
+<li>Subida y gestión de materiales educativos con flujo de aprobación administrativo</li>
+<li>Control de acceso basado en roles</li>
+<li>Persistencia de datos académicos en base de datos relacional</li>
+<li>Interfaz web responsiva</li>
+</ul>
+<p><strong>Fuera del Alcance:</strong></p>
+<ul>
+<li>Procesamiento de pagos y transacciones monetarias</li>
+<li>Videoconferencias o comunicaciones síncronas</li>
+<li>Aplicación móvil nativa</li>
+<li>Integración con sistemas académicos externos (SIA, SIMOE)</li>
+<li>Foro de preguntas y respuestas</li>
+<li>Notificaciones en tiempo real</li>
+</ul>
+<h3 id="22-actores-del-sistema">2.2 Actores del Sistema</h3>
+<table>
+<thead>
+<tr>
+<th>Actor</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Administrador del Sistema</td>
+<td>&quot;Gestor que supervisa la plataforma, aprueba/rechaza materiales, gestiona usuarios&quot;</td>
+</tr>
+<tr>
+<td>Tutor</td>
+<td>Estudiante de semestre superior que ofrece servicios de tutoría y comercializa materiales educativos</td>
+</tr>
+<tr>
+<td>Estudiante</td>
+<td>Estudiante de pregrado que busca apoyo académico y accede a materiales educativos</td>
+</tr>
+<tr>
+<td>Usuario Anónimo</td>
+<td>Persona sin autenticación que accede a información pública limitada</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23-restricciones-externas">2.3 Restricciones Externas</h3>
+<ul>
+<li>El sistema deberá funcionar en navegadores web modernos</li>
+<li>La aplicación se despliega en servidores compartidos con soporte a Java 17 y PostgreSQL</li>
+<li>El almacenamiento máximo de archivos subidos es de 25 MB por archivo</li>
+<li>El sistema opera en entornos de producción con conexión HTTPS obligatoria</li>
+</ul>
+<h2 id="3-requisitos-funcionales">3. REQUISITOS FUNCIONALES</h2>
+<p>Los siguientes requisitos especifican las capacidades funcionales que el sistema OwlShare debe proporcionar.</p>
+<h3 id="31-requisitos-de-autenticacin-y-autorizacin">3.1 Requisitos de Autenticación y Autorización</h3>
+<h4 id="rf-001-autenticacin-de-usuario">RF-001 – Autenticación de Usuario</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá permitir que usuarios registrados accedan mediante correo electrónico y contraseña. El sistema deberá validar las credenciales contra la base de datos y establecer una sesión autenticada.</li>
+<li><strong>Prioridad:</strong> Alta</li>
+</ul>
+<h4 id="rf-002-cierre-de-sesin">RF-002 – Cierre de Sesión</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá permitir que usuarios autenticados cierren su sesión actual, invalidando el token de sesión y redirigiendo al portal de autenticación.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+</ul>
+<h4 id="rf-003-control-de-acceso-basado-en-roles-rbac">RF-003 – Control de Acceso Basado en Roles (RBAC)</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá controlar el acceso a funcionalidades según el rol del usuario. Se deberán definir tres roles: Administrador, Tutor y Estudiante. Cada rol deberá tener permisos específicos para acceder a funcionalidades. El sistema deberá redirigir a usuarios no autorizados al portal de autenticación.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+</ul>
+<h3 id="32-requisitos-de-gestin-de-usuarios">3.2 Requisitos de Gestión de Usuarios</h3>
+<h4 id="rf-004-registro-de-estudiante">RF-004 – Registro de Estudiante</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá permitir que nuevos usuarios se registren como estudiantes proporcionando correo electrónico, contraseña, nombres, apellidos, carrera y semestre académico. El sistema deberá validar la unicidad del correo electrónico y crear un perfil con estado activo.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+</ul>
+<h4 id="rf-005-registro-de-tutor">RF-005 – Registro de Tutor</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá permitir que estudiantes de semestres superiores se registren como tutores especificando carrera, semestre académico y materias que pueden enseñar. El sistema deberá validar que el semestre sea mayor a 1 (los estudiantes de primer semestre no pueden ser tutores). El tutor deberá ser aprobado por un administrador antes de poder funcionar como tal.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+</ul>
+<h4 id="rf-006-registro-de-administrador">RF-006 – Registro de Administrador</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá permitir la creación de cuentas administrativas. El primer administrador deberá ser creado durante el despliegue inicial del sistema. Administradores posteriores deberán ser creados por administradores existentes.</li>
+<li><strong>Prioridad:</strong> Alta</li>
+</ul>
+<h4 id="rf-007-edicin-de-perfil-de-usuario">RF-007 – Edición de Perfil de Usuario</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá permitir que usuarios editen su información de perfil según su rol. Los estudiantes pueden actualizar datos personales y carrera/semestre. Los tutores pueden actualizar datos personales y descripción profesional. Los administradores pueden actualizar datos personales.</li>
+<li><strong>Prioridad:</strong> Media</li>
+</ul>
+<h4 id="rf-008-visualizacin-de-perfil">RF-008 – Visualización de Perfil</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá permitir que usuarios visualicen su propio perfil con toda la información registrada. El perfil debe mostrar información diferenciada según el rol del usuario.</li>
+<li><strong>Prioridad:</strong> Media</li>
+</ul>
+<h3 id="33-requisitos-de-marketplace-de-materiales">3.3 Requisitos de Marketplace de Materiales</h3>
+<h4 id="rf-009-subida-de-materiales-educativos-por-tutor">RF-009 – Subida de Materiales Educativos por Tutor</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá permitir que tutores suban archivos educativos (tareas, guías, resúmenes, exámenes de práctica). El sistema deberá validar que el archivo tenga una extensión permitida (PDF, DOCX, XLSX, PPTX, ZIP, TXT), no supere 25 MB y corresponda a una materia válida de la carrera del tutor. El material subido deberá quedar en estado 'Pendiente Aprobación' hasta que un administrador lo revise.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+</ul>
+<h4 id="rf-010-listado-de-materiales-subidos-por-tutor">RF-010 – Listado de Materiales Subidos por Tutor</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá permitir que tutores visualicen un listado de todos los materiales que han subido, mostrando título, fecha de envío, estado (Pendiente Aprobación, Aprobado, Rechazado) y motivo de rechazo si aplica. El listado deberá ordenarse por fecha descendente.&quot;</li>
+<li><strong>Prioridad:</strong> Media</li>
+</ul>
+<h4 id="rf-011-visualizacin-de-detalles-de-material">RF-011 – Visualización de Detalles de Material</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá permitir que el tutor que subió un material visualice detalles completos del mismo, incluyendo: título, descripción, materia, estado, fecha de envío, costo asignado y motivo de rechazo (si aplica).&quot;</li>
+<li><strong>Prioridad:</strong> Media</li>
+</ul>
+<h4 id="rf-012-gestin-de-materiales-por-administrador">RF-012 – Gestión de Materiales por Administrador</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá permitir que administradores visualicen todos los materiales subidos al sistema. El administrador deberá poder filtrar por estado (Pendiente Aprobación, Aprobado, Rechazado) y revisar detalles de cada material. El administrador deberá tener la capacidad de aprobar un material (cambiando su estado a 'Aprobado') o rechazarlo (cambiando su estado a 'Rechazado' y almacenando un motivo).&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+</ul>
+<h4 id="rf-013-descarga-de-materiales-aprobados">RF-013 – Descarga de Materiales Aprobados</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá permitir que estudiantes y tutores descarguen archivos de materiales que han sido aprobados por un administrador. El descargable deberá servirse con los headers HTTP apropiados para presentar el archivo al usuario. Solo materiales con estado 'Aprobado' podrán ser descargados.</li>
+<li><strong>Prioridad:</strong> Alta</li>
+</ul>
+<h3 id="34-requisitos-de-bsqueda-y-conexin">3.4 Requisitos de Búsqueda y Conexión</h3>
+<h4 id="rf-014-bsqueda-de-tutores-por-materia">RF-014 – Búsqueda de Tutores por Materia</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá permitir que estudiantes busquen tutores especializados en una materia específica. La búsqueda deberá aceptar el código de materia como parámetro y retornar una lista filtrada de tutores que enseñan esa materia. Solo deberán retornarse tutores con estado 'Activo' o 'Pendiente de Verificación'.</li>
+<li><strong>Prioridad:</strong> Alta</li>
+</ul>
+<h4 id="rf-015-visualizacin-de-perfil-de-tutor">RF-015 – Visualización de Perfil de Tutor</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá permitir que estudiantes visualicen el perfil completo de un tutor, incluyendo: nombre completo, descripción profesional, carrera, semestre académico y materias que enseña. Esta información deberá ser legible y presentarse de forma accesible.&quot;</li>
+<li><strong>Prioridad:</strong> Media</li>
+</ul>
+<h4 id="rf-016-listado-de-materiales-aprobados">RF-016 – Listado de Materiales Aprobados</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá permitir que estudiantes visualicen un catálogo de todos los materiales educativos aprobados disponibles. El listado deberá mostrar título, descripción resumida, materia, tutor que lo subió y precio. Deberá permitirse filtrar por materia y ordenar por fecha o popularidad.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+</ul>
+<h3 id="35-requisitos-de-interfaz-y-navegacin">3.5 Requisitos de Interfaz y Navegación</h3>
+<h4 id="rf-017-dashboard-de-administrador">RF-017 – Dashboard de Administrador</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá proporcionar un panel de control para administradores que muestre: número de usuarios por rol, cantidad de materiales por estado, accesos rápidos a funciones administrativas clave (ver usuarios, gestionar materiales, crear administrador).&quot;</li>
+<li><strong>Prioridad:</strong> Media</li>
+</ul>
+<h4 id="rf-018-dashboard-de-tutor">RF-018 – Dashboard de Tutor</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá proporcionar un panel de control para tutores que muestre: accesos rápidos a funciones principales (subir material, ver mis materiales, ver perfil), estado resumen de últimos materiales subidos.&quot;</li>
+<li><strong>Prioridad:</strong> Media</li>
+</ul>
+<h4 id="rf-019-dashboard-de-estudiante">RF-019 – Dashboard de Estudiante</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá proporcionar un panel de control para estudiantes que muestre: accesos rápidos a funciones principales (buscar tutor, ver perfil, navegar catálogo de materiales).&quot;</li>
+<li><strong>Prioridad:</strong> Media</li>
+</ul>
+<h3 id="36-requisitos-de-administracin-de-datos">3.6 Requisitos de Administración de Datos</h3>
+<h4 id="rf-020-listado-de-estudiantes-administrador">RF-020 – Listado de Estudiantes (Administrador)</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá permitir que administradores visualicen una lista de todos los estudiantes registrados en el sistema, mostrando: ID, nombre completo, carrera, semestre, estado (Activo, Inactivo, Por Verificar).&quot;</li>
+<li><strong>Prioridad:</strong> Media</li>
+</ul>
+<h4 id="rf-021-listado-de-usuarios-administrador">RF-021 – Listado de Usuarios (Administrador)</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá permitir que administradores visualicen una lista de todos los usuarios en el sistema, mostrando: correo electrónico, rol, nombre, apellido, estado. Deberá permitir filtrado y búsqueda por correo electrónico.&quot;</li>
+<li><strong>Prioridad:</strong> Media</li>
+</ul>
+<h4 id="rf-022-catlogo-centralizado-de-materias">RF-022 – Catálogo Centralizado de Materias</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá mantener un catálogo centralizado de materias académicas organizadas por carrera y semestre. El catálogo deberá incluir información de 4 carreras (Ingeniería de Software, Ingeniería en Computación, Ingeniería en Ciencia de Datos e Inteligencia Artificial, Ingeniería en Sistemas de Información), con hasta 9 semestres cada una. Cada materia deberá tener un código único (SIGLA) y nombre legible.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+</ul>
+<h2 id="4-requisitos-no-funcionales">4. REQUISITOS NO FUNCIONALES</h2>
+<p>Los requisitos no funcionales definen las características de calidad que el sistema OwlShare debe cumplir, organizados según la norma ISO/IEC 25010.</p>
+<h3 id="41-seguridad">4.1 Seguridad</h3>
+<h4 id="rnf-001-autenticacin-de-sesin">RNF-001 – Autenticación de Sesión</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá implementar autenticación mediante sesiones HTTP estándar. Las sesiones deberán tener un timeout de inactividad configurable (recomendado 30 minutos). Los datos de sesión deberán almacenarse de forma segura en el servidor.</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Seguridad</li>
+</ul>
+<h4 id="rnf-002-control-de-acceso-por-rol">RNF-002 – Control de Acceso por Rol</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá implementar control de acceso basado en roles (RBAC). Cada endpoint o funcionalidad deberá validar que el usuario posee los permisos necesarios. El acceso denegado deberá resultar en redirección a página de autenticación o mensaje de error apropiado.</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Seguridad</li>
+</ul>
+<h4 id="rnf-003-almacenamiento-seguro-de-contraseas">RNF-003 – Almacenamiento Seguro de Contraseñas</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá almacenar todas las contraseñas de usuario utilizando algoritmos de hash criptográficamente seguros. Las contraseñas nunca deberán almacenarse en texto plano ni en formatos reversibles. Se recomienda el uso de bcrypt o Argon2.</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Seguridad</li>
+</ul>
+<h4 id="rnf-004-validacin-de-entrada">RNF-004 – Validación de Entrada</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá validar todas las entradas de usuario en el servidor. Se deberá implementar validación de tipo de dato, rango, formato y longitud. Se deberá mantener un whitelist de caracteres permitidos para campos de texto.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Seguridad</li>
+</ul>
+<h4 id="rnf-005-proteccin-contra-inyeccin-sql">RNF-005 – Protección contra Inyección SQL</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá utilizar prepared statements o consultas parametrizadas para todas las operaciones de base de datos. No deberá permitirse la concatenación de SQL dinámico con entrada de usuario. La capa ORM (Hibernate) deberá manejar el escape apropiado de parámetros.</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Seguridad</li>
+</ul>
+<h4 id="rnf-006-transporte-seguro-de-datos">RNF-006 – Transporte Seguro de Datos</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá requerir obligatoriamente el uso de HTTPS para toda comunicación. Se deberá implementar redirección automática de HTTP a HTTPS. Se deberá usar TLS 1.2 o superior. Los certificados deberán ser válidos y emitidos por autoridades de certificación reconocidas.</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Seguridad</li>
+</ul>
+<h4 id="rnf-007-validacin-de-archivos-subidos">RNF-007 – Validación de Archivos Subidos</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá validar exhaustivamente todos los archivos subidos por usuarios. Se deberá verificar la extensión de archivo contra un whitelist permitido. Se deberá validar el tipo MIME del archivo. Se deberá verificar el tamaño del archivo (máximo 25 MB). Los archivos deberán almacenarse con nombres aleatorios para prevenir ataques de directorio.</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Seguridad</li>
+</ul>
+<h4 id="rnf-008-gestin-segura-de-secretos">RNF-008 – Gestión Segura de Secretos</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá almacenar todas las credenciales sensibles (contraseñas de base de datos, claves de API, certificados SSL) fuera del repositorio de código. Se deberá usar variables de entorno o bóveda de secretos para la gestión de credenciales. Los archivos de configuración nunca deberán commiterse con secretos expuestos.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Seguridad</li>
+</ul>
+<h4 id="rnf-009-integridad-de-datos-en-transacciones">RNF-009 – Integridad de Datos en Transacciones</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá mantener la integridad de datos mediante transacciones ACID. Operaciones críticas que involucran múltiples entidades (crear usuario + crear perfil) deberán ejecutarse atómicamente. Si cualquier parte falla, toda la transacción deberá revertirse.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Seguridad</li>
+</ul>
+<h4 id="rnf-010-aislamiento-de-datos-por-rol">RNF-010 – Aislamiento de Datos por Rol</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá asegurar que cada usuario solo acceda a los datos relevantes para su rol. Los estudiantes no deberán poder ver datos de otros estudiantes excepto perfiles públicos de tutores. Los tutores solo deberán poder gestionar sus propios materiales. Los administradores tienen acceso a todos los datos.</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Seguridad</li>
+</ul>
+<h3 id="42-usabilidad">4.2 Usabilidad</h3>
+<h4 id="rnf-011-interfaz-de-usuario-responsiva">RNF-011 – Interfaz de Usuario Responsiva</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá proporcionar una interfaz de usuario que se adapte a diferentes tamaños de pantalla (desktop, tablet, móvil). El diseño deberá utilizar técnicas de responsive design (media queries, flexible layouts). El contenido deberá ser accesible en cualquier resolución.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Usabilidad</li>
+</ul>
+<h4 id="rnf-012-mensajes-de-error-y-validacin-claros">RNF-012 – Mensajes de Error y Validación Claros</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá mostrar mensajes de error descriptivos cuando ocurran fallos de validación o errores del sistema. Los mensajes deberán estar en lenguaje comprensible para el usuario final, indicar la causa del problema y sugerir acciones correctivas cuando sea posible.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Usabilidad</li>
+</ul>
+<h4 id="rnf-013-navegacin-intuitiva">RNF-013 – Navegación Intuitiva</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá proporcionar navegación clara y consistente entre funcionalidades. Deberán incluirse menús de navegación principal, breadcrumbs cuando sea apropiado, y enlaces contextuales. La estructura de navegación deberá ser consistente en todas las páginas.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Usabilidad</li>
+</ul>
+<h4 id="rnf-014-accesibilidad-de-contenido">RNF-014 – Accesibilidad de Contenido</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá cumplir con los estándares de accesibilidad web WCAG 2.1 Nivel AA. El contenido deberá ser accesible para usuarios con discapacidades visuales, auditivas y motoras mediante el uso de etiquetas semánticas HTML, atributos alt en imágenes y navegación por teclado.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Usabilidad</li>
+</ul>
+<h3 id="43-rendimiento">4.3 Rendimiento</h3>
+<h4 id="rnf-015-tiempo-de-respuesta">RNF-015 – Tiempo de Respuesta</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá mantener tiempos de respuesta aceptables para operaciones comunes. El percentil P95 de latencia deberá ser menor a 2 segundos para consultas. Las operaciones de subida de archivos pueden tomar más tiempo dependiendo del tamaño.</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Rendimiento</li>
+</ul>
+<h4 id="rnf-016-escalabilidad">RNF-016 – Escalabilidad</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá estar diseñado para escalar horizontalmente con el aumento de usuarios. La arquitectura deberá permitir despliegue en múltiples instancias de servidor. Las sesiones de usuario no deberán estar ligadas a una instancia específica.</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Rendimiento</li>
+</ul>
+<h4 id="rnf-017-gestin-de-memoria">RNF-017 – Gestión de Memoria</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá gestionar eficientemente la memoria durante la ejecución. No deberá haber memory leaks en la aplicación. La liberación de recursos deberá ser automática o explícita según el lenguaje de implementación.</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Rendimiento</li>
+</ul>
+<h4 id="rnf-018-optimizacin-de-consultas-a-base-de-datos">RNF-018 – Optimización de Consultas a Base de Datos</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá implementar consultas a base de datos optimizadas. Se deberán usar índices en campos frecuentemente consultados (correo electrónico, código de materia). Se deberá minimizar el número de consultas mediante técnicas como lazy loading o eager loading según corresponda.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Rendimiento</li>
+</ul>
+<h3 id="44-fiabilidad">4.4 Fiabilidad</h3>
+<h4 id="rnf-019-persistencia-de-datos">RNF-019 – Persistencia de Datos</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá garantizar que todos los datos enviados y procesados se persisten correctamente en la base de datos. Los datos persisten permanentemente hasta que son explícitamente eliminados por funciones del sistema. No deberá haber pérdida de datos durante operaciones normales.</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Fiabilidad</li>
+</ul>
+<h4 id="rnf-020-recuperacin-de-errores">RNF-020 – Recuperación de Errores</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá recuperarse de errores sin perder datos ni requerir intervención manual. Los errores de aplicación deberán ser capturados y registrados. Las transacciones fallidas deberán revertirse automáticamente. Los usuarios deberán recibir notificación clara de errores cuando ocurran.</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Fiabilidad</li>
+</ul>
+<h4 id="rnf-021-disponibilidad-del-sistema">RNF-021 – Disponibilidad del Sistema</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá estar disponible para su uso la mayor parte del tiempo. Se establece un objetivo de disponibilidad de 99% (máximo 6 horas de downtime permitido por mes). El sistema deberá poder manejarse durante picos de uso sin interrupciones.</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Fiabilidad</li>
+</ul>
+<h4 id="rnf-022-manejo-de-errores-de-base-de-datos">RNF-022 – Manejo de Errores de Base de Datos</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá manejar correctamente errores de conexión a base de datos. Si la conexión se pierde, el sistema deberá intentar reconectar automáticamente. Si la reconexión falla, deberá mostrar un mensaje de error apropiado al usuario sin permitir operaciones que requieran base de datos.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Fiabilidad</li>
+</ul>
+<h3 id="45-compatibilidad">4.5 Compatibilidad</h3>
+<h4 id="rnf-023-compatibilidad-de-navegadores">RNF-023 – Compatibilidad de Navegadores</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá funcionar correctamente en navegadores web modernos. Se requiere compatibilidad con: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+. El sistema deberá utilizar estándares web (HTML5, CSS3) sin dependencias de tecnologías propietarias.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Compatibilidad</li>
+</ul>
+<h4 id="rnf-024-compatibilidad-de-bases-de-datos">RNF-024 – Compatibilidad de Bases de Datos</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá ser compatible con múltiples sistemas de base de datos relacional gracias al uso de ORM. Se deberá soportar PostgreSQL en producción y H2 en testing. La capa de acceso a datos deberá ser agnóstica respecto a la base de datos específica.</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Compatibilidad</li>
+</ul>
+<h4 id="rnf-025-compatibilidad-de-sistemas-operativos">RNF-025 – Compatibilidad de Sistemas Operativos</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá ejecutarse en múltiples sistemas operativos. Como la aplicación está desarrollada en Java, deberá funcionar en Windows, Linux y macOS. El servidor web deberá ser compatible con estos sistemas operativos.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Compatibilidad</li>
+</ul>
+<h3 id="46-mantenibilidad">4.6 Mantenibilidad</h3>
+<h4 id="rnf-026-arquitectura-modular">RNF-026 – Arquitectura Modular</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá estar estructurado siguiendo un patrón arquitectónico claro (Modelo-Vista-Controlador). Los componentes deberán estar débilmente acoplados. Los cambios en un módulo deberán tener impacto mínimo en otros módulos.</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Mantenibilidad</li>
+</ul>
+<h4 id="rnf-027-estndares-de-codificacin">RNF-027 – Estándares de Codificación</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá cumplir con estándares de codificación establecidos. Se deberán seguir convenciones de nomenclatura (CamelCase), indentación consistente (4 espacios), y nombres descriptivos para variables, métodos y clases. El código deberá ser legible sin requerir comentarios excesivos.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Mantenibilidad</li>
+</ul>
+<h4 id="rnf-028-trazabilidad-de-cambios">RNF-028 – Trazabilidad de Cambios</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá mantener un historial completo de cambios de código mediante control de versiones (Git). Cada cambio deberá estar asociado con un commit que describa el cambio realizado. Los commits deberán ser atómicos y lógicamente coherentes.</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Mantenibilidad</li>
+</ul>
+<h4 id="rnf-029-documentacin-de-cdigo">RNF-029 – Documentación de Código</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá incluir documentación adecuada del código. Las clases, métodos y funciones importantes deberán tener comentarios explicando su propósito. Se deberá mantener documentación técnica del sistema explicando la arquitectura y decisiones de diseño principales.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Mantenibilidad</li>
+</ul>
+<h4 id="rnf-030-testing">RNF-030 – Testing</h4>
+<ul>
+<li><strong>Descripción:</strong> El sistema deberá incluir pruebas automatizadas para verificar el funcionamiento correcto de componentes. Se deberán incluir pruebas unitarias para funciones y métodos críticos. Se deberán incluir pruebas de integración para verificar la interacción entre componentes.</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Mantenibilidad</li>
+</ul>
+<h3 id="47-portabilidad">4.7 Portabilidad</h3>
+<h4 id="rnf-031-independencia-de-plataforma">RNF-031 – Independencia de Plataforma</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá ser independiente de plataforma. Como está desarrollado en Java, deberá compilar y ejecutarse en diferentes sistemas operativos sin modificación del código fuente. Las rutas de archivos y configuraciones deberán ser agnósticas del SO.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Portabilidad</li>
+</ul>
+<h4 id="rnf-032-containerizacin">RNF-032 – Containerización</h4>
+<ul>
+<li><strong>Descripción:</strong> &quot;El sistema deberá poder desplegarse en contenedores Docker. Deberá incluir un Dockerfile que especifique las dependencias, compilación y configuración necesarias. El contenedor deberá ser reproducible en diferentes entornos.&quot;</li>
+<li><strong>Prioridad:</strong> Alta</li>
+<li><strong>Categoría ISO 25010:</strong> Portabilidad</li>
+</ul>
+<h2 id="5-consideraciones-de-calidad">5. CONSIDERACIONES DE CALIDAD</h2>
+<p>Los requisitos definidos en este documento están organizados de acuerdo a los procesos establecidos en IEEE 29148 y las características de calidad definidas en ISO/IEC 25010:2023.
+La estructura del documento garantiza que:</p>
+<table>
+<thead>
+<tr>
+<th>Propiedad</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trazabilidad</td>
+<td>&quot;Cada requisito funcional y no funcional es único, identificable y rastreable a través del proceso de desarrollo.&quot;</td>
+</tr>
+<tr>
+<td>Verificabilidad</td>
+<td>Todos los requisitos se expresan en lenguaje formal que permite verificación objetiva mediante pruebas o demostración.</td>
+</tr>
+<tr>
+<td>Consistencia</td>
+<td>Los requisitos no presentan contradicciones internas ni redundancias significativas.</td>
+</tr>
+<tr>
+<td>Completitud</td>
+<td>El conjunto de requisitos especifica la totalidad de capacidades funcionales y características de calidad requeridas para el sistema.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-restricciones-tcnicas">6. RESTRICCIONES TÉCNICAS</h2>
+<table>
+<thead>
+<tr>
+<th>Restricción</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lenguaje de Programación</td>
+<td>Java 17</td>
+</tr>
+<tr>
+<td>Framework Web</td>
+<td>Jakarta Servlet 6.0</td>
+</tr>
+<tr>
+<td>ORM</td>
+<td>Hibernate 6.6.1</td>
+</tr>
+<tr>
+<td>Base de Datos</td>
+<td>&quot;PostgreSQL (Producción), H2 (Testing)&quot;</td>
+</tr>
+<tr>
+<td>Servidor de Aplicaciones</td>
+<td>Cualquier servidor compatible con Jakarta EE 9.0+</td>
+</tr>
+<tr>
+<td>Máximo almacenamiento por archivo</td>
+<td>25 MB</td>
+</tr>
+<tr>
+<td>Roles del sistema</td>
+<td>&quot;Mínimo 3 (Administrador, Tutor, Estudiante)&quot;</td>
+</tr>
+<tr>
+<td>Semestres académicos</td>
+<td>Mínimo 9 por carrera</td>
+</tr>
+<tr>
+<td>Carreras soportadas</td>
+<td>Mínimo 4</td>
+</tr>
+<tr>
+<td>Protocolo de comunicación</td>
+<td>HTTPS obligatorio</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-glosario-de-trminos">7. GLOSARIO DE TÉRMINOS</h2>
+<table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Autenticación</td>
+<td>Proceso de verificación de la identidad de un usuario mediante credenciales</td>
+</tr>
+<tr>
+<td>Autorización</td>
+<td>Proceso de determinación de permisos que posee un usuario autenticado</td>
+</tr>
+<tr>
+<td>Hash (contraseña)</td>
+<td>Representación criptográfica irreversible de una contraseña</td>
+</tr>
+<tr>
+<td>MIME Type</td>
+<td>Tipo de medio de Internet que especifica el formato de un archivo</td>
+</tr>
+<tr>
+<td>ORM</td>
+<td>&quot;Mapeo Objeto-Relacional, técnica para convertir datos entre BD y objetos&quot;</td>
+</tr>
+<tr>
+<td>Persistencia</td>
+<td>Capacidad de datos de permanecer almacenados duraderamente</td>
+</tr>
+<tr>
+<td>RBAC</td>
+<td>Control de Acceso Basado en Roles</td>
+</tr>
+<tr>
+<td>SIGLA</td>
+<td>Código único que identifica una materia (ej: ICCD244)</td>
+</tr>
+<tr>
+<td>Token de Sesión</td>
+<td>Identificador único que mantiene el estado autenticado del usuario</td>
+</tr>
+<tr>
+<td>Transacción ACID</td>
+<td>&quot;Operación de BD que cumple Atomicidad, Consistencia, Aislamiento, Durabilidad&quot;</td>
+</tr>
+<tr>
+<td>Whitelist</td>
+<td>Lista explícita de valores permitidos</td>
+</tr>
+</tbody>
+</table>
+<h2 id="casos-de-uso">CASOS DE USO</h2>
+<h3 id="cu-01-iniciar-sesin">CU-01: Iniciar sesión</h3>
+<ul>
+<li>
+<p><strong>Actor principal:</strong> &quot;Usuario registrado (Administrador, Tutor o Estudiante).&quot;</p>
+</li>
+<li>
+<p><strong>Precondiciones:</strong></p>
+<ol>
+<li>Tiene una cuenta activa en la plataforma.</li>
+<li>Se encuentra en la pantalla de inicio de sesión.</li>
+</ol>
+</li>
+<li>
+<p><strong>Flujo principal:</strong></p>
+<ol>
+<li>El usuario ingresa su correo electrónico y contraseña.</li>
+<li>El usuario ingresa el rol con el que desea iniciar sesión (Estudiante o Tutor).</li>
+<li>El usuario confirma que desea entrar al sistema.</li>
+<li>El sistema valida que el correo y la contraseña correspondan a una cuenta existente.</li>
+<li>&quot;El sistema abre una sesión de trabajo y muestra el panel principal acorde a su rol (administración, tutoría o estudiante).&quot;</li>
+</ol>
+</li>
+<li>
+<p><strong>Flujos alternativos y excepciones:</strong></p>
+<ul>
+<li><strong>4a. Datos incompletos:</strong> el sistema indica que debe ingresar correo y contraseña; el caso vuelve al paso 1.</li>
+<li><strong>4b. Credenciales incorrectas:</strong> el sistema muestra un mensaje genérico de error (credenciales incorrectas); el caso vuelve al paso 1.</li>
+<li><strong>4c. Rol no reconocido para ingreso:</strong> el sistema muestra un mensaje genérico de error (rol no reconocido); el caso vuelve al paso 2.</li>
+</ul>
+</li>
+<li>
+<p><strong>Postcondiciones:</strong></p>
+<ul>
+<li><strong>Éxito:</strong> el usuario queda dentro del sistema y puede usar las funciones de su rol.</li>
+<li><strong>Fallo:</strong> permanece fuera del sistema como visitante.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-02-cerrar-sesin">CU-02: Cerrar sesión</h3>
+<ul>
+<li><strong>Actor principal:</strong> Usuario autenticado.</li>
+<li><strong>Precondiciones:</strong> El usuario tiene una sesión abierta en la plataforma.</li>
+<li><strong>Flujo principal:</strong>
+<ol>
+<li>El usuario elige cerrar sesión desde el menú o enlace correspondiente.</li>
+<li>El sistema finaliza su sesión de trabajo y procede a redirigirlo a la pantalla de inicio de sesión.</li>
+</ol>
+</li>
+<li><strong>Flujos alternativos y excepciones:</strong>
+<ul>
+<li><strong>2a. No había sesión activa:</strong> el sistema igualmente muestra la pantalla de inicio de sesión.</li>
+</ul>
+</li>
+<li><strong>Postcondiciones:</strong>
+<ul>
+<li><strong>Éxito:</strong> el usuario ya no puede acceder a zonas privadas sin volver a autenticarse.</li>
+<li><strong>Fallo:</strong> no aplica en condiciones normales.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-03-registrarse-en-el-sistema-como-estudiantetutor">CU-03: Registrarse en el sistema como estudiante/tutor</h3>
+<ul>
+<li><strong>Actor principal:</strong> Persona interesada en usar la plataforma como estudiante.</li>
+<li><strong>Precondiciones:</strong></li>
+</ul>
+<ol>
+<li>Se encuentra en el sitio web de la plataforma como usuario anónimo.</li>
+<li>Accede al formulario de registro público y elige el rol Estudiante.</li>
+</ol>
+<ul>
+<li>
+<p><strong>Flujo principal:</strong></p>
+<ol>
+<li>&quot;El usuario completa sus datos personales (nombres, apellidos), correo, contraseña, carrera y semestre académico.&quot;</li>
+<li>El usuario selecciona el rol deseado.</li>
+<li>El usuario envía el formulario de registro.</li>
+<li>El sistema valida la información obligatoria y verifica que los datos ingresados no existan en el sistema.</li>
+<li>El sistema crea la cuenta de usuario en estado activo.</li>
+<li>El sistema confirma el registro e invita a iniciar sesión.</li>
+</ol>
+</li>
+<li>
+<p><strong>Flujos alternativos y excepciones:</strong></p>
+<ul>
+<li><strong>1a. Formato de correo inválido:</strong> mensaje indicando que el correo no tiene un formato válido.</li>
+<li><strong>2a. Selección de rol 'Estudiante':</strong> El usuario elige el rol Estudiante.</li>
+<li><strong>2b. Selección de rol 'Tutor':</strong> El usuario elige el rol Tutor. Debe cumplir con los requisitos de <strong>2b.1</strong>.
+<ul>
+<li><strong>2b.1. Requisitos para ser tutor:</strong> El sistema valida que el semestre sea mayor a 1. Si no cumple, muestra mensaje de restricción académica.</li>
+<li><strong>2b.2. Materias seleccionadas:</strong> Las materias seleccionadas deben estar entre el rango de semestres ya cursados y mayor a primer semestre. Si no cumple, muestra mensaje de restricción académica.</li>
+</ul>
+</li>
+<li><strong>3a. Información incompleta:</strong> mensaje indicando que debe completar los campos obligatorios.</li>
+<li><strong>3b. Información incompleta teniendo el rol de tutor:</strong> El usuario elige el rol Tutor pero materias a dictar; el sistema solicita completar esos datos.</li>
+<li><strong>4a. Correo duplicado:</strong> mensaje de que el correo ya está registrado.</li>
+</ul>
+</li>
+<li>
+<p><strong>Postcondiciones:</strong></p>
+<ul>
+<li><strong>Éxito:</strong> nueva cuenta de estudiante lista para ingresar.</li>
+<li><strong>Éxito con rol tutor:</strong> Para tener la cuenta activa, un Administrador del sistema debe aprobar el perfil de tutor. Mientras tanto, el tutor queda en estado &quot;Pendiente de Verificación&quot; y no puede ofrecer tutorías ni subir materiales.</li>
+<li><strong>Fallo:</strong> no se crea la cuenta.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-04-crear-cuenta-de-usuario-por-administrador">CU-04: Crear cuenta de usuario (por administrador)</h3>
+<ul>
+<li><strong>Actor principal:</strong> Administrador del sistema.</li>
+<li><strong>Precondiciones:</strong> El administrador ya inició sesión y accede a la opción de crear un usuario.</li>
+<li><strong>Flujo principal:</strong>
+<ol>
+<li>El administrador ingresa nombres, apellidos y correo del nuevo usuario,</li>
+<li>El administrador selecciona el rol del nuevo usuario y confirma la creación.</li>
+<li>El sistema valida los datos obligatorios y la unicidad del correo.</li>
+<li>El sistema genera credenciales temporales.</li>
+<li>El sistema muestra al administrador las credenciales para entregar al nuevo usuario.</li>
+</ol>
+</li>
+<li><strong>Flujos alternativos y excepciones:</strong>
+<ul>
+<li><strong>3a. Datos incompletos:</strong> solicita nombres completos y correo.</li>
+<li><strong>3b. Correo del usuario con rol seleccionado como Estudiante/Tutor:</strong> el sistema verifica que el correo esté disponible. Si no lo está, muestra mensaje de correo duplicado. Si el correo está disponible, muestra mensaje de que solo se pueden crear administradores desde esta opción.</li>
+</ul>
+</li>
+<li><strong>Postcondiciones:</strong>
+<ul>
+<li><strong>Éxito:</strong> nuevo usuario puede ingresar con las credenciales temporales.</li>
+<li><strong>Fallo:</strong> no se crea la cuenta.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-05-consultar-listado-de-usuarios-del-sistema">CU-05: Consultar listado de usuarios del sistema</h3>
+<ul>
+<li>
+<p><strong>Actor principal:</strong> Administrador.</p>
+</li>
+<li>
+<p><strong>Precondiciones:</strong> Acceso al módulo de gestión de usuarios.</p>
+</li>
+<li>
+<p><strong>Flujo principal:</strong></p>
+<ol>
+<li>El administrador solicita ver todos los usuarios.</li>
+<li>&quot;El sistema muestra correo, rol, nombre y apellido de cada cuenta.&quot;</li>
+</ol>
+</li>
+<li>
+<p><strong>Flujos alternativos y excepciones:</strong></p>
+</li>
+<li>
+<p><strong>Postcondiciones:</strong></p>
+<ul>
+<li><strong>Éxito:</strong> visión global de cuentas registradas.</li>
+<li><strong>Fallo:</strong> no obtiene el listado.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-06-consultar-detalle-de-un-usuario">CU-06: Consultar detalle de un usuario</h3>
+<ul>
+<li><strong>Actor principal:</strong> Administrador.</li>
+<li><strong>Precondiciones:</strong> Existe el usuario seleccionado en el listado.</li>
+<li><strong>Flujo principal:</strong>
+<ol>
+<li>El administrador elige un usuario del listado.</li>
+<li>El sistema muestra la ficha con datos (correo, rol, nombre, apellido) y perfil asociado.</li>
+</ol>
+</li>
+<li><strong>Flujos alternativos y excepciones:</strong>
+<ul>
+<li><strong>2a. Usuario inexistente o identificador inválido:</strong> regresa al listado sin mostrar detalle.</li>
+</ul>
+</li>
+<li><strong>Postcondiciones:</strong>
+<ul>
+<li><strong>Éxito:</strong> información disponible para revisión o edición.</li>
+<li><strong>Fallo:</strong> no se muestra la ficha.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-07-actualizar-datos-de-un-usuario">CU-07: Actualizar datos de un usuario</h3>
+<ul>
+<li><strong>Actor principal:</strong> Administrador.</li>
+<li><strong>Precondiciones:</strong> Ficha de usuario abierta.</li>
+<li><strong>Flujo principal:</strong>
+<ol>
+<li>El administrador modifica nombre, apellido, correo y, si aplica, contraseña. Confirma los cambios.</li>
+<li>El sistema valida obligatorios y unicidad del correo.</li>
+<li>El sistema guarda los cambios en la cuenta y en el perfil vinculado.</li>
+<li>El sistema navega de regreso a la ficha del usuario mostrando los datos actualizados.</li>
+</ol>
+</li>
+<li><strong>Flujos alternativos y excepciones:</strong>
+<ul>
+<li><strong>2a. Nombre o correo vacíos:</strong> solicita completar.</li>
+<li><strong>2b. Correo ya usado por otra cuenta:</strong> rechaza la actualización.</li>
+</ul>
+</li>
+<li><strong>Postcondiciones:</strong>
+<ul>
+<li><strong>Éxito:</strong> datos updated.</li>
+<li><strong>Fallo:</strong> permanecen los datos anteriores.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-08-consultar-listado-de-estudiantes">CU-08: Consultar listado de estudiantes</h3>
+<ul>
+<li><strong>Actor principal:</strong> Administrador.</li>
+<li><strong>Precondiciones:</strong>
+<ol>
+<li>El usuario ingresado tiene el rol como adminsitrador.</li>
+<li>El usuario accede al módulo de gestión de estudiantes.</li>
+</ol>
+</li>
+<li><strong>Flujo principal:</strong>
+<ol>
+<li>El administrador accede al listado de estudiantes.</li>
+<li>El sistema muestra identificador, nombre, correo y datos académicos disponibles (semestre en curso y carrera).</li>
+</ol>
+</li>
+<li><strong>Postcondiciones:</strong>
+<ul>
+<li><strong>Éxito:</strong> panorama de la población estudiantil registrada.</li>
+<li><strong>Fallo:</strong> sin acceso al listado.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-09-consultar-detalle-de-un-estudiante">CU-09: Consultar detalle de un estudiante</h3>
+<ul>
+<li><strong>Actor principal:</strong> Administrador.</li>
+<li><strong>Precondiciones:</strong>
+<ol>
+<li>El administrador tiene acceso al listado de estudiantes.</li>
+<li>El estudiante seleccionado existe en el sistema.</li>
+</ol>
+</li>
+<li><strong>Flujo principal:</strong>
+<ol>
+<li>El administrador selecciona un estudiante.</li>
+<li>&quot;El sistema presenta su información académica (semestre en curso y carrera), de contacto y estado de la cuenta.&quot;</li>
+</ol>
+</li>
+<li><strong>Flujos alternativos y excepciones:</strong>
+<ul>
+<li><strong>2a. Estudiante no encontrado:</strong> vuelve al listado.</li>
+</ul>
+</li>
+<li><strong>Postcondiciones:</strong>
+<ul>
+<li><strong>Éxito:</strong> ficha completa para gestión.</li>
+<li><strong>Fallo:</strong> sin ficha.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-10-actualizar-datos-de-un-estudiante">CU-10: Actualizar datos de un estudiante</h3>
+<ul>
+<li><strong>Actor principal:</strong> Administrador.</li>
+<li><strong>Precondiciones:</strong>
+<ol>
+<li>El usuario regisrtrado tiene el rol de administrador.</li>
+<li>El usuario accedió al módulo de gestión de estudiantes.</li>
+<li>El usuario ingresó a la ficha de estudiante a actualizar.</li>
+</ol>
+</li>
+<li><strong>Flujo principal:</strong>
+<ol>
+<li>El administrador edita nombres, apellidos, correo y opcionalmente la contraseña. Y confirma los cambios.</li>
+<li>El sistema valida correo y nombre. Y el sistema actualiza la cuenta y el perfil estudiantil.</li>
+</ol>
+</li>
+<li><strong>Flujos alternativos y excepciones:</strong>
+<ul>
+<li><strong>2a. Datos inválidos o correo duplicado:</strong> mensaje de error; no guarda.</li>
+</ul>
+</li>
+<li><strong>Postcondiciones:</strong>
+<ul>
+<li><strong>Éxito:</strong> Perfil estudiantil actualizado.</li>
+<li><strong>Fallo:</strong> sin cambios.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-11-consultar-mi-perfil">CU-11: Consultar mi perfil</h3>
+<ul>
+<li><strong>Actor principal:</strong> Usuario autenticado.</li>
+<li><strong>Precondiciones:</strong>
+<ol>
+<li>El usuario ha iniciado sesión correctamente.</li>
+<li>El usuario accede a la sección &quot;Mi perfil&quot;.</li>
+</ol>
+</li>
+<li><strong>Flujo principal:</strong>
+<ol>
+<li>&quot;El usuario abre la sección &quot;Mi perfil&quot;.&quot;</li>
+<li>El sistema muestra su nombre, correo registrado y su rol.</li>
+</ol>
+</li>
+<li><strong>Flujos alternativos y excepciones:</strong>
+<ul>
+<li><strong>1a. No ha iniciado sesión:</strong> debe autenticarse primero.</li>
+</ul>
+</li>
+<li><strong>Postcondiciones:</strong>
+<ul>
+<li><strong>Éxito:</strong> el usuario conoce su información registrada.</li>
+<li><strong>Fallo:</strong> no accede al perfil.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-12-actualizar-mi-perfil-profesional-tutor">CU-12: Actualizar mi perfil profesional (tutor)</h3>
+<ul>
+<li><strong>Actor principal:</strong> Tutor autenticado.</li>
+<li><strong>Precondiciones:</strong>
+<ol>
+<li>El tutor ha iniciado sesión correctamente.</li>
+<li>El tutor accede a la sección &quot;Mi perfil&quot;.</li>
+</ol>
+</li>
+<li><strong>Flujo principal:</strong>
+<ol>
+<li>El sistema muestra carrera, semestre, materias que enseña y descripción profesional.</li>
+<li><strong>Actualizar semestre:</strong> el sistema ajusta las materias a las permitidas para su nuevo nivel.</li>
+<li><strong>Actualizar materias y carrera:</strong> solo puede mantener materias de semestres ya cursados.</li>
+<li><strong>Actualizar descripción profesional:</strong> texto visible para estudiantes que lo busquen.</li>
+<li><strong>Actualizar nombre mostrado:</strong> refleja cómo aparece en la plataforma.</li>
+</ol>
+</li>
+<li><strong>Flujos alternativos y excepciones:</strong>
+<ul>
+<li><strong>Cuenta sin perfil académico vinculado:</strong> el sistema indica que debe contactar al administrador.</li>
+<li><strong>Materias o semestre no válidos:</strong> mensaje de error y no guarda cambios.</li>
+</ul>
+</li>
+<li><strong>Postcondiciones:</strong>
+<ul>
+<li><strong>Éxito:</strong> perfil de tutor actualizado y coherente con las reglas académicas.</li>
+<li><strong>Fallo:</strong> perfil sin cambios.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-13-actualizar-mi-contrasea">CU-13: Actualizar mi contraseña</h3>
+<ul>
+<li><strong>Actor principal:</strong> Usuario autenticado.</li>
+<li><strong>Precondiciones:</strong>
+<ol>
+<li>El usuario ha iniciado sesión correctamente.</li>
+<li>El usuario accede a la sección &quot;Mi perfil&quot;.</li>
+</ol>
+</li>
+<li><strong>Flujo principal:</strong>
+<ul>
+<li><strong>Contraseña</strong> — Ingresa contraseña actual, nueva y confirmación. El sistema verifica coincidencias y longitud mínima. El sistema aplica la nueva contraseña.</li>
+</ul>
+</li>
+<li><strong>Flujos alternativos y excepciones:</strong>
+<ul>
+<li>Contraseña actual incorrecta, confirmación distinta o contraseña corta: mensajes claros; no cambia la clave.</li>
+</ul>
+</li>
+<li><strong>Postcondiciones:</strong>
+<ul>
+<li><strong>Éxito:</strong> contraseña actualizados.</li>
+<li><strong>Fallo:</strong> permanece la contraseña anterior.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-14-publicar-material-educativo">CU-14: Publicar material educativo</h3>
+<ul>
+<li><strong>Actor principal:</strong> Usuario autenticado con el rol de tutor.</li>
+<li><strong>Precondiciones:</strong>
+<ol>
+<li>Sesión de tutor activa.</li>
+<li>El usuario tiene un perfil académico aprobado y activo.</li>
+<li>El usuario accede a la sección de publicación de materiales.</li>
+</ol>
+</li>
+<li><strong>Flujo principal:</strong>
+<ol>
+<li>El tutor completa título, descripción, materia, precio (si aplica) y adjunta el archivo, y envía el material para revisión.</li>
+<li>El sistema valida datos obligatorios, tipo y tamaño del archivo, y que la materia corresponda a su perfil académico.</li>
+<li>El sistema registra el material en estado pendiente de aprobación.</li>
+<li>El sistema confirma que el envío fue recibido.</li>
+</ol>
+</li>
+<li><strong>Flujos alternativos y excepciones:</strong>
+<ul>
+<li><strong>2a. Título vacío, archivo no permitido o materia inválida:</strong> mensaje de error; el tutor corrige y reintenta.</li>
+<li><strong>2b. Archivo demasiado grande:</strong> no se acepta el envío (límite de 25 MB según reglas del negocio).</li>
+</ul>
+</li>
+<li><strong>Postcondiciones:</strong>
+<ul>
+<li><strong>Éxito:</strong> material en cola de revisión administrativa.</li>
+<li><strong>Fallo:</strong> material no publicado.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-15-consultar-mis-materiales-publicados">CU-15: Consultar mis materiales publicados</h3>
+<ul>
+<li><strong>Actor principal:</strong> Usuario autenticado con el rol de tutor.</li>
+<li><strong>Precondiciones:</strong>
+<ol>
+<li>Sesión de tutor activa.</li>
+<li>El usuario tiene un perfil académico aprobado y activo.</li>
+<li>El usuario accede a la sección de sus materiales publicados.</li>
+</ol>
+</li>
+<li><strong>Flujo principal:</strong>
+<ol>
+<li>El tutor abre la sección de sus materiales.</li>
+<li>El sistema lista cada recurso con título, fecha de envío, fecha de aprobación o rechazo y estado (pendiente, aprobado o rechazado).</li>
+<li>Si fue rechazado, el sistema muestra el motivo cuando existe.</li>
+</ol>
+</li>
+<li><strong>Postcondiciones:</strong>
+<ul>
+<li><strong>Éxito:</strong> el tutor conoce el estado de su oferta académica.</li>
+<li><strong>Fallo:</strong> no accede al listado.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-16-consultar-detalle-de-un-material-propio">CU-16: Consultar detalle de un material propio</h3>
+<ul>
+<li><strong>Actor principal:</strong> Usuario autenticado con el rol de tutor.</li>
+<li><strong>Precondiciones:</strong>
+<ol>
+<li>Sesión de tutor activa.</li>
+<li>El usuario tiene un perfil académico aprobado y activo.</li>
+<li>El usuario accede a la sección de sus materiales publicados.</li>
+</ol>
+</li>
+<li><strong>Flujo principal:</strong>
+<ol>
+<li>El tutor selecciona un material de su listado.</li>
+<li>&quot;El sistema muestra descripción, materia, precio, estado, fecha, el documento y motivo de rechazo si aplica.&quot;</li>
+</ol>
+</li>
+<li><strong>Postcondiciones:</strong>
+<ul>
+<li><strong>Éxito:</strong> información completa para seguimiento o corrección.</li>
+<li><strong>Fallo:</strong> no se muestra el detalle.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-17-supervisar-materiales-enviados-por-tutores">CU-17: Supervisar materiales enviados por tutores</h3>
+<ul>
+<li><strong>Actor principal:</strong> Administrador.</li>
+<li><strong>Precondiciones:</strong>
+<ol>
+<li>El usuario tiene el rol de administrador.</li>
+<li>El usuario accede al módulo de gestión de materiales.</li>
+</ol>
+</li>
+<li><strong>Flujo principal:</strong>
+<ol>
+<li>El administrador accede al módulo de materiales.</li>
+<li>El sistema muestra todos los recursos enviados, ordenados por fecha más reciente, con su estado. La visualización en el sistema es mediante paginación.</li>
+</ol>
+</li>
+<li><strong>Postcondiciones:</strong>
+<ul>
+<li><strong>Éxito:</strong> visión para moderación de contenidos.</li>
+<li><strong>Fallo:</strong> sin acceso al módulo.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-18-revisar-un-material-antes-de-decidir">CU-18: Revisar un material antes de decidir</h3>
+<ul>
+<li><strong>Actor principal:</strong> Administrador.</li>
+<li><strong>Precondiciones:</strong>
+<ol>
+<li>El usuario tiene el rol de administrador.</li>
+<li>El usuario accede al módulo de gestión de materiales.</li>
+</ol>
+</li>
+<li><strong>Flujo principal:</strong>
+<ol>
+<li>El administrador abre el detalle de un material pendiente o ya resuelto.</li>
+<li>El sistema presenta metadatos, precio, materia, estado, el documento y motivo de rechazo previo si existe.</li>
+<li>El administrador evalúa la calidad y pertinencia del contenido.</li>
+<li>El administrador decide aprobar o rechazar el material.</li>
+</ol>
+</li>
+<li><strong>Flujos alternativos y excepciones:</strong>
+<ul>
+<li><strong>Material inexistente:</strong> regresa al listado con aviso.</li>
+<li><strong>4.a. Decisión de aprobación:</strong> el administrador elige aprobar; el sistema cambia el estado a aprobado y notifica al tutor que su material fue aprobado.</li>
+<li><strong>4.b. Decisión de rechazo:</strong> el administrador elige rechazar; el sistema solicita un motivo de rechazo, cambia el estado a rechazado y notifica al tutor que su material fue rechazado con el motivo registrado.</li>
+</ul>
+</li>
+<li><strong>Postcondiciones:</strong>
+<ul>
+<li><strong>Éxito:</strong> el administrador está en condiciones de aprobar o rechazar.</li>
+<li><strong>Fallo:</strong> no puede revisar ese ítem.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-19-buscar-tutor-por-materia">CU-19: Buscar tutor por materia</h3>
+<ul>
+<li><strong>Actor principal:</strong> Estudiante.</li>
+<li><strong>Precondiciones:</strong>
+<ol>
+<li>El estudiante ha iniciado sesión correctamente.</li>
+<li>El estudiante ya posee la información de su carrera y semestre en su perfil, o el sistema le solicita actualizarla para poder buscar tutores.</li>
+<li>El estudiante accede a la sección de búsqueda de tutores por materia.</li>
+</ol>
+</li>
+<li><strong>Flujo principal:</strong>
+<ol>
+<li>El estudiante elige una materia de su plan de estudios.</li>
+<li>El sistema busca tutores que declaren dominar esa materia y no estén inactivos.</li>
+<li>El sistema muestra la lista ordenada por nombre con datos resumidos.</li>
+</ol>
+</li>
+<li><strong>Flujos alternativos y excepciones:</strong>
+<ul>
+<li><strong>Sin carrera en perfil:</strong> el sistema pide registrar la carrera para poder buscar.</li>
+<li><strong>Materia fuera de su carrera:</strong> indica que debe elegir una materia de su plan.</li>
+<li><strong>Sin selección de materia:</strong> muestra la pantalla de búsqueda sin resultados.</li>
+<li><strong>Ningún tutor disponible:</strong> lista vacía; el estudiante puede probar otra materia.</li>
+</ul>
+</li>
+<li><strong>Postcondiciones:</strong>
+<ul>
+<li><strong>Éxito:</strong> opciones de apoyo tutorial identificadas.</li>
+<li><strong>Fallo:</strong> no obtiene tutores para esa materia.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-20-consultar-perfil-de-un-tutor">CU-20: Consultar perfil de un tutor</h3>
+<ul>
+<li><strong>Actor principal:</strong> Estudiante.</li>
+<li><strong>Precondiciones:</strong>
+<ol>
+<li>El estudiante ha iniciado sesión correctamente.</li>
+<li>El estudiante accede a la sección de búsqueda de tutores por materia.</li>
+<li>El estudiante selecciona un tutor del listado de resultados.</li>
+</ol>
+</li>
+<li><strong>Flujo principal:</strong>
+<ol>
+<li>Desde los resultados de búsqueda, el estudiante abre el perfil de un tutor.</li>
+<li>El sistema muestra nombre, descripción profesional, carrera, semestre y materias que imparte.</li>
+<li>El estudiante evalúa si registra una solicitud de tutoría.</li>
+<li>El sistema muestra un mensaje de confirmación al registrar la solicitud.</li>
+</ol>
+</li>
+<li><strong>Flujos alternativos y excepciones:</strong>
+<ul>
+<li><strong>4a. Registrar solicitud de tutoría:</strong> el estudiante confirma que desea solicitar tutoría con ese tutor; el sistema muestra que el tutor no posee citas disponibles.</li>
+</ul>
+</li>
+<li><strong>Postcondiciones:</strong>
+<ul>
+<li><strong>Éxito:</strong> el estudiante dispone de información para decidir con quién trabajar.</li>
+<li><strong>Fallo:</strong> no visualiza el perfil.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-21-ver-el-panel-de-administracin">CU-21: Ver el panel de administración</h3>
+<ul>
+<li><strong>Actor principal:</strong> Administrador.</li>
+<li><strong>Precondiciones:</strong>
+<ol>
+<li>El usuario ha iniciado sesión correctamente con rol de administrador.</li>
+<li>El usuario accede a la sección de administración.</li>
+</ol>
+</li>
+<li><strong>Flujo principal:</strong>
+<ol>
+<li>Tras iniciar sesión, el administrador llega a su panel principal.</li>
+<li>&quot;El sistema ofrece accesos rápidos a usuarios, materiales y creación de administradores.&quot;</li>
+</ol>
+</li>
+<li><strong>Postcondiciones:</strong>
+<ul>
+<li><strong>Éxito:</strong> punto de partida para tareas de gestión.</li>
+<li><strong>Fallo:</strong> redirección a inicio de sesión.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-22-usar-el-panel-del-tutor">CU-22: Usar el panel del tutor</h3>
+<ul>
+<li><strong>Actor principal:</strong> Tutor.</li>
+<li><strong>Precondiciones:</strong>
+<ol>
+<li>El usuario ha iniciado sesión correctamente con rol de tutor.</li>
+</ol>
+</li>
+<li><strong>Flujo principal:</strong>
+<ol>
+<li>Tras iniciar sesión, el tutor solicita ver el panel.</li>
+<li>El sistema destaca acciones para subir material, revisar sus envíos y gestionar su perfil.</li>
+</ol>
+</li>
+<li><strong>Postcondiciones:</strong>
+<ul>
+<li><strong>Éxito:</strong> orientación clara de las tareas del tutor.</li>
+<li><strong>Fallo:</strong> debe autenticarse.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cu-23-visualizar-el-panel-del-estudiante">CU-23: Visualizar el panel del estudiante</h3>
+<ul>
+<li><strong>Actor principal:</strong> Estudiante.</li>
+<li><strong>Precondiciones:</strong>
+<ol>
+<li>El usuario ha iniciado sesión correctamente con rol de estudiante.</li>
+</ol>
+</li>
+<li><strong>Flujo principal:</strong>
+<ol>
+<li>El estudiante solicita ver su panel.</li>
+<li>El sistema prioriza la búsqueda de tutores y el acceso a su perfil.</li>
+</ol>
+</li>
+<li><strong>Postcondiciones:</strong>
+<ul>
+<li><strong>Éxito:</strong> el estudiante sabe cómo iniciar su búsqueda de apoyo.</li>
+<li><strong>Fallo:</strong> debe autenticarse.</li>
+</ul>
+</li>
+<li><strong>Nota:</strong> El SRS incluye navegar un catálogo de materiales aprobados; esa experiencia no está disponible para el estudiante en la operación actual.</li>
+</ul>
+<h3 id="cu-24-explorar-la-plataforma-como-visitante">CU-24: Explorar la plataforma como visitante</h3>
+<ul>
+<li><strong>Actor principal:</strong> Usuario anónimo.</li>
+<li><strong>Flujo principal:</strong>
+<ol>
+<li>El visitante entra a la página pública de la plataforma.</li>
+<li>El sistema muestra información general sobre el servicio, sus beneficios y cómo funciona.</li>
+<li>El sistema ofrece enlaces para registrarse o iniciar sesión.</li>
+</ol>
+</li>
+<li><strong>Flujos alternativos y excepciones:</strong>
+<ul>
+<li><strong>2a. Acceso a funciones privadas:</strong> el visitante intenta acceder a funciones que requieren autenticación; el sistema redirige a inicio de sesión con opción de registrarse sea el caso.</li>
+</ul>
+</li>
+<li><strong>Postcondiciones:</strong>
+<ul>
+<li><strong>Éxito:</strong> comprende el servicio y cómo crear cuenta o ingresar.</li>
+<li><strong>Fallo:</strong> no accede a funciones privadas (comportamiento esperado).</li>
+</ul>
+</li>
+</ul>
+<h3 id="diagrama-de-casos-de-uso">Diagrama de casos de Uso</h3>
+<p>Los siguientes diagramas modelan los casos de uso <strong>CU-01</strong> a <strong>CU-24</strong> definidos en este documento. Se utilizan los cuatro actores del sistema (sección 2.2) y la notación UML de casos de uso en PlantUML.</p>
+<h4 id="diagrama-general-del-sistema">Diagrama general del sistema</h4>
+<p>Vista de contexto que relaciona todos los actores con los casos de uso del sistema OwlShare.</p>
+<div class="plantuml-diagram" data-vscode-context='{"webviewSection":"diagram","preventDefaultContextMenuItems":false}'><?plantuml 1.2026.2?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="DESCRIPTION" height="1911px" preserveAspectRatio="none" style="width:659px;height:1911px;background:#FFFFFF;" version="1.1" viewBox="0 0 659 1911" width="659px" zoomAndPan="magnify"><defs/><g><!--cluster Sistema OwlShare--><g class="cluster" data-qualified-name="Sistema OwlShare" data-source-line="9" id="ent0006"><rect fill="none" height="1654" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1;" width="493" x="160" y="111.5"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="122.165" x="345.4175" y="128.0332">Sistema OwlShare</text></g><!--entity CU01--><g class="entity" data-qualified-name="Sistema OwlShare.CU01" data-source-line="10" id="ent0007"><ellipse cx="267.6049" cy="860.6758" fill="#F1F1F1" rx="55.6049" ry="25.6758" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="247.3774" y="853.8527">CU-01</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="81.7031" x="226.7534" y="871.4621">Iniciar sesi&#243;n</text></g><!--entity CU02--><g class="entity" data-qualified-name="Sistema OwlShare.CU02" data-source-line="11" id="ent0008"><ellipse cx="267.513" cy="946.6387" fill="#F1F1F1" rx="57.013" ry="25.6387" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="247.2855" y="939.7568">CU-02</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="84.0273" x="225.4993" y="957.3662">Cerrar sesi&#243;n</text></g><!--entity CU03--><g class="entity" data-qualified-name="Sistema OwlShare.CU03" data-source-line="12" id="ent0009"><ellipse cx="267.508" cy="1033.3831" fill="#F1F1F1" rx="49.508" ry="25.8831" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="247.2805" y="1026.887">CU-03</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="71.5791" x="231.7185" y="1044.4964">Registrarse</text></g><!--entity CU04--><g class="entity" data-qualified-name="Sistema OwlShare.CU04" data-source-line="13" id="ent0010"><ellipse cx="267.6092" cy="430.2612" fill="#F1F1F1" rx="86.6092" ry="25.2612" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="247.3817" y="422.7707">CU-04</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="132.2754" x="201.4715" y="440.38">Crear cuenta (admin)</text></g><!--entity CU05--><g class="entity" data-qualified-name="Sistema OwlShare.CU05" data-source-line="14" id="ent0011"><ellipse cx="556.2766" cy="259.544" fill="#F1F1F1" rx="61.2766" ry="25.544" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="536.0491" y="252.5109">CU-05</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="91.041" x="510.7561" y="270.1203">Listar usuarios</text></g><!--entity CU06--><g class="entity" data-qualified-name="Sistema OwlShare.CU06" data-source-line="15" id="ent0012"><ellipse cx="267.6322" cy="516.3558" fill="#F1F1F1" rx="74.6322" ry="25.3558" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="247.4046" y="509.0192">CU-06</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="112.8477" x="211.2084" y="526.6286">Detalle de usuario</text></g><!--entity CU07--><g class="entity" data-qualified-name="Sistema OwlShare.CU07" data-source-line="16" id="ent0013"><ellipse cx="267.6655" cy="602.3657" fill="#F1F1F1" rx="73.6655" ry="25.3657" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="247.438" y="595.0452">CU-07</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="111.2754" x="212.0278" y="612.6546">Actualizar usuario</text></g><!--entity CU08--><g class="entity" data-qualified-name="Sistema OwlShare.CU08" data-source-line="17" id="ent0014"><ellipse cx="556.7161" cy="473.3759" fill="#F1F1F1" rx="72.7161" ry="25.3759" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="536.4886" y="466.0719">CU-08</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="109.7305" x="501.8509" y="483.6813">Listar estudiantes</text></g><!--entity CU09--><g class="entity" data-qualified-name="Sistema OwlShare.CU09" data-source-line="18" id="ent0015"><ellipse cx="267.6532" cy="688.2641" fill="#F1F1F1" rx="86.1532" ry="25.2641" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="247.4256" y="680.7781">CU-09</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="131.5371" x="201.8846" y="698.3875">Detalle de estudiante</text></g><!--entity CU10--><g class="entity" data-qualified-name="Sistema OwlShare.CU10" data-source-line="19" id="ent0016"><ellipse cx="267.6821" cy="774.2703" fill="#F1F1F1" rx="85.1821" ry="25.2703" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="247.4546" y="766.7945">CU-10</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="129.9648" x="202.6997" y="784.4039">Actualizar estudiante</text></g><!--entity CU11--><g class="entity" data-qualified-name="Sistema OwlShare.CU11" data-source-line="20" id="ent0017"><ellipse cx="267.6112" cy="1120.356" fill="#F1F1F1" rx="74.6112" ry="25.356" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="247.3836" y="1113.0198">CU-11</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="112.8135" x="211.2044" y="1130.6291">Consultar mi perfil</text></g><!--entity CU12--><g class="entity" data-qualified-name="Sistema OwlShare.CU12" data-source-line="21" id="ent0018"><ellipse cx="267.7261" cy="1206.28" fill="#F1F1F1" rx="83.7261" ry="25.28" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="247.4986" y="1198.8201">CU-12</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="127.6064" x="203.9229" y="1216.4295">Actualizar perfil tutor</text></g><!--entity CU13--><g class="entity" data-qualified-name="Sistema OwlShare.CU13" data-source-line="22" id="ent0019"><ellipse cx="267.5623" cy="1292.2525" fill="#F1F1F1" rx="88.0623" ry="25.2525" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="247.3347" y="1284.7477">CU-13</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="134.627" x="200.2488" y="1302.3571">Actualizar contrase&#241;a</text></g><!--entity CU14--><g class="entity" data-qualified-name="Sistema OwlShare.CU14" data-source-line="23" id="ent0020"><ellipse cx="267.3594" cy="1378.4157" fill="#F1F1F1" rx="69.3594" ry="25.4157" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="247.1319" y="1371.1761">CU-14</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="104.2617" x="215.2286" y="1388.7855">Publicar material</text></g><!--entity CU15--><g class="entity" data-qualified-name="Sistema OwlShare.CU15" data-source-line="24" id="ent0021"><ellipse cx="556.2894" cy="1573.5537" fill="#F1F1F1" rx="60.7894" ry="25.5537" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="536.0619" y="1566.5361">CU-15</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="90.2412" x="511.1688" y="1584.1455">Mis materiales</text></g><!--entity CU16--><g class="entity" data-qualified-name="Sistema OwlShare.CU16" data-source-line="25" id="ent0022"><ellipse cx="267.4268" cy="1464.734" fill="#F1F1F1" rx="91.4268" ry="25.234" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="247.1992" y="1457.1989">CU-16</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="140.0684" x="197.3926" y="1474.8083">Detalle material propio</text></g><!--entity CU17--><g class="entity" data-qualified-name="Sistema OwlShare.CU17" data-source-line="26" id="ent0023"><ellipse cx="267.5313" cy="172.7498" fill="#F1F1F1" rx="88.5313" ry="25.2498" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="247.3037" y="165.2405">CU-17</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="135.3857" x="199.8384" y="182.8499">Supervisar materiales</text></g><!--entity CU18--><g class="entity" data-qualified-name="Sistema OwlShare.CU18" data-source-line="27" id="ent0024"><ellipse cx="267.445" cy="258.4414" fill="#F1F1F1" rx="67.445" ry="25.4414" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="247.2175" y="251.2435">CU-18</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="101.1377" x="216.8762" y="268.8528">Revisar material</text></g><!--entity CU19--><g class="entity" data-qualified-name="Sistema OwlShare.CU19" data-source-line="28" id="ent0025"><ellipse cx="556.3467" cy="1701.2931" fill="#F1F1F1" rx="51.8467" ry="25.7931" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="536.1192" y="1694.6555">CU-19</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="75.4756" x="518.6089" y="1712.2649">Buscar tutor</text></g><!--entity CU20--><g class="entity" data-qualified-name="Sistema OwlShare.CU20" data-source-line="29" id="ent0026"><ellipse cx="267.5489" cy="1637.6506" fill="#F1F1F1" rx="56.5489" ry="25.6506" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="247.3213" y="1630.7875">CU-20</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="83.2617" x="225.918" y="1648.3969">Perfil de tutor</text></g><!--entity CU21--><g class="entity" data-qualified-name="Sistema OwlShare.CU21" data-source-line="30" id="ent0027"><ellipse cx="267.6779" cy="344.2703" fill="#F1F1F1" rx="85.1779" ry="25.2703" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="247.4504" y="336.7946">CU-21</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="129.958" x="202.6989" y="354.4039">Panel administraci&#243;n</text></g><!--entity CU22--><g class="entity" data-qualified-name="Sistema OwlShare.CU22" data-source-line="31" id="ent0028"><ellipse cx="267.6977" cy="1550.489" fill="#F1F1F1" rx="47.1977" ry="25.989" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="247.4701" y="1544.1582">CU-22</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="67.71" x="233.8427" y="1561.7676">Panel tutor</text></g><!--entity CU23--><g class="entity" data-qualified-name="Sistema OwlShare.CU23" data-source-line="32" id="ent0029"><ellipse cx="267.3846" cy="1723.4153" fill="#F1F1F1" rx="69.3846" ry="25.4153" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="247.157" y="1716.1753">CU-23</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="104.3027" x="215.2332" y="1733.7847">Panel estudiante</text></g><!--entity CU24--><g class="entity" data-qualified-name="Sistema OwlShare.CU24" data-source-line="33" id="ent0030"><ellipse cx="556.3695" cy="817.3047" fill="#F1F1F1" rx="80.3695" ry="25.3047" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="536.142" y="809.8851">CU-24</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="122.165" x="495.287" y="827.4945">Explorar plataforma</text></g><!--entity Visitante--><g class="entity" data-qualified-name="Visitante" data-source-line="4" id="ent0002"><ellipse cx="59.6929" cy="14" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M59.6929,22 L59.6929,49 M46.6929,30 L72.6929,30 M59.6929,49 L46.6929,64 M59.6929,49 L72.6929,64" fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="107.3857" x="6" y="80.0332">Usuario An&#243;nimo</text></g><!--entity Admin--><g class="entity" data-qualified-name="Admin" data-source-line="5" id="ent0003"><ellipse cx="59.6826" cy="510" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M59.6826,518 L59.6826,545 M46.6826,526 L72.6826,526 M59.6826,545 L46.6826,560 M59.6826,545 L72.6826,560" fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="86.3652" x="16.5" y="576.0332">Administrador</text></g><!--entity Tutor--><g class="entity" data-qualified-name="Tutor" data-source-line="6" id="ent0004"><ellipse cx="59.3379" cy="1251" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M59.3379,1259 L59.3379,1286 M46.3379,1267 L72.3379,1267 M59.3379,1286 L46.3379,1301 M59.3379,1286 L72.3379,1301" fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32.6758" x="43" y="1317.0332">Tutor</text></g><!--entity Est--><g class="entity" data-qualified-name="Est" data-source-line="7" id="ent0005"><ellipse cx="59.5791" cy="1369" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M59.5791,1377 L59.5791,1404 M46.5791,1385 L72.5791,1385 M59.5791,1404 L46.5791,1419 M59.5791,1404 L72.5791,1419" fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="66.1582" x="26.5" y="1435.0332">Estudiante</text></g><!--link Visitante to CU03--><g class="link" data-entity-1="ent0002" data-entity-2="ent0009" data-link-type="dependency" data-source-line="36" id="lnk31"><path d="M65.76,83.8 C75.91,160.52 98.47,335.69 113,483.5 C118.52,539.62 118.31,944.29 152,989.5 C167.78,1010.68 189.3023,1020.2741 213.3123,1025.9741" fill="none" id="Visitante-to-CU03" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="219.15,1027.36,211.3173,1021.3893,214.2852,1026.2051,209.4695,1029.173,219.15,1027.36" style="stroke:#181818;stroke-width:1;"/></g><!--link Visitante to CU24--><g class="link" data-entity-1="ent0002" data-entity-2="ent0030" data-link-type="dependency" data-source-line="37" id="lnk32"><path d="M113.12,45.43 C178.9,49.41 291.07,65.86 359,129.5 C490.13,252.36 434.6,341.65 476,516.5 C500.28,619.06 532.078,734.2534 546.628,786.0734" fill="none" id="Visitante-to-CU24" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="548.25,791.85,549.6681,782.1038,546.8984,787.0362,541.966,784.2664,548.25,791.85" style="stroke:#181818;stroke-width:1;"/></g><!--link Admin to CU01--><g class="link" data-entity-1="ent0003" data-entity-2="ent0007" data-link-type="dependency" data-source-line="39" id="lnk33"><path d="M73.39,579.58 C98.57,655.89 151.87,817.36 152,817.5 C168.77,834.96 187.5338,843.7766 209.5938,849.9766" fill="none" id="Admin-to-CU01" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="215.37,851.6,207.788,845.3141,210.5565,850.2472,205.6234,853.0157,215.37,851.6" style="stroke:#181818;stroke-width:1;"/></g><!--link Admin to CU02--><g class="link" data-entity-1="ent0003" data-entity-2="ent0008" data-link-type="dependency" data-source-line="40" id="lnk34"><path d="M65.72,579.62 C77.6,663.17 108.97,855.34 152,903.5 C167.85,921.24 185.9633,930.0682 207.8333,936.2082" fill="none" id="Admin-to-CU02" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="213.61,937.83,206.0262,931.5462,208.7961,936.4785,203.8638,939.2484,213.61,937.83" style="stroke:#181818;stroke-width:1;"/></g><!--link Admin to CU04--><g class="link" data-entity-1="ent0003" data-entity-2="ent0010" data-link-type="dependency" data-source-line="41" id="lnk35"><path d="M102.64,505.93 C117.64,494.65 135.03,482.68 152,473.5 C169.46,464.06 183.8157,457.8425 202.1457,451.1325" fill="none" id="Admin-to-CU04" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="207.78,449.07,197.9534,448.4076,203.0847,450.7888,200.7035,455.9201,207.78,449.07" style="stroke:#181818;stroke-width:1;"/></g><!--link Admin to CU05--><g class="link" data-entity-1="ent0003" data-entity-2="ent0011" data-link-type="dependency" data-source-line="42" id="lnk36"><path d="M61.88,501.46 C66.41,400.2 84.63,133.61 152,84.5 C226.34,30.31 273.02,51.77 359,84.5 C439.05,114.98 503.6191,189.9133 534.3891,230.3933" fill="none" id="Admin-to-CU05" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="538.02,235.17,535.7581,225.5844,534.9943,231.1894,529.3892,230.4256,538.02,235.17" style="stroke:#181818;stroke-width:1;"/></g><!--link Admin to CU06--><g class="link" data-entity-1="ent0003" data-entity-2="ent0012" data-link-type="dependency" data-source-line="43" id="lnk37"><path d="M102.68,535.59 C129.76,532.44 159.6101,528.9527 190.8401,525.3227" fill="none" id="Admin-to-CU06" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="196.8,524.63,187.3984,521.6959,191.8334,525.2073,188.322,529.6424,196.8,524.63" style="stroke:#181818;stroke-width:1;"/></g><!--link Admin to CU07--><g class="link" data-entity-1="ent0003" data-entity-2="ent0013" data-link-type="dependency" data-source-line="44" id="lnk38"><path d="M102.68,553.2 C134.11,562.66 171.5647,573.9305 205.7147,584.2105" fill="none" id="Admin-to-CU07" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="211.46,585.94,203.995,579.5155,206.6722,584.4988,201.689,587.176,211.46,585.94" style="stroke:#181818;stroke-width:1;"/></g><!--link Admin to CU08--><g class="link" data-entity-1="ent0003" data-entity-2="ent0014" data-link-type="dependency" data-source-line="45" id="lnk39"><path d="M63.17,501.26 C70.44,407.73 94.04,175.98 152,129.5 C223.77,71.95 279.43,83.32 359,129.5 C390.56,147.82 502.1728,366.8754 540.3228,443.0354" fill="none" id="Admin-to-CU08" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="543.01,448.4,542.5556,438.5616,540.7706,443.9295,535.4028,442.1446,543.01,448.4" style="stroke:#181818;stroke-width:1;"/></g><!--link Admin to CU09--><g class="link" data-entity-1="ent0003" data-entity-2="ent0015" data-link-type="dependency" data-source-line="46" id="lnk40"><path d="M94.59,579.73 C120.41,609.43 151.54,645.18 152,645.5 C167.53,656.28 180.4687,662.689 198.0887,669.169" fill="none" id="Admin-to-CU09" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="203.72,671.24,196.6538,664.3794,199.0273,669.5142,193.8925,671.8877,203.72,671.24" style="stroke:#181818;stroke-width:1;"/></g><!--link Admin to CU10--><g class="link" data-entity-1="ent0003" data-entity-2="ent0016" data-link-type="dependency" data-source-line="47" id="lnk41"><path d="M83.63,579.71 C101.88,611.88 127.01,659.03 144,702.5 C148.87,714.96 142.98,721.63 152,731.5 C163.96,744.59 174.6965,751.5752 191.2865,757.9252" fill="none" id="Admin-to-CU10" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="196.89,760.07,189.9146,753.1171,192.2204,758.2827,187.0548,760.5885,196.89,760.07" style="stroke:#181818;stroke-width:1;"/></g><!--link Admin to CU11--><g class="link" data-entity-1="ent0003" data-entity-2="ent0017" data-link-type="dependency" data-source-line="48" id="lnk42"><path d="M62.26,579.56 C67.95,689.75 89.32,1000.02 152,1076.5 C164.55,1091.82 177.4405,1099.8276 195.9605,1106.3476" fill="none" id="Admin-to-CU11" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="201.62,1108.34,194.459,1101.5783,196.9037,1106.6796,191.8024,1109.1243,201.62,1108.34" style="stroke:#181818;stroke-width:1;"/></g><!--link Admin to CU13--><g class="link" data-entity-1="ent0003" data-entity-2="ent0019" data-link-type="dependency" data-source-line="49" id="lnk43"><path d="M60.41,579.79 C60.87,712.92 68.87,1144.56 152,1249.5 C162.61,1262.9 172.296,1269.9095 188.236,1276.2595" fill="none" id="Admin-to-CU13" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="193.81,1278.48,186.9294,1271.4333,189.165,1276.6296,183.9687,1278.8652,193.81,1278.48" style="stroke:#181818;stroke-width:1;"/></g><!--link Admin to CU17--><g class="link" data-entity-1="ent0003" data-entity-2="ent0023" data-link-type="dependency" data-source-line="50" id="lnk44"><path d="M60.65,501.34 C63.01,434.26 77.35,296.77 152,215.5 C163.78,202.68 174.169,195.8373 190.449,189.4973" fill="none" id="Admin-to-CU17" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="196.04,187.32,186.202,186.8587,191.3808,189.1344,189.1051,194.3133,196.04,187.32" style="stroke:#181818;stroke-width:1;"/></g><!--link Admin to CU18--><g class="link" data-entity-1="ent0003" data-entity-2="ent0024" data-link-type="dependency" data-source-line="51" id="lnk45"><path d="M65.47,501.22 C74.08,448.92 96.53,356.62 152,301.5 C167.06,286.54 182.1259,278.5609 201.8359,272.1309" fill="none" id="Admin-to-CU18" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="207.54,270.27,197.7432,269.2585,202.7866,271.8207,200.2244,276.8641,207.54,270.27" style="stroke:#181818;stroke-width:1;"/></g><!--link Admin to CU21--><g class="link" data-entity-1="ent0003" data-entity-2="ent0027" data-link-type="dependency" data-source-line="52" id="lnk46"><path d="M75.22,501.2 C89.9,466.89 115.53,417.95 152,387.5 C166.18,375.67 178.3246,368.9967 195.6046,362.5867" fill="none" id="Admin-to-CU21" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="201.23,360.5,191.4007,359.8798,196.5421,362.239,194.183,367.3804,201.23,360.5" style="stroke:#181818;stroke-width:1;"/></g><!--link Tutor to CU01--><g class="link" data-entity-1="ent0004" data-entity-2="ent0007" data-link-type="dependency" data-source-line="54" id="lnk47"><path d="M63.24,1242.3 C70.34,1152.22 92.46,934.39 143,884.5 C160.95,866.78 181.8691,860.6488 205.9791,858.7188" fill="none" id="Tutor-to-CU01" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="211.96,858.24,202.6695,854.9709,206.9759,858.639,203.3079,862.9454,211.96,858.24" style="stroke:#181818;stroke-width:1;"/></g><!--link Tutor to CU02--><g class="link" data-entity-1="ent0004" data-entity-2="ent0008" data-link-type="dependency" data-source-line="55" id="lnk48"><path d="M62.2,1242.06 C66.95,1180.3 84.83,1060.52 152,989.5 C168.34,972.23 186.5314,963.4901 208.3114,957.2601" fill="none" id="Tutor-to-CU02" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="214.08,955.61,204.327,954.2394,209.2728,956.9851,206.5271,961.9309,214.08,955.61" style="stroke:#181818;stroke-width:1;"/></g><!--link Tutor to CU03--><g class="link" data-entity-1="ent0004" data-entity-2="ent0009" data-link-type="dependency" data-source-line="56" id="lnk49"><path d="M68.51,1242.46 C79.74,1197.06 104.36,1122.6 152,1077.5 C170.87,1059.64 191.9826,1050.4291 214.9626,1043.9891" fill="none" id="Tutor-to-CU03" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="220.74,1042.37,210.9945,1040.947,215.9255,1043.7192,213.1533,1048.6502,220.74,1042.37" style="stroke:#181818;stroke-width:1;"/></g><!--link Tutor to CU11--><g class="link" data-entity-1="ent0004" data-entity-2="ent0017" data-link-type="dependency" data-source-line="57" id="lnk50"><path d="M76.12,1253.3 C92.08,1226.81 119.14,1187.73 152,1163.5 C168.41,1151.41 182.949,1144.3281 201.799,1137.7081" fill="none" id="Tutor-to-CU11" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="207.46,1135.72,197.643,1134.9282,202.7425,1137.3768,200.2939,1142.4762,207.46,1135.72" style="stroke:#181818;stroke-width:1;"/></g><!--link Tutor to CU12--><g class="link" data-entity-1="ent0004" data-entity-2="ent0018" data-link-type="dependency" data-source-line="58" id="lnk51"><path d="M76.32,1275.74 C105.15,1265.25 161.8123,1244.6232 207.2823,1228.0632" fill="none" id="Tutor-to-CU12" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="212.92,1226.01,203.0946,1225.3314,208.2219,1227.721,205.8322,1232.8484,212.92,1226.01" style="stroke:#181818;stroke-width:1;"/></g><!--link Tutor to CU13--><g class="link" data-entity-1="ent0004" data-entity-2="ent0019" data-link-type="dependency" data-source-line="59" id="lnk52"><path d="M76.32,1282.35 C98.75,1283.55 135.4286,1285.4994 174.6686,1287.5994" fill="none" id="Tutor-to-CU13" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="180.66,1287.92,171.8866,1283.4448,175.6671,1287.6528,171.4591,1291.4333,180.66,1287.92" style="stroke:#181818;stroke-width:1;"/></g><!--link Tutor to CU14--><g class="link" data-entity-1="ent0004" data-entity-2="ent0020" data-link-type="dependency" data-source-line="60" id="lnk53"><path d="M76.23,1291.93 C94.11,1303.51 124.38,1322.29 152,1335.5 C172.3,1345.22 189.7759,1352.2244 209.9059,1359.4844" fill="none" id="Tutor-to-CU14" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="215.55,1361.52,208.4408,1354.7038,210.8465,1359.8237,205.7267,1362.2294,215.55,1361.52" style="stroke:#181818;stroke-width:1;"/></g><!--link Tutor to CU15--><g class="link" data-entity-1="ent0004" data-entity-2="ent0021" data-link-type="dependency" data-source-line="61" id="lnk54"><path d="M76.34,1294.75 C88.64,1306.05 104.92,1323.47 113,1342.5 C149.95,1429.61 82.1,1702.74 152,1766.5 C219.97,1828.51 273.59,1800.71 359,1766.5 C380.97,1757.7 482.391,1651.4322 529.081,1601.7522" fill="none" id="Tutor-to-CU15" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="533.19,1597.38,524.1117,1601.1989,529.7658,1601.0235,529.9412,1606.6776,533.19,1597.38" style="stroke:#181818;stroke-width:1;"/></g><!--link Tutor to CU16--><g class="link" data-entity-1="ent0004" data-entity-2="ent0022" data-link-type="dependency" data-source-line="62" id="lnk55"><path d="M76.18,1297.43 C87.31,1309.24 102.13,1326.07 113,1342.5 C134.61,1375.16 122.97,1395.22 152,1421.5 C164.99,1433.26 175.8893,1439.7577 192.3093,1446.0677" fill="none" id="Tutor-to-CU16" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="197.91,1448.22,190.9438,1441.2578,193.2428,1446.4264,188.0741,1448.7254,197.91,1448.22" style="stroke:#181818;stroke-width:1;"/></g><!--link Tutor to CU22--><g class="link" data-entity-1="ent0004" data-entity-2="ent0028" data-link-type="dependency" data-source-line="63" id="lnk56"><path d="M76.11,1295.55 C87.95,1307.05 103.72,1324.34 113,1342.5 C147.07,1409.23 102.67,1450.11 152,1506.5 C169.74,1526.78 192.0752,1536.3208 216.0352,1542.2408" fill="none" id="Tutor-to-CU22" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="221.86,1543.68,214.0822,1537.638,217.006,1542.4807,212.1633,1545.4044,221.86,1543.68" style="stroke:#181818;stroke-width:1;"/></g><!--link Est to CU01--><g class="link" data-entity-1="ent0005" data-entity-2="ent0007" data-link-type="dependency" data-source-line="65" id="lnk57"><path d="M92.77,1368.93 C100.71,1359.62 108.28,1348.83 113,1337.5 C150.21,1248.11 92.84,980.16 152,903.5 C166.92,884.17 185.7314,875.0335 208.3314,869.1835" fill="none" id="Est-to-CU01" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="214.14,867.68,204.4248,866.0629,209.2995,868.933,206.4295,873.8077,214.14,867.68" style="stroke:#181818;stroke-width:1;"/></g><!--link Est to CU02--><g class="link" data-entity-1="ent0005" data-entity-2="ent0008" data-link-type="dependency" data-source-line="66" id="lnk58"><path d="M92.6,1368.86 C100.54,1359.55 108.16,1348.78 113,1337.5 C128.35,1301.75 127.93,1020.07 152,989.5 C166.78,970.74 184.8861,961.719 207.0361,955.759" fill="none" id="Est-to-CU02" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="212.83,954.2,203.0998,952.6759,208.0017,955.4992,205.1784,960.4011,212.83,954.2" style="stroke:#181818;stroke-width:1;"/></g><!--link Est to CU03--><g class="link" data-entity-1="ent0005" data-entity-2="ent0009" data-link-type="dependency" data-source-line="67" id="lnk59"><path d="M92.58,1368.41 C100.42,1359.17 107.99,1348.55 113,1337.5 C161.26,1231.09 78.85,1168.63 152,1077.5 C168.46,1056.99 189.8638,1047.4639 213.6338,1041.6139" fill="none" id="Est-to-CU03" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="219.46,1040.18,209.7649,1038.4467,214.6049,1041.3749,211.6767,1046.2149,219.46,1040.18" style="stroke:#181818;stroke-width:1;"/></g><!--link Est to CU11--><g class="link" data-entity-1="ent0005" data-entity-2="ent0017" data-link-type="dependency" data-source-line="68" id="lnk60"><path d="M92.61,1367.52 C100.26,1358.43 107.72,1348.11 113,1337.5 C121.82,1319.76 138.99,1178.45 152,1163.5 C164.89,1148.69 177.7502,1140.9229 196.1502,1134.5529" fill="none" id="Est-to-CU11" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="201.82,1132.59,192.0067,1131.7544,197.0951,1134.2257,194.6238,1139.3142,201.82,1132.59" style="stroke:#181818;stroke-width:1;"/></g><!--link Est to CU13--><g class="link" data-entity-1="ent0005" data-entity-2="ent0019" data-link-type="dependency" data-source-line="69" id="lnk61"><path d="M92.68,1374 C109.67,1361.33 131.25,1346.44 152,1335.5 C169.57,1326.25 183.9366,1320.0853 202.2666,1313.3653" fill="none" id="Est-to-CU13" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="207.9,1311.3,198.0731,1310.6423,203.2055,1313.021,200.8268,1318.1535,207.9,1311.3" style="stroke:#181818;stroke-width:1;"/></g><!--link Est to CU19--><g class="link" data-entity-1="ent0005" data-entity-2="ent0025" data-link-type="dependency" data-source-line="70" id="lnk62"><path d="M63.16,1438.84 C70.39,1532.6 93.92,1764.91 152,1811.5 C268.38,1904.88 453.1697,1781.1124 523.4197,1727.2124" fill="none" id="Est-to-CU19" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="528.18,1723.56,518.6047,1725.865,524.2131,1726.6036,523.4745,1732.2121,528.18,1723.56" style="stroke:#181818;stroke-width:1;"/></g><!--link Est to CU20--><g class="link" data-entity-1="ent0005" data-entity-2="ent0026" data-link-type="dependency" data-source-line="71" id="lnk63"><path d="M69.57,1438.59 C81.53,1481.94 106.57,1551.31 152,1593.5 C169.63,1609.88 188.2697,1618.6239 209.9997,1625.2339" fill="none" id="Est-to-CU20" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="215.74,1626.98,208.2936,1620.5339,210.9564,1625.5249,205.9655,1628.1877,215.74,1626.98" style="stroke:#181818;stroke-width:1;"/></g><!--link Est to CU23--><g class="link" data-entity-1="ent0005" data-entity-2="ent0029" data-link-type="dependency" data-source-line="72" id="lnk64"><path d="M62.79,1438.96 C68.33,1498.84 87.28,1612.84 152,1680.5 C166.31,1695.47 180.635,1703.3815 199.935,1709.7815" fill="none" id="Est-to-CU23" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="205.63,1711.67,198.3464,1705.0405,200.8841,1710.0962,195.8284,1712.6339,205.63,1711.67" style="stroke:#181818;stroke-width:1;"/></g><!--link CU06 to CU05--><g class="link" data-entity-1="ent0012" data-entity-2="ent0011" data-link-type="dependency" data-source-line="74" id="lnk65"><path d="M317.42,497.44 C331.48,490.88 346.4,482.8 359,473.5 C435.7,416.9 502.6943,332.0629 534.3743,289.0029" fill="none" id="CU06-to-CU05" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="537.93,284.17,529.3745,289.0489,534.9669,288.1974,535.8184,293.7898,537.93,284.17" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55.6563" x="390" y="395.9951">&#171;include&#187;</text></g><!--link CU09 to CU08--><g class="link" data-entity-1="ent0015" data-entity-2="ent0014" data-link-type="dependency" data-source-line="75" id="lnk66"><path d="M318.21,667.89 C331.85,661.44 346.35,653.81 359,645.5 C427.39,600.57 492.8193,537.7643 527.9393,502.1143" fill="none" id="CU09-to-CU08" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="532.15,497.84,522.9843,501.4443,528.641,501.4019,528.6834,507.0586,532.15,497.84" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55.6563" x="390" y="576.9951">&#171;include&#187;</text></g><!--link CU16 to CU15--><g class="link" data-entity-1="ent0022" data-entity-2="ent0021" data-link-type="dependency" data-source-line="76" id="lnk67"><path d="M321.81,1484.75 C376.12,1505.38 453.7908,1534.8801 504.8808,1554.2801" fill="none" id="CU16-to-CU15" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="510.49,1556.41,503.4961,1549.4756,505.8157,1554.635,500.6562,1556.9546,510.49,1556.41" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55.6563" x="390" y="1508.9951">&#171;include&#187;</text></g><!--link CU20 to CU19--><g class="link" data-entity-1="ent0026" data-entity-2="ent0025" data-link-type="dependency" data-source-line="77" id="lnk68"><path d="M318.49,1648.65 C371.97,1660.58 450.2837,1678.0449 502.6037,1689.7049" fill="none" id="CU20-to-CU19" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="508.46,1691.01,500.5456,1685.1481,503.5797,1689.9224,498.8054,1692.9565,508.46,1691.01" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55.6563" x="390" y="1662.9951">&#171;include&#187;</text></g><!--link CU03 to CU24--><g class="link" data-entity-1="ent0009" data-entity-2="ent0030" data-link-type="dependency" data-source-line="78" id="lnk69"><path d="M307.16,1017.47 C323.68,1009.92 342.84,1000.23 359,989.5 C427,944.39 492.2977,881.9429 527.5877,846.3129" fill="none" id="CU03-to-CU24" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="531.81,842.05,522.6347,845.6296,528.2915,845.6024,528.3186,851.2592,531.81,842.05" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="53.4917" x="391" y="920.9951">&#171;extend&#187;</text></g><?plantuml-src PPJ1Rjim38RlUWeXf-tG8fAJD1cA05tMmu0DAvPrfrmqcqs5Ah8XoLktOGyrx17wOgEJo36PY-7V_4XJ_2KvU4WorJBOxMEIbGrG9bjx4P-iRqmmEzcOyibiOPr-Ef1TsFYj0o5CcUeWH_UnDS7MyiQ__FDsLu-aYVAhZHQv14VgfjfPRsCAfaA5mFx3CVYbnUVn_JQcjh9TPaUX4gB_fHojiGJiZFpqmwqVJO2H_2saR2EK9c9uTNynLXl_tjlIcY0ZH8izxHjQtOyLH_N6ho24Sr9pijZupx3TznyYPApWs0GB1i1wPGi-6VdATAjydVa9vwSR_m6BOa9x66BCw9IZiur_1yaud4856S_qZDDN6tzJfjOu--jKFDDNd9xtRK0__RwJEQSNf9DJHavOi0Gr9isS9QWnJq0BLxMFhUjQsbdPG7YmBkFSHgL9_GCiKxUdSWhtKnKafQmz6XlXvQ_96TnQXTRUjT-SBRkMJ89WJTyHzrMXhnzjxBb-c8hRgWQsPbeseMvwjnJtLg6twnPN-Tt6GI-dVt1xrRpRl9JEB3TNeRblszWjaWoGUwhHqxl3e74F357DtTJevftnuAJfxu1oSDWqzrFhd43gSWzraR6p7QMvUnhTktrkNDsTzSQPP1xgiCjcwudu8qH_OycBY-NXTFDF28hzlPKHHQMcSaBbbCePbLTKpgbS48adXaZQ1kvT8cbbHIlZzCN--ZqjYKXDPK6aeh2Yi6BmXCefbJCYqMs1T_-fgO7GGr4CX1fYYaGM0u4xT20A8JepvENbmIJvHbvVMr-wjeBbieijScn-5bCvJvtdwN6EBSvh5iUOdknZy9p0LylbVm00?></g></svg></div>
+<h4 id="cu-01-y-cu-02-autenticacin-y-cierre-de-sesin">CU-01 y CU-02 — Autenticación y cierre de sesión</h4>
+<p>Casos de uso compartidos por <strong>Administrador</strong>, <strong>Tutor</strong> y <strong>Estudiante</strong> (RF-001, RF-002, RF-003).</p>
+<div class="plantuml-diagram" data-vscode-context='{"webviewSection":"diagram","preventDefaultContextMenuItems":false}'><?plantuml 1.2026.2?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="DESCRIPTION" height="203px" preserveAspectRatio="none" style="width:316px;height:203px;background:#FFFFFF;" version="1.1" viewBox="0 0 316 203" width="316px" zoomAndPan="magnify"><defs/><g><!--cluster Autenticaci?n--><g class="cluster" data-qualified-name="Autenticaci.n" data-source-line="5" id="ent0003"><rect fill="none" height="190" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1;" width="146" x="164" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="92.5654" x="190.7173" y="23.5332">Autenticaci&#243;n</text></g><!--entity CU01--><g class="entity" data-qualified-name="Autenticaci.n.CU01" data-source-line="6" id="ent0004"><ellipse cx="237.1049" cy="69.1758" fill="#F1F1F1" rx="55.6049" ry="25.6758" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="216.8774" y="62.3527">CU-01</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="81.7031" x="196.2534" y="79.9621">Iniciar sesi&#243;n</text></g><!--entity CU02--><g class="entity" data-qualified-name="Autenticaci.n.CU02" data-source-line="7" id="ent0005"><ellipse cx="237.013" cy="155.1387" fill="#F1F1F1" rx="57.013" ry="25.6387" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="216.7855" y="148.2568">CU-02</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="84.0273" x="194.9993" y="165.8662">Cerrar sesi&#243;n</text></g><!--entity Usuario--><g class="entity" data-qualified-name="Usuario" data-source-line="3" id="ent0002"><ellipse cx="63.1929" cy="81.5" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M63.1929,89.5 L63.1929,116.5 M50.1929,97.5 L76.1929,97.5 M63.1929,116.5 L50.1929,131.5 M63.1929,116.5 L76.1929,131.5" fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="114.3857" x="6" y="147.5332">Usuario registrado</text></g><!--link Usuario to CU01--><g class="link" data-entity-1="ent0002" data-entity-2="ent0004" data-link-type="dependency" data-source-line="10" id="lnk6"><path d="M120.32,97.92 C142.17,92.46 161.1093,87.7259 182.0993,82.4759" fill="none" id="Usuario-to-CU01" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="187.92,81.02,178.2184,79.3233,183.0694,82.2332,180.1595,87.0843,187.92,81.02" style="stroke:#181818;stroke-width:1;"/></g><!--link Usuario to CU02--><g class="link" data-entity-1="ent0002" data-entity-2="ent0005" data-link-type="dependency" data-source-line="11" id="lnk7"><path d="M120.32,126.08 C141.78,131.44 160.2193,136.0541 180.9693,141.2441" fill="none" id="Usuario-to-CU02" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="186.79,142.7,179.0295,136.6357,181.9394,141.4868,177.0884,144.3966,186.79,142.7" style="stroke:#181818;stroke-width:1;"/></g><?plantuml-src POun2iD030HxlK9SRx3zW41mbGUuSoFEoaLWT239LSYhyeHyB0vE6gVTcLrsuMjWL3Gfjy1PZ7D8LG3AKGtJw2kPR9oBU1ZDDI4vVcE0ZqzQ5iPqNeCr95EMrrCJtW5nTSxa6np6fkqclQXa8KDdtwLjQnZRxgZsamvizc_sy03udMgQqzu-1FqR?></g></svg></div>
+<h4 id="cu-03-y-cu-24-acceso-pblico-y-registro">CU-03 y CU-24 — Acceso público y registro</h4>
+<p>Flujo del <strong>Usuario Anónimo</strong> para conocer la plataforma y crear una cuenta como estudiante o tutor (RF-004, RF-005).</p>
+<div class="plantuml-diagram" data-vscode-context='{"webviewSection":"diagram","preventDefaultContextMenuItems":false}'><?plantuml 1.2026.2?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="DESCRIPTION" height="291px" preserveAspectRatio="none" style="width:573px;height:291px;background:#FFFFFF;" version="1.1" viewBox="0 0 573 291" width="573px" zoomAndPan="magnify"><defs/><g><!--cluster Acceso p?blico--><g class="cluster" data-qualified-name="Acceso p.blico" data-source-line="5" id="ent0003"><rect fill="none" height="278" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1;" width="407" x="160" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="103.4688" x="311.7656" y="23.5332">Acceso p&#250;blico</text></g><!--entity CU24--><g class="entity" data-qualified-name="Acceso p.blico.CU24" data-source-line="6" id="ent0004"><ellipse cx="470.3695" cy="242.8047" fill="#F1F1F1" rx="80.3695" ry="25.3047" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="450.142" y="235.3851">CU-24</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="122.165" x="409.287" y="252.9945">Explorar plataforma</text></g><!--entity CU03--><g class="entity" data-qualified-name="Acceso p.blico.CU03" data-source-line="7" id="ent0005"><ellipse cx="225.508" cy="167.8831" fill="#F1F1F1" rx="49.508" ry="25.8831" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="205.2805" y="161.387">CU-03</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="71.5791" x="189.7185" y="178.9964">Registrarse</text></g><!--entity RegEst--><g class="entity" data-qualified-name="Acceso p.blico.RegEst" data-source-line="8" id="ent0006"><ellipse cx="470.7419" cy="156.0073" fill="#F1F1F1" rx="63.2419" ry="26.5073" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="90.2549" x="425.6145" y="154.5442">Registro como</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="66.1582" x="437.6628" y="172.1536">Estudiante</text></g><!--entity RegTut--><g class="entity" data-qualified-name="Acceso p.blico.RegTut" data-source-line="9" id="ent0007"><ellipse cx="470.3088" cy="68.8627" fill="#F1F1F1" rx="60.3088" ry="25.3627" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="90.2549" x="425.1813" y="69.188">Registro como</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32.6758" x="453.9709" y="86.7974">Tutor</text></g><!--entity Visitante--><g class="entity" data-qualified-name="Visitante" data-source-line="3" id="ent0002"><ellipse cx="59.6929" cy="214.5" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M59.6929,222.5 L59.6929,249.5 M46.6929,230.5 L72.6929,230.5 M59.6929,249.5 L46.6929,264.5 M59.6929,249.5 L72.6929,264.5" fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="107.3857" x="6" y="280.5332">Usuario An&#243;nimo</text></g><!--link Visitante to CU24--><g class="link" data-entity-1="ent0002" data-entity-2="ent0004" data-link-type="dependency" data-source-line="12" id="lnk8"><path d="M113.13,244.74 C183.25,244.4 301.9401,243.8194 383.6701,243.4194" fill="none" id="Visitante-to-CU24" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="389.67,243.39,380.6505,239.4341,384.6701,243.4145,380.6897,247.434,389.67,243.39" style="stroke:#181818;stroke-width:1;"/></g><!--link Visitante to CU03--><g class="link" data-entity-1="ent0002" data-entity-2="ent0005" data-link-type="dependency" data-source-line="13" id="lnk9"><path d="M113.29,220.21 C137.73,208.74 160.718,197.9381 182.718,187.6181" fill="none" id="Visitante-to-CU03" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="188.15,185.07,178.3032,185.2708,183.6233,187.1934,181.7007,192.5135,188.15,185.07" style="stroke:#181818;stroke-width:1;"/></g><!--link CU03 to CU24--><g class="link" data-entity-1="ent0005" data-entity-2="ent0004" data-link-type="dependency" data-source-line="14" id="lnk10"><path d="M268.55,180.98 C308.22,193.22 362.267,209.9 406.317,223.5" fill="none" id="CU03-to-CU24" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="412.05,225.27,404.6305,218.793,407.2725,223.795,402.2705,226.437,412.05,225.27" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="53.4917" x="306" y="189.4951">&#171;extend&#187;</text></g><!--link CU03 to RegEst--><g class="link" data-entity-1="ent0005" data-entity-2="ent0006" data-link-type="dependency" data-source-line="15" id="lnk11"><path d="M274.8,165.61 C313,163.73 360.5973,161.3761 401.8873,159.3361" fill="none" id="CU03-to-RegEst" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="407.88,159.04,398.6936,155.489,402.8861,159.2867,399.0884,163.4792,407.88,159.04" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="53.4917" x="306" y="158.4951">&#171;extend&#187;</text></g><!--link CU03 to RegTut--><g class="link" data-entity-1="ent0005" data-entity-2="ent0007" data-link-type="dependency" data-source-line="16" id="lnk12"><path d="M265.23,152.21 C277.9,147.04 292.05,141.28 305,136 C346.12,119.24 387.4732,102.4032 420.6432,88.8932" fill="none" id="CU03-to-RegTut" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="426.2,86.63,416.356,86.3204,421.5694,88.516,419.3737,93.7294,426.2,86.63" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="53.4917" x="306" y="110.4951">&#171;extend&#187;</text></g><?plantuml-src VOzDQiD034RtSmhXlKD8iYh1448l4Egkib77YYiOZyoC386GKtNNRIvMEKx_0kr68Bs7z2dGGK454hUl2WqdyieIdKElag2eyu291JRnyXQvam8mmpDdLenApeq-nZOG51llAGlqb_UNmDxCamCOCddCHhTrkLZju-En3v8mGHzGyI2fm-lARRrOtUdpvJxkgEMivcUwQVFbJ-t61RnqOjkp3WsFoQwsKPlyupyDzkIdQeqxE_Vr79HbDUMw7rc6iS1iDWdm0Eir7PLYKrNVQ3h_DxI3l-07?></g></svg></div>
+<h4 id="cu-04-a-cu-10-y-cu-21-gestin-administrativa-de-usuarios">CU-04 a CU-10 y CU-21 — Gestión administrativa de usuarios</h4>
+<p>Casos de uso del <strong>Administrador</strong> para crear cuentas, consultar y actualizar usuarios y estudiantes (RF-006, RF-020, RF-021, RF-017).</p>
+<div class="plantuml-diagram" data-vscode-context='{"webviewSection":"diagram","preventDefaultContextMenuItems":false}'><?plantuml 1.2026.2?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="DESCRIPTION" height="541px" preserveAspectRatio="none" style="width:898px;height:541px;background:#FFFFFF;" version="1.1" viewBox="0 0 898 541" width="898px" zoomAndPan="magnify"><defs/><g><!--cluster Gesti?n de usuarios--><g class="cluster" data-qualified-name="Gesti.n de usuarios" data-source-line="5" id="ent0003"><rect fill="none" height="362" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1;" width="753" x="139" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="134.5859" x="448.207" y="23.5332">Gesti&#243;n de usuarios</text></g><!--entity CU21--><g class="entity" data-qualified-name="Gesti.n de usuarios.CU21" data-source-line="6" id="ent0004"><ellipse cx="240.1779" cy="68.7703" fill="#F1F1F1" rx="85.1779" ry="25.2703" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="219.9504" y="61.2946">CU-21</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="129.958" x="175.1989" y="78.9039">Panel administraci&#243;n</text></g><!--entity CU04--><g class="entity" data-qualified-name="Gesti.n de usuarios.CU04" data-source-line="7" id="ent0005"><ellipse cx="240.1376" cy="155.1888" fill="#F1F1F1" rx="55.1376" ry="25.6888" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="219.91" y="148.3865">CU-04</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80.9307" x="199.6722" y="165.9959">Crear cuenta</text></g><!--entity CU05--><g class="entity" data-qualified-name="Gesti.n de usuarios.CU05" data-source-line="8" id="ent0006"><ellipse cx="803.2766" cy="235.044" fill="#F1F1F1" rx="61.2766" ry="25.544" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="783.0491" y="228.0109">CU-05</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="91.041" x="757.7561" y="245.6203">Listar usuarios</text></g><!--entity CU06--><g class="entity" data-qualified-name="Gesti.n de usuarios.CU06" data-source-line="9" id="ent0007"><ellipse cx="528.1322" cy="232.8558" fill="#F1F1F1" rx="74.6322" ry="25.3558" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="507.9046" y="225.5192">CU-06</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="112.8477" x="471.7084" y="243.1286">Detalle de usuario</text></g><!--entity CU07--><g class="entity" data-qualified-name="Gesti.n de usuarios.CU07" data-source-line="10" id="ent0008"><ellipse cx="240.1655" cy="240.8657" fill="#F1F1F1" rx="73.6655" ry="25.3657" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="219.938" y="233.5452">CU-07</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="111.2754" x="184.5278" y="251.1546">Actualizar usuario</text></g><!--entity CU08--><g class="entity" data-qualified-name="Gesti.n de usuarios.CU08" data-source-line="11" id="ent0009"><ellipse cx="803.7161" cy="322.8759" fill="#F1F1F1" rx="72.7161" ry="25.3759" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="783.4886" y="315.5719">CU-08</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="109.7305" x="748.8509" y="333.1813">Listar estudiantes</text></g><!--entity CU09--><g class="entity" data-qualified-name="Gesti.n de usuarios.CU09" data-source-line="12" id="ent0010"><ellipse cx="528.1532" cy="318.7641" fill="#F1F1F1" rx="86.1532" ry="25.2641" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="507.9256" y="311.2781">CU-09</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="131.5371" x="462.3846" y="328.8875">Detalle de estudiante</text></g><!--entity CU10--><g class="entity" data-qualified-name="Gesti.n de usuarios.CU10" data-source-line="13" id="ent0011"><ellipse cx="240.1821" cy="326.7703" fill="#F1F1F1" rx="85.1821" ry="25.2703" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="219.9546" y="319.2945">CU-10</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="129.9648" x="175.1997" y="336.9039">Actualizar estudiante</text></g><!--entity Admin--><g class="entity" data-qualified-name="Admin" data-source-line="3" id="ent0002"><ellipse cx="49.1826" cy="355.5" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M49.1826,363.5 L49.1826,390.5 M36.1826,371.5 L62.1826,371.5 M49.1826,390.5 L36.1826,405.5 M49.1826,390.5 L62.1826,405.5" fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="86.3652" x="6" y="421.5332">Administrador</text></g><!--link Admin to CU21--><g class="link" data-entity-1="ent0002" data-entity-2="ent0004" data-link-type="dependency" data-source-line="16" id="lnk12"><path d="M51.17,346.79 C54.96,288.44 70.31,178.51 131,112 C142.15,99.78 151.6913,93.253 167.0513,86.933" fill="none" id="Admin-to-CU21" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="172.6,84.65,162.755,84.3755,167.9761,86.5525,165.799,91.7737,172.6,84.65" style="stroke:#181818;stroke-width:1;"/></g><!--link Admin to CU04--><g class="link" data-entity-1="ent0002" data-entity-2="ent0005" data-link-type="dependency" data-source-line="17" id="lnk13"><path d="M57.58,346.74 C67.59,304.76 89.09,238.76 131,198 C147.06,182.38 163.7868,174.063 184.0468,167.563" fill="none" id="Admin-to-CU04" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="189.76,165.73,179.9683,164.6706,184.999,167.2575,182.4122,172.2882,189.76,165.73" style="stroke:#181818;stroke-width:1;"/></g><!--link Admin to CU05--><g class="link" data-entity-1="ent0002" data-entity-2="ent0006" data-link-type="dependency" data-source-line="18" id="lnk14"><path d="M92.27,388.62 C186.85,393.51 422.28,400.37 614,362 C654.4,353.92 669.26,356.27 701,330 C720.96,313.48 712.87,298.52 731,280 C740.54,270.25 747.4684,264.7756 758.9384,257.7756" fill="none" id="Admin-to-CU05" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="764.06,254.65,754.2939,255.9241,759.792,257.2547,758.4614,262.7528,764.06,254.65" style="stroke:#181818;stroke-width:1;"/></g><!--link Admin to CU08--><g class="link" data-entity-1="ent0002" data-entity-2="ent0009" data-link-type="dependency" data-source-line="19" id="lnk15"><path d="M92.23,418.49 C101.57,424.06 111.75,429.01 122,432 C369.01,504.17 465.05,534.7 701,432 C740.12,414.98 767.7451,379.6732 784.7351,353.1332" fill="none" id="Admin-to-CU08" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="787.97,348.08,779.7488,353.5033,785.2742,352.291,786.4865,357.8165,787.97,348.08" style="stroke:#181818;stroke-width:1;"/></g><!--link CU06 to CU05--><g class="link" data-entity-1="ent0007" data-entity-2="ent0006" data-link-type="dependency" data-source-line="20" id="lnk16"><path d="M602.65,233.54 C646.16,233.86 694.5902,234.2162 735.6502,234.5162" fill="none" id="CU06-to-CU05" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="741.65,234.56,732.6795,230.4944,736.6501,234.5235,732.621,238.4941,741.65,234.56" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55.6563" x="645" y="230.4951">&#171;include&#187;</text></g><!--link CU07 to CU06--><g class="link" data-entity-1="ent0008" data-entity-2="ent0007" data-link-type="dependency" data-source-line="21" id="lnk17"><path d="M313.54,238.97 C356.4,237.77 404.5223,236.4273 447.5423,235.2273" fill="none" id="CU07-to-CU06" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="453.54,235.06,444.432,231.3125,448.5419,235.1994,444.655,239.3094,453.54,235.06" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55.6563" x="356" y="233.4951">&#171;include&#187;</text></g><!--link CU09 to CU08--><g class="link" data-entity-1="ent0010" data-entity-2="ent0009" data-link-type="dependency" data-source-line="22" id="lnk18"><path d="M614.04,320.25 C651.52,320.79 689.0706,321.3428 724.8606,321.8628" fill="none" id="CU09-to-CU08" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="730.86,321.95,721.9191,317.8197,725.8605,321.8774,721.8028,325.8188,730.86,321.95" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55.6563" x="645" y="317.4951">&#171;include&#187;</text></g><!--link CU10 to CU09--><g class="link" data-entity-1="ent0011" data-entity-2="ent0010" data-link-type="dependency" data-source-line="23" id="lnk19"><path d="M324.88,324.66 C361.8,323.62 399.1023,322.5768 436.1323,321.5468" fill="none" id="CU10-to-CU09" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="442.13,321.38,433.0223,317.6318,437.1319,321.519,433.2447,325.6287,442.13,321.38" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55.6563" x="356" y="319.4951">&#171;include&#187;</text></g><?plantuml-src PP6zReGm48HxFyMAdXESZh_eX7GYKfeKQQwZMTdEdILdaOpT9CfJvH7oOZ4XXc3AORvPHcCjNotO0OowtIq8PIItQY36aDl1m4MyALAZDIYymd7-mDY48TsqXEH9ZbPzVn482MvqQDGm9l31m2l9SVH8TqsFUKylI583BYVv54kcgztrc4U1xDHJPoGQu4wInJykEyLSqTEpF-V1zUypMiHesTEZjAXzxRLieCkOhdgwSEjGg_VrUA2hcAwN6duF9nIIbKkJEgQRJPCr4G9D5CYpJPbT8C_O9sE_ZmDfsiw3_fT-juqijh9cqm9mECmcFC3vh8Xh9sJRJbuLl7BlDS6hTrwU1Q_PUZy0?></g></svg></div>
+<h4 id="cu-11-cu-12-y-cu-13-gestin-de-perfil-propio">CU-11, CU-12 y CU-13 — Gestión de perfil propio</h4>
+<p>Casos de uso de perfil y credenciales para usuarios autenticados (RF-007, RF-008).</p>
+<div class="plantuml-diagram" data-vscode-context='{"webviewSection":"diagram","preventDefaultContextMenuItems":false}'><?plantuml 1.2026.2?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="DESCRIPTION" height="318px" preserveAspectRatio="none" style="width:350px;height:318px;background:#FFFFFF;" version="1.1" viewBox="0 0 350 318" width="350px" zoomAndPan="magnify"><defs/><g><!--cluster Mi perfil--><g class="cluster" data-qualified-name="Mi perfil" data-source-line="7" id="ent0005"><rect fill="none" height="276" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1;" width="208" x="136" y="36.5"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="53.6689" x="213.1655" y="53.0332">Mi perfil</text></g><!--entity CU11--><g class="entity" data-qualified-name="Mi perfil.CU11" data-source-line="8" id="ent0006"><ellipse cx="240.1112" cy="184.356" fill="#F1F1F1" rx="74.6112" ry="25.356" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="219.8836" y="177.0198">CU-11</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="112.8135" x="183.7044" y="194.6291">Consultar mi perfil</text></g><!--entity CU12--><g class="entity" data-qualified-name="Mi perfil.CU12" data-source-line="9" id="ent0007"><ellipse cx="240.2261" cy="270.28" fill="#F1F1F1" rx="83.7261" ry="25.28" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="219.9986" y="262.8201">CU-12</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="127.6064" x="176.4229" y="280.4295">Actualizar perfil tutor</text></g><!--entity CU13--><g class="entity" data-qualified-name="Mi perfil.CU13" data-source-line="10" id="ent0008"><ellipse cx="240.0623" cy="98.2525" fill="#F1F1F1" rx="88.0623" ry="25.2525" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="219.8347" y="90.7477">CU-13</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="134.627" x="172.7488" y="108.3571">Actualizar contrase&#241;a</text></g><!--entity Admin--><g class="entity" data-qualified-name="Admin" data-source-line="3" id="ent0002"><ellipse cx="49.1826" cy="14" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M49.1826,22 L49.1826,49 M36.1826,30 L62.1826,30 M49.1826,49 L36.1826,64 M49.1826,49 L62.1826,64" fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="86.3652" x="6" y="80.0332">Administrador</text></g><!--entity Tutor--><g class="entity" data-qualified-name="Tutor" data-source-line="4" id="ent0003"><ellipse cx="48.8379" cy="240" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M48.8379,248 L48.8379,275 M35.8379,256 L61.8379,256 M48.8379,275 L35.8379,290 M48.8379,275 L61.8379,290" fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32.6758" x="32.5" y="306.0332">Tutor</text></g><!--entity Est--><g class="entity" data-qualified-name="Est" data-source-line="5" id="ent0004"><ellipse cx="49.0791" cy="127" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M49.0791,135 L49.0791,162 M36.0791,143 L62.0791,143 M49.0791,162 L36.0791,177 M49.0791,162 L62.0791,177" fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="66.1582" x="16" y="193.0332">Estudiante</text></g><!--link Admin to CU11--><g class="link" data-entity-1="ent0002" data-entity-2="ent0006" data-link-type="dependency" data-source-line="13" id="lnk9"><path d="M79.98,83.72 C99.3,108.65 121.92,137.05 128,141.5 C143.85,153.09 157.5854,159.938 175.6754,166.558" fill="none" id="Admin-to-CU11" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="181.31,168.62,174.2328,161.7707,176.6145,166.9017,171.4835,169.2834,181.31,168.62" style="stroke:#181818;stroke-width:1;"/></g><!--link Admin to CU13--><g class="link" data-entity-1="ent0002" data-entity-2="ent0008" data-link-type="dependency" data-source-line="14" id="lnk10"><path d="M92.42,56.62 C117.23,63.71 143.2406,71.1425 170.8706,79.0325" fill="none" id="Admin-to-CU13" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="176.64,80.68,169.0843,74.3625,171.8322,79.3071,166.8876,82.055,176.64,80.68" style="stroke:#181818;stroke-width:1;"/></g><!--link Tutor to CU11--><g class="link" data-entity-1="ent0003" data-entity-2="ent0006" data-link-type="dependency" data-source-line="15" id="lnk11"><path d="M65.51,261.14 C81.03,251.97 105.72,237.9 128,227.5 C147.1,218.58 162.9879,212.0723 181.9479,204.9023" fill="none" id="Tutor-to-CU11" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="187.56,202.78,177.727,202.222,182.8832,204.5486,180.5567,209.7049,187.56,202.78" style="stroke:#181818;stroke-width:1;"/></g><!--link Tutor to CU12--><g class="link" data-entity-1="ent0003" data-entity-2="ent0007" data-link-type="dependency" data-source-line="16" id="lnk12"><path d="M65.79,270.5 C85.93,270.5 116.26,270.5 150.46,270.5" fill="none" id="Tutor-to-CU12" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="156.46,270.5,147.46,266.5,151.46,270.5,147.46,274.5,156.46,270.5" style="stroke:#181818;stroke-width:1;"/></g><!--link Tutor to CU13--><g class="link" data-entity-1="ent0003" data-entity-2="ent0008" data-link-type="dependency" data-source-line="17" id="lnk13"><path d="M65.69,251.43 C74.01,240.88 84.11,227.34 92,214.5 C110.93,183.68 101.31,165.92 128,141.5 C140.65,129.92 151.1896,123.5343 167.1896,117.2143" fill="none" id="Tutor-to-CU13" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="172.77,115.01,162.9298,114.5961,168.1196,116.8469,165.8689,122.0367,172.77,115.01" style="stroke:#181818;stroke-width:1;"/></g><!--link Est to CU11--><g class="link" data-entity-1="ent0004" data-entity-2="ent0006" data-link-type="dependency" data-source-line="18" id="lnk14"><path d="M82.06,162.08 C106.39,165.56 134.7701,169.6126 165.1201,173.9426" fill="none" id="Est-to-CU11" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="171.06,174.79,162.7152,169.5589,166.1101,174.0838,161.5853,177.4788,171.06,174.79" style="stroke:#181818;stroke-width:1;"/></g><!--link Est to CU13--><g class="link" data-entity-1="ent0004" data-entity-2="ent0008" data-link-type="dependency" data-source-line="19" id="lnk15"><path d="M82.06,147.49 C108.6,139.21 141.3026,128.9981 173.4926,118.9481" fill="none" id="Est-to-CU13" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="179.22,117.16,169.4369,116.024,174.4472,118.6501,171.8211,123.6604,179.22,117.16" style="stroke:#181818;stroke-width:1;"/></g><?plantuml-src NOyz3i8m38Ltdy9Yxz1cHq8L8njiNQmq54iXGOcpW3WKP-1Yf7ygxHBbsT-p_Qov2eh7mDrDiELWjB1t0AJ51poqTtOS9L2R5SMnC3NFAR_J_nWbjKnEJ4zb1T2F8jTPWxiJuyE4AziTlW0nHQCfvdfzASgoSRLtCLcXWFS5p6FgIrbkyQfn1os9B3ypFy8e_IMpfTfQrCgYlSjnelb-Q7OeU0CCoR0ezkFQbLGmP5swArcjfO8SVq7_XFe1?></g></svg></div>
+<h4 id="cu-14-a-cu-18-marketplace-de-materiales-educativos">CU-14 a CU-18 — Marketplace de materiales educativos</h4>
+<p>Flujo de publicación por <strong>Tutor</strong> y moderación por <strong>Administrador</strong> (RF-009 a RF-012).</p>
+<div class="plantuml-diagram" data-vscode-context='{"webviewSection":"diagram","preventDefaultContextMenuItems":false}'><?plantuml 1.2026.2?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="DESCRIPTION" height="352px" preserveAspectRatio="none" style="width:654px;height:352px;background:#FFFFFF;" version="1.1" viewBox="0 0 654 352" width="654px" zoomAndPan="magnify"><defs/><g><!--cluster Materiales educativos--><g class="cluster" data-qualified-name="Materiales educativos" data-source-line="6" id="ent0004"><rect fill="none" height="327" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1;" width="509" x="139" y="17.05"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="145.5098" x="320.7451" y="33.5832">Materiales educativos</text></g><!--entity CU14--><g class="entity" data-qualified-name="Materiales educativos.CU14" data-source-line="7" id="ent0005"><ellipse cx="246.3594" cy="166.9657" fill="#F1F1F1" rx="69.3594" ry="25.4157" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="226.1319" y="159.7261">CU-14</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="104.2617" x="194.2286" y="177.3355">Publicar material</text></g><!--entity CU15--><g class="entity" data-qualified-name="Materiales educativos.CU15" data-source-line="8" id="ent0006"><ellipse cx="543.2894" cy="79.1037" fill="#F1F1F1" rx="60.7894" ry="25.5537" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="523.0619" y="72.0861">CU-15</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="90.2412" x="498.1688" y="89.6955">Mis materiales</text></g><!--entity CU16--><g class="entity" data-qualified-name="Materiales educativos.CU16" data-source-line="9" id="ent0007"><ellipse cx="246.4268" cy="81.284" fill="#F1F1F1" rx="91.4268" ry="25.234" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="226.1992" y="73.7489">CU-16</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="140.0684" x="176.3926" y="91.3583">Detalle material propio</text></g><!--entity CU17--><g class="entity" data-qualified-name="Materiales educativos.CU17" data-source-line="10" id="ent0008"><ellipse cx="543.5313" cy="303.2998" fill="#F1F1F1" rx="88.5313" ry="25.2498" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="523.3037" y="295.7905">CU-17</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="135.3857" x="475.8384" y="313.3999">Supervisar materiales</text></g><!--entity CU18--><g class="entity" data-qualified-name="Materiales educativos.CU18" data-source-line="11" id="ent0009"><ellipse cx="246.445" cy="255.9914" fill="#F1F1F1" rx="67.445" ry="25.4414" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="226.2175" y="248.7935">CU-18</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="101.1377" x="195.8762" y="266.4028">Revisar material</text></g><!--entity Aprobar--><g class="entity" data-qualified-name="Materiales educativos.Aprobar" data-source-line="12" id="ent0010"><ellipse cx="543.438" cy="226.1376" fill="#F1F1F1" rx="70.938" ry="16.5876" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="103.4893" x="491.6934" y="231.4423">Aprobar material</text></g><!--entity Rechazar--><g class="entity" data-qualified-name="Materiales educativos.Rechazar" data-source-line="13" id="ent0011"><ellipse cx="543.3629" cy="156.9226" fill="#F1F1F1" rx="74.8629" ry="17.3726" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="113.5996" x="486.5631" y="162.2273">Rechazar material</text></g><!--entity Tutor--><g class="entity" data-qualified-name="Tutor" data-source-line="3" id="ent0002"><ellipse cx="48.8379" cy="50.55" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M48.8379,58.55 L48.8379,85.55 M35.8379,66.55 L61.8379,66.55 M48.8379,85.55 L35.8379,100.55 M48.8379,85.55 L61.8379,100.55" fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32.6758" x="32.5" y="116.5832">Tutor</text></g><!--entity Admin--><g class="entity" data-qualified-name="Admin" data-source-line="4" id="ent0003"><ellipse cx="49.1826" cy="277.55" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M49.1826,285.55 L49.1826,312.55 M36.1826,293.55 L62.1826,293.55 M49.1826,312.55 L36.1826,327.55 M49.1826,312.55 L62.1826,327.55" fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="86.3652" x="6" y="343.5832">Administrador</text></g><!--link Tutor to CU14--><g class="link" data-entity-1="ent0002" data-entity-2="ent0005" data-link-type="dependency" data-source-line="16" id="lnk12"><path d="M65.58,89.79 C81.7,98.67 107.74,112.59 131,123.05 C151.98,132.48 170.0095,139.6899 190.3495,147.2899" fill="none" id="Tutor-to-CU14" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="195.97,149.39,188.9393,142.4929,191.2863,147.6399,186.1392,149.9869,195.97,149.39" style="stroke:#181818;stroke-width:1;"/></g><!--link Tutor to CU15--><g class="link" data-entity-1="ent0002" data-entity-2="ent0006" data-link-type="dependency" data-source-line="17" id="lnk13"><path d="M65.79,69.64 C81.46,59.08 106.59,44.13 131,38.05 C259.71,6 411.193,39.9143 488.763,62.1843" fill="none" id="Tutor-to-CU15" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="494.53,63.84,486.9832,57.5118,489.7241,62.4603,484.7757,65.2012,494.53,63.84" style="stroke:#181818;stroke-width:1;"/></g><!--link Tutor to CU16--><g class="link" data-entity-1="ent0002" data-entity-2="ent0007" data-link-type="dependency" data-source-line="18" id="lnk14"><path d="M65.67,81.05 C85.33,81.05 114.63,81.05 148.78,81.05" fill="none" id="Tutor-to-CU16" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="154.78,81.05,145.78,77.05,149.78,81.05,145.78,85.05,154.78,81.05" style="stroke:#181818;stroke-width:1;"/></g><!--link Admin to CU17--><g class="link" data-entity-1="ent0003" data-entity-2="ent0008" data-link-type="dependency" data-source-line="19" id="lnk15"><path d="M92.42,307.62 C172.68,306.8 342.2603,305.0808 448.8503,304.0008" fill="none" id="Admin-to-CU17" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="454.85,303.94,445.8099,300.0314,449.8503,303.9907,445.891,308.031,454.85,303.94" style="stroke:#181818;stroke-width:1;"/></g><!--link Admin to CU18--><g class="link" data-entity-1="ent0003" data-entity-2="ent0009" data-link-type="dependency" data-source-line="20" id="lnk16"><path d="M92.42,296.77 C121.28,289.09 153.9414,280.4013 185.0914,272.1213" fill="none" id="Admin-to-CU18" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="190.89,270.58,181.1645,269.0262,186.0578,271.8645,183.2196,276.7578,190.89,270.58" style="stroke:#181818;stroke-width:1;"/></g><!--link CU16 to CU15--><g class="link" data-entity-1="ent0007" data-entity-2="ent0006" data-link-type="dependency" data-source-line="21" id="lnk17"><path d="M338.01,80.44 C384.93,80.12 434.9301,79.7805 476.4601,79.5005" fill="none" id="CU16-to-CU15" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="482.46,79.46,473.4332,75.5208,477.4601,79.4937,473.4872,83.5206,482.46,79.46" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55.6563" x="369" y="76.5451">&#171;include&#187;</text></g><!--link CU18 to CU17--><g class="link" data-entity-1="ent0009" data-entity-2="ent0008" data-link-type="dependency" data-source-line="22" id="lnk18"><path d="M308.98,265.85 C354.66,273.12 411.3246,282.1571 460.2146,289.9371" fill="none" id="CU18-to-CU17" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="466.14,290.88,457.8805,285.5153,461.2021,290.0942,456.6232,293.4159,466.14,290.88" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55.6563" x="369" y="271.5451">&#171;include&#187;</text></g><!--link CU18 to Aprobar--><g class="link" data-entity-1="ent0009" data-entity-2="ent0010" data-link-type="dependency" data-source-line="23" id="lnk19"><path d="M311.87,249.5 C361.21,244.49 422.9909,238.2078 472.2909,233.1878" fill="none" id="CU18-to-Aprobar" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="478.26,232.58,468.9011,229.5123,473.2857,233.0865,469.7115,237.4711,478.26,232.58" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="53.4917" x="370" y="234.5451">&#171;extend&#187;</text></g><!--link CU18 to Rechazar--><g class="link" data-entity-1="ent0009" data-entity-2="ent0011" data-link-type="dependency" data-source-line="24" id="lnk20"><path d="M294.83,238.21 C316.97,230.01 343.75,220.29 368,212.05 C411.46,197.28 455.7128,183.4164 491.0228,172.6064" fill="none" id="CU18-to-Rechazar" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="496.76,170.85,486.9833,169.6598,491.979,172.3137,489.3252,177.3094,496.76,170.85" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="53.4917" x="370" y="191.5451">&#171;extend&#187;</text></g><?plantuml-src TP7BQiCm44Nt-eeXUmS2yOCI327P1ahQxBnHf6aoe4X6Zr1Q-k-rOokr1Tq8tRddIXgDmWyFte2bozM398l2az6CSU6DXVVGhUD-As-aoNdBPQUu6mgCzH6kBmfXSU0UBN653b06mJtTZLl0DmC83WLt7RCxPQjrer_3MP7W5cvZPj4VkJkjrYcSD_f0xicXYsIUaaMZz-YvwfuIQMYjQSd4I956oaQ_XHRjdTpaBNztb6cWQlGHvtHagocxxIu-fz1Od79755V-bOAnoduOUym0igmUVcScyxais6CcKPPpMR4UWULoYC8BR3QaXGeIwxhtgkYL_tcngzx6JuzQJjrdBrFx5m00?></g></svg></div>
+<h4 id="cu-19-y-cu-20-bsqueda-y-conexin-con-tutores">CU-19 y CU-20 — Búsqueda y conexión con tutores</h4>
+<p>Casos de uso del <strong>Estudiante</strong> para encontrar apoyo académico (RF-014, RF-015).</p>
+<div class="plantuml-diagram" data-vscode-context='{"webviewSection":"diagram","preventDefaultContextMenuItems":false}'><?plantuml 1.2026.2?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="DESCRIPTION" height="210px" preserveAspectRatio="none" style="width:796px;height:210px;background:#FFFFFF;" version="1.1" viewBox="0 0 796 210" width="796px" zoomAndPan="magnify"><defs/><g><!--cluster B?squeda de tutores--><g class="cluster" data-qualified-name="B.squeda de tutores" data-source-line="5" id="ent0003"><rect fill="none" height="105" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1;" width="783" x="7" y="99.5"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="139.2412" x="328.8794" y="116.0332">B&#250;squeda de tutores</text></g><!--entity CU19--><g class="entity" data-qualified-name="B.squeda de tutores.CU19" data-source-line="6" id="ent0004"><ellipse cx="676.6811" cy="160.7049" fill="#F1F1F1" rx="97.6811" ry="25.2049" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="656.4535" y="153.122">CU-19</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="150.1719" x="601.5951" y="170.7314">Buscar tutor por materia</text></g><!--entity CU20--><g class="entity" data-qualified-name="B.squeda de tutores.CU20" data-source-line="7" id="ent0005"><ellipse cx="366.7983" cy="160.7175" fill="#F1F1F1" rx="94.7983" ry="25.2175" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="346.5707" y="153.1555">CU-20</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="145.5166" x="294.04" y="170.7648">Consultar perfil de tutor</text></g><!--entity Solicitud--><g class="entity" data-qualified-name="B.squeda de tutores.Solicitud" data-source-line="8" id="ent0006"><ellipse cx="90.1689" cy="153.3338" fill="#F1F1F1" rx="67.1689" ry="15.8338" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="93.3721" x="43.4829" y="158.6385">Solicitar tutor&#237;a</text></g><!--entity Est--><g class="entity" data-qualified-name="Est" data-source-line="3" id="ent0002"><ellipse cx="90.0791" cy="14" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M90.0791,22 L90.0791,49 M77.0791,30 L103.0791,30 M90.0791,49 L77.0791,64 M90.0791,49 L103.0791,64" fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="66.1582" x="57" y="80.0332">Estudiante</text></g><!--link Est to CU19--><g class="link" data-entity-1="ent0002" data-entity-2="ent0004" data-link-type="dependency" data-source-line="11" id="lnk7"><path d="M123.12,50.61 C153.7,56.44 201,65.49 242,73.5 C378.53,100.17 412.65,106.94 549,134.5 C565.48,137.83 577.2824,140.2343 594.0524,143.6743" fill="none" id="Est-to-CU19" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="599.93,144.88,591.9174,139.1531,595.032,143.8753,590.3098,146.9899,599.93,144.88" style="stroke:#181818;stroke-width:1;"/></g><!--link Est to CU20--><g class="link" data-entity-1="ent0002" data-entity-2="ent0005" data-link-type="dependency" data-source-line="12" id="lnk8"><path d="M123.08,58.03 C170.55,78.05 254.3618,113.4079 310.4718,137.0779" fill="none" id="Est-to-CU20" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="316,139.41,309.2624,132.2264,311.3931,137.4666,306.1529,139.5974,316,139.41" style="stroke:#181818;stroke-width:1;"/></g><!--link CU20 to CU19--><g class="link" data-entity-1="ent0005" data-entity-2="ent0004" data-link-type="dependency" data-source-line="13" id="lnk9"><path d="M462.35,160.5 C499.34,160.5 535.74,160.5 572.94,160.5" fill="none" id="CU20-to-CU19" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="578.94,160.5,569.94,156.5,573.94,160.5,569.94,164.5,578.94,160.5" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55.6563" x="493" y="156.9951">&#171;include&#187;</text></g><!--link Solicitud to CU20--><g class="link" data-entity-1="ent0006" data-entity-2="ent0005" data-link-type="dependency" data-source-line="14" id="lnk10"><path d="M156.87,155.18 C191.43,156.06 228.372,156.9967 266.332,157.9667" fill="none" id="Solicitud-to-CU20" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="272.33,158.12,263.4351,153.8914,267.3316,157.9923,263.2308,161.8888,272.33,158.12" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="53.4917" x="188" y="152.9951">&#171;extend&#187;</text></g><?plantuml-src NOv1YW8n44NtTOgYzotgJf4iREO4uivDaPHEGIRHf083WqVo0cwzc0dTEiCi4gZAU__7yr5H8oOvVIewIMnLOW0Wgp7XHzRYX88oKcuJG2Ced3nZjttSywMm8tICMgh0kSCVG2oPBUMA3Fj-iJg4RScMqiZWkPulKav2NOiTzelLFsSvFuGXXboyLktCwIZ-NJ99o_bVQHUzMD5NoUCsPa_huk0AKF-FVM_6mj-X1hKBPxFn2TUusKYmlZWs1juH4r391l2tSd36F040?></g></svg></div>
+<h4 id="cu-22-y-cu-23-paneles-por-rol">CU-22 y CU-23 — Paneles por rol</h4>
+<p>Puntos de entrada a las funciones principales de <strong>Tutor</strong> y <strong>Estudiante</strong> (RF-018, RF-019).</p>
+<div class="plantuml-diagram" data-vscode-context='{"webviewSection":"diagram","preventDefaultContextMenuItems":false}'><?plantuml 1.2026.2?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="DESCRIPTION" height="376px" preserveAspectRatio="none" style="width:590px;height:376px;background:#FFFFFF;" version="1.1" viewBox="0 0 590 376" width="590px" zoomAndPan="magnify"><defs/><g><!--cluster Paneles de control--><g class="cluster" data-qualified-name="Paneles de control" data-source-line="6" id="ent0004"><rect fill="none" height="363" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1;" width="465" x="119" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="124.4824" x="289.2588" y="23.5332">Paneles de control</text></g><!--entity CU22--><g class="entity" data-qualified-name="Paneles de control.CU22" data-source-line="7" id="ent0005"><ellipse cx="218.3144" cy="112.0532" fill="#F1F1F1" rx="60.8144" ry="25.5532" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="198.0869" y="105.0348">CU-22</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="90.2822" x="173.1733" y="122.6442">Panel del tutor</text></g><!--entity CU23--><g class="entity" data-qualified-name="Paneles de control.CU23" data-source-line="8" id="ent0006"><ellipse cx="218.2747" cy="282.7831" fill="#F1F1F1" rx="83.2747" ry="25.2831" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="198.0472" y="275.3284">CU-23</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="126.875" x="154.8372" y="292.9378">Panel del estudiante</text></g><!--entity CU14--><g class="entity" data-qualified-name="Paneles de control.CU14" data-source-line="9" id="ent0007"><ellipse cx="493.3594" cy="154.9157" fill="#F1F1F1" rx="69.3594" ry="25.4157" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="473.1319" y="147.6761">CU-14</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="104.2617" x="441.2286" y="165.2855">Publicar material</text></g><!--entity CU15--><g class="entity" data-qualified-name="Paneles de control.CU15" data-source-line="10" id="ent0008"><ellipse cx="493.2894" cy="69.0537" fill="#F1F1F1" rx="60.7894" ry="25.5537" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="473.0619" y="62.0361">CU-15</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="90.2412" x="448.1688" y="79.6455">Mis materiales</text></g><!--entity CU19--><g class="entity" data-qualified-name="Paneles de control.CU19" data-source-line="11" id="ent0009"><ellipse cx="493.3467" cy="327.7931" fill="#F1F1F1" rx="51.8467" ry="25.7931" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="473.1192" y="321.1555">CU-19</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="75.4756" x="455.6089" y="338.7649">Buscar tutor</text></g><!--entity CU11--><g class="entity" data-qualified-name="Paneles de control.CU11" data-source-line="12" id="ent0010"><ellipse cx="493.6112" cy="240.856" fill="#F1F1F1" rx="74.6112" ry="25.356" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40.4551" x="473.3836" y="233.5198">CU-11</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="112.8135" x="437.2044" y="251.1291">Consultar mi perfil</text></g><!--entity Tutor--><g class="entity" data-qualified-name="Tutor" data-source-line="3" id="ent0002"><ellipse cx="38.8379" cy="81.5" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M38.8379,89.5 L38.8379,116.5 M25.8379,97.5 L51.8379,97.5 M38.8379,116.5 L25.8379,131.5 M38.8379,116.5 L51.8379,131.5" fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32.6758" x="22.5" y="147.5332">Tutor</text></g><!--entity Est--><g class="entity" data-qualified-name="Est" data-source-line="4" id="ent0003"><ellipse cx="39.0791" cy="252.5" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M39.0791,260.5 L39.0791,287.5 M26.0791,268.5 L52.0791,268.5 M39.0791,287.5 L26.0791,302.5 M39.0791,287.5 L52.0791,302.5" fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="66.1582" x="6" y="318.5332">Estudiante</text></g><!--link Tutor to CU22--><g class="link" data-entity-1="ent0002" data-entity-2="ent0005" data-link-type="dependency" data-source-line="15" id="lnk11"><path d="M55.75,112 C78.41,112 115.42,112 151.4,112" fill="none" id="Tutor-to-CU22" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="157.4,112,148.4,108,152.4,112,148.4,116,157.4,112" style="stroke:#181818;stroke-width:1;"/></g><!--link Est to CU23--><g class="link" data-entity-1="ent0003" data-entity-2="ent0006" data-link-type="dependency" data-source-line="16" id="lnk12"><path d="M72.14,283 C89.83,283 106.66,283 128.96,283" fill="none" id="Est-to-CU23" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="134.96,283,125.96,279,129.96,283,125.96,287,134.96,283" style="stroke:#181818;stroke-width:1;"/></g><!--link CU22 to CU14--><g class="link" data-entity-1="ent0005" data-entity-2="ent0007" data-link-type="dependency" data-source-line="17" id="lnk13"><path d="M271.36,124.74 C290.35,129.09 312.07,133.68 332,137 C362.56,142.09 390.6713,145.528 419.5413,148.488" fill="none" id="CU22-to-CU14" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="425.51,149.1,416.9649,144.2029,420.5361,148.59,416.149,152.1612,425.51,149.1" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55.6563" x="333" y="133.4951">&#171;include&#187;</text></g><!--link CU22 to CU15--><g class="link" data-entity-1="ent0005" data-entity-2="ent0008" data-link-type="dependency" data-source-line="18" id="lnk14"><path d="M275.73,103.14 C322.56,95.77 383.003,86.2431 429.943,78.8531" fill="none" id="CU22-to-CU15" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="435.87,77.92,426.3574,75.3683,430.9308,78.6976,427.6016,83.271,435.87,77.92" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55.6563" x="333" y="82.4951">&#171;include&#187;</text></g><!--link CU23 to CU19--><g class="link" data-entity-1="ent0006" data-entity-2="ent0009" data-link-type="dependency" data-source-line="19" id="lnk15"><path d="M292.3,295 C340.32,302.92 395.9701,312.083 438.0801,319.033" fill="none" id="CU23-to-CU19" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="444,320.01,435.7715,314.5978,439.0667,319.1958,434.4688,322.491,444,320.01" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55.6563" x="333" y="299.4951">&#171;include&#187;</text></g><!--link CU23 to CU11--><g class="link" data-entity-1="ent0006" data-entity-2="ent0010" data-link-type="dependency" data-source-line="20" id="lnk16"><path d="M293.38,271.63 C334.43,265.32 379.2098,258.4325 419.1798,252.2825" fill="none" id="CU23-to-CU11" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="425.11,251.37,415.6064,248.7852,420.1682,252.1304,416.823,256.6922,425.11,251.37" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55.6563" x="333" y="254.4951">&#171;include&#187;</text></g><?plantuml-src VT2nRiCW40RWdQSuUNSax7Xm5NcerR5IXcRpGl4bHQ971SSKzTqBRcmbLEg2WF_JtO75CmCxyERomJ0RZvgD8o6KPkVXBQRrjdy976UZY15Ko2SXibPqiGZLKH5Q330ZQ4VidQtWAW1YGAr20kEfRfg95fUK1SwrgrnhF3LDITjxYblhrRU5b_lauxirMdduL8pUA7l3Sb_YRg9N4pQ7OPLTAVk9dcF8HU_7bNtfv4IZen0jv_u6lj2VpJQ05Dz2B7y9TJtylZTzu7feHRw1tMvOfeKdE1mCQHjd78Q7hFkRjMlM_vF9n-m7?></g></svg></div>
+<h4 id="matriz-actor-caso-de-uso">Matriz actor – caso de uso</h4>
+<table>
+<thead>
+<tr>
+<th>Actor</th>
+<th>Casos de uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Usuario Anónimo</td>
+<td>CU-03, CU-24</td>
+</tr>
+<tr>
+<td>Administrador</td>
+<td>CU-01, CU-02, CU-04, CU-05, CU-06, CU-07, CU-08, CU-09, CU-10, CU-11, CU-13, CU-17, CU-18, CU-21</td>
+</tr>
+<tr>
+<td>Tutor</td>
+<td>CU-01, CU-02, CU-03, CU-11, CU-12, CU-13, CU-14, CU-15, CU-16, CU-22</td>
+</tr>
+<tr>
+<td>Estudiante</td>
+<td>CU-01, CU-02, CU-03, CU-11, CU-13, CU-19, CU-20, CU-23</td>
+</tr>
+</tbody>
+</table>
+<h3 id="diagrama-de-clases">Diagrama de clases</h3>
+<h3 id="diagrama-de-robustez">Diagrama de robustez</h3>
+<h4 id="1-inventario-de-diagramas-de-robustez">1. Inventario de diagramas de robustez</h4>
+<p>Se elaboraron diagramas de robustez, uno por cada caso de uso. A continuación, se presenta organizado por actor.</p>
+<h5 id="11-actor-visitante-usuario-annimo">1.1 Actor: Visitante (Usuario anónimo)</h5>
+<ul>
+<li>CU-04: Registrarse como estudiante</li>
+<li>CU-05: Registrarse como tutor</li>
+<li>CU-30: Explorar la plataforma como visitante</li>
+</ul>
+<h5 id="12-actor-administrador">1.2 Actor: Administrador</h5>
+<ul>
+<li>CU-01/02: Iniciar y cerrar sesión (administrador)</li>
+<li>CU-06: Crear cuenta de administrador</li>
+<li>CU-07: Crear cuenta de estudiante (administrador)</li>
+<li>CU-08: Consultar listado de usuarios del sistema</li>
+<li>CU-09: Consultar detalle de un usuario</li>
+<li>CU-10: Actualizar datos de un usuario</li>
+<li>CU-11: Consultar listado de estudiantes</li>
+<li>CU-12: Consultar detalle de un estudiante</li>
+<li>CU-13: Actualizar datos de un estudiante</li>
+<li>CU-15: Consultar mi perfil (administrador)</li>
+<li>CU-17: Actualizar datos y contraseña (administrador)</li>
+<li>CU-21: Supervisar materiales enviados por los tutores</li>
+<li>CU-22: Revisar un material antes de decidir</li>
+<li>CU-23: Aprobar un material educativo</li>
+<li>CU-24: Rechazar un material educativo</li>
+<li>CU-27: Usar el panel de administración</li>
+</ul>
+<h5 id="13-actor-tutor">1.3 Actor: Tutor</h5>
+<ul>
+<li>CU-01/02: Iniciar y cerrar sesión (tutor)</li>
+<li>CU-16: Gestionar mi perfil profesional (tutor)</li>
+<li>CU-18: Publicar material educativo</li>
+<li>CU-19: Consultar mis materiales publicados</li>
+<li>CU-20: Consultar detalle de material propio</li>
+<li>CU-28: Usar el panel del tutor</li>
+</ul>
+<h5 id="14-actor-estudiante">1.4 Actor: Estudiante</h5>
+<ul>
+<li>CU-01/02: Iniciar y cerrar sesión (estudiante)</li>
+<li>CU-03: Intentar usar función sin permiso</li>
+<li>CU-14: Consultar mi perfil (estudiante)</li>
+<li>CU-25: Buscar tutor por materia</li>
+<li>CU-26: Consultar perfil de un tutor</li>
+<li>CU-29: Visualizar el panel del estudiante</li>
+</ul>
+<h4 id="diagrama-de-secuencias">Diagrama de secuencias</h4>
+<ul>
+<li>Iniciar Sesión</li>
+<li>Registrar Estudiante / Tutor</li>
+<li>Subir Material (Tutor)</li>
+<li>Procesar Material</li>
+<li>Gestionar Solicitud Tutoría</li>
+</ul>
+<h4 id="diagrama-de-datos">Diagrama de Datos</h4>
+
+</div>
+
+</body>
+</html>
